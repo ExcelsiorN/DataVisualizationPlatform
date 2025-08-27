@@ -1,0 +1,44 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Images\img_customer.png" />
+    <None Remove="Images\img_home.png" />
+    <None Remove="Images\img_order.png" />
+    <None Remove="Images\img_product.png" />
+    <None Remove="Images\img_setting.png" />
+    <None Remove="Images\img_shipment.png" />
+    <None Remove="Images\img_transaction.png" />
+    <None Remove="Images\Logo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Remove="Resources\Styles\CirColorChange.xaml" />
+    <Page Remove="Resources\Styles\DataStyle.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\img_customer.png" />
+    <Resource Include="Images\img_home.png" />
+    <Resource Include="Images\img_order.png" />
+    <Resource Include="Images\img_product.png" />
+    <Resource Include="Images\img_setting.png" />
+    <Resource Include="Images\img_shipment.png" />
+    <Resource Include="Images\img_transaction.png" />
+    <Resource Include="Images\Logo.png" />
+    <Resource Include="Resources\Styles\DataStyle.xaml" />
+  </ItemGroup>
+
+</Project>

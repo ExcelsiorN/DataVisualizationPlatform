@@ -1,0 +1,128 @@
+﻿<Window x:Class="DataVisualizationPlatform.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        mc:Ignorable="d"
+        Title="数据可视化平台 - 主页" Height="800" Width="1200"
+        WindowStartupLocation="CenterScreen"
+        Background="{StaticResource MainWindowBackground}">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/Styles/MainWindowStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid>
+
+        <!--// Window Border //-->
+
+        <Grid>
+
+            <!--// Base Grid //-->
+            
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+                <!--// Navigation Panel //-->
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <!--<Border
+                    CornerRadius="20,0,0,20" />-->
+                
+                <Image Source="Images/Logo.png" 
+                       Height="50"
+                       Margin="15,10,0,0"></Image>
+
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Right"
+                            Grid.Column="1">
+
+                    <!--// Home //-->
+
+                    <RadioButton Style="{StaticResource BtnStyle}"
+                          Command="{Binding NavigateCommand}" 
+                          CommandParameter="MainMenu">
+
+                        <Grid HorizontalAlignment="Center">
+                            
+                            <TextBlock Text="MainMenu"
+                                   Style="{StaticResource Text_Style}" />
+
+                        </Grid>
+
+                    </RadioButton>
+
+                    <!--// EquipmentInfo //-->
+
+                    <RadioButton Style="{StaticResource BtnStyle}"
+                          Command="{Binding NavigateCommand}" 
+                          CommandParameter="EquipmentInfo">
+
+                        <Grid HorizontalAlignment="Center">
+
+                            <TextBlock Text="EquipmentInfo"
+                                   Style="{StaticResource Text_Style}" />
+
+                        </Grid>
+
+                    </RadioButton>
+
+                    <!--// FaultReport //-->
+
+                    <RadioButton Style="{StaticResource BtnStyle}"
+                          Command="{Binding NavigateCommand}" 
+                          CommandParameter="FaultReport">
+
+                        <Grid Margin="-77,0,0,0">
+                            
+                            <TextBlock Text="FaultReport"
+                                   Style="{StaticResource Text_Style}" />
+
+                        </Grid>
+
+                    </RadioButton>
+
+                    <!--// Data //-->
+
+                    <RadioButton Style="{StaticResource BtnStyle}"
+                          Command="{Binding NavigateCommand}" 
+                          CommandParameter="Data">
+
+                        <Grid Margin="-120,0,0,0">
+
+                            <TextBlock Text="Data"
+                                   Style="{StaticResource Text_Style}" />
+
+                        </Grid>
+
+                    </RadioButton>
+
+
+                </StackPanel>
+
+            </Grid>
+
+            <Grid Grid.Row="1">
+
+                <Frame x:Name="MainContentFrame" 
+                   Content="{Binding CurrentPage}"
+                   NavigationUIVisibility="Hidden"/>
+
+
+            </Grid>
+
+        </Grid>
+    </Grid>
+   </Window>

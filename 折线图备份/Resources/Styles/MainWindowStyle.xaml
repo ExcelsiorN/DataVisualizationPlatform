@@ -1,0 +1,115 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+    <!-- 色彩资源 -->
+    <LinearGradientBrush x:Key="MainWindowBackground" StartPoint="0,0" EndPoint="1,1">
+        <!-- 高光银蓝区域 -->
+        <GradientStop Color="#D0D8E6" Offset="0"/>
+        <!-- 中间浅蓝灰 -->
+        <GradientStop Color="#A6B9D3" Offset="0.6"/>
+        <!-- 过渡蓝灰 -->
+        <GradientStop Color="#7F94AF" Offset="0.85"/>
+        <!-- 阴影深蓝灰 -->
+        <GradientStop Color="#5E6E88" Offset="1"/>
+    </LinearGradientBrush>
+
+    <SolidColorBrush x:Key="TitleForeground" Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="MenuItemBorder" Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="StatusBarBackground" Color="#FF2C3E50"/>
+    <SolidColorBrush x:Key="StatusBarForeground" Color="#FFFFFF"/>
+
+    <!-- 状态栏按钮样式 -->
+    <Style x:Key="StatusBarButtonStyle" TargetType="Button">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="#FFFFFF"/>
+        <Setter Property="BorderBrush" Value="#FFFFFF"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Padding" Value="8,2"/>
+        <Setter Property="Margin" Value="5,0"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="3">
+                        <ContentPresenter HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Margin="{TemplateBinding Padding}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#40FFFFFF"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" Value="#60FFFFFF"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="CircularMenuItemStyle" TargetType="Button">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Panel.ZIndex" Value="1"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="scaleTarget"
+                        RenderTransformOrigin="{TemplateBinding RenderTransformOrigin}">
+                        <Border.RenderTransform>
+                            <ScaleTransform ScaleX="1" ScaleY="1"/>
+                        </Border.RenderTransform>
+
+                        <ContentPresenter HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"
+                                      Content="{TemplateBinding Content}"/>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <!-- 鼠标按下时缩小 -->
+                        <Trigger Property="IsPressed" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="scaleTarget"
+                                                     Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)"
+                                                     To="0.95" Duration="0:0:0.2"
+                                                     AccelerationRatio="0.3" DecelerationRatio="0.3"/>
+                                        <DoubleAnimation Storyboard.TargetName="scaleTarget"
+                                                     Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)"
+                                                     To="0.95" Duration="0:0:0.2"
+                                                     AccelerationRatio="0.3" DecelerationRatio="0.3"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="scaleTarget"
+                                                     Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)"
+                                                     To="1" Duration="0:0:0.2"
+                                                     AccelerationRatio="0.3" DecelerationRatio="0.3"/>
+                                        <DoubleAnimation Storyboard.TargetName="scaleTarget"
+                                                     Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)"
+                                                     To="1" Duration="0:0:0.2"
+                                                     AccelerationRatio="0.3" DecelerationRatio="0.3"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

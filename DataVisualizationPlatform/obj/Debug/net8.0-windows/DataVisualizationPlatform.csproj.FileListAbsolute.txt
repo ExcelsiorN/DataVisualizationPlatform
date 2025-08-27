@@ -1,0 +1,131 @@
+G:\CS\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\DataVisualizationPlatform.csproj.AssemblyReference.cache
+G:\CS\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\MainWindow.baml
+G:\CS\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\MainWindow.g.cs
+G:\CS\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\Views\EquipmentInfo.g.cs
+G:\CS\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\App.g.cs
+G:\CS\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\DataVisualizationPlatform_MarkupCompile.cache
+G:\CS\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\DataVisualizationPlatform_MarkupCompile.lref
+G:\CS\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\bin\Debug\net8.0-windows\DataVisualizationPlatform.exe
+G:\CS\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\bin\Debug\net8.0-windows\DataVisualizationPlatform.deps.json
+G:\CS\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\bin\Debug\net8.0-windows\DataVisualizationPlatform.runtimeconfig.json
+G:\CS\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\bin\Debug\net8.0-windows\DataVisualizationPlatform.dll
+G:\CS\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\bin\Debug\net8.0-windows\DataVisualizationPlatform.pdb
+G:\CS\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\bin\Debug\net8.0-windows\Newtonsoft.Json.dll
+G:\CS\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\Views\EquipmentInfo.baml
+G:\CS\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\DataVisualizationPlatform.g.resources
+G:\CS\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\DataVisualizationPlatform.GeneratedMSBuildEditorConfig.editorconfig
+G:\CS\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\DataVisualizationPlatform.AssemblyInfoInputs.cache
+G:\CS\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\DataVisualizationPlatform.AssemblyInfo.cs
+G:\CS\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\DataVisualizationPlatform.csproj.CoreCompileInputs.cache
+G:\CS\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\DataVisu.C5566418.Up2Date
+G:\CS\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\DataVisualizationPlatform.dll
+G:\CS\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\refint\DataVisualizationPlatform.dll
+G:\CS\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\DataVisualizationPlatform.pdb
+G:\CS\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\DataVisualizationPlatform.genruntimeconfig.cache
+G:\CS\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\ref\DataVisualizationPlatform.dll
+G:\CS\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\Views\ReservationList.g.cs
+G:\CS\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\Views\ReservationList.baml
+G:\CS\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\App.baml
+G:\CS\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\GeneratedInternalTypeHelper.g.cs
+G:\CS\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\Views\FaultReport.g.cs
+G:\CS\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\Views\FaultReport.baml
+G:\CS\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\Controls\SimplePieChart.baml
+G:\CS\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\Controls\SimplePieChart.g.cs
+G:\CS\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\Resources\Styles\ReservationListStyle.baml
+G:\CS\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\Resources\Styles\EquipmentInfoStyle.baml
+G:\CS\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\Resources\Styles\FaultReportStyle.baml
+G:\CS\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\Resources\Styles\MainWindowStyle.baml
+G:\CS\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\bin\Debug\net8.0-windows\CommunityToolkit.Mvvm.dll
+G:\CS\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\Views\Data.g.cs
+G:\CS\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\Views\Data.baml
+G:\Lab\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\bin\Debug\net8.0-windows\DataVisualizationPlatform.exe
+G:\Lab\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\bin\Debug\net8.0-windows\DataVisualizationPlatform.deps.json
+G:\Lab\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\bin\Debug\net8.0-windows\DataVisualizationPlatform.runtimeconfig.json
+G:\Lab\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\bin\Debug\net8.0-windows\DataVisualizationPlatform.dll
+G:\Lab\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\bin\Debug\net8.0-windows\DataVisualizationPlatform.pdb
+G:\Lab\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\bin\Debug\net8.0-windows\CommunityToolkit.Mvvm.dll
+G:\Lab\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\bin\Debug\net8.0-windows\Newtonsoft.Json.dll
+G:\Lab\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\DataVisualizationPlatform.csproj.AssemblyReference.cache
+G:\Lab\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\Controls\SimplePieChart.baml
+G:\Lab\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\MainWindow.baml
+G:\Lab\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\Resources\Styles\MainMenuStyle.baml
+G:\Lab\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\Resources\Styles\MainWindowStyle.baml
+G:\Lab\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\Controls\SimplePieChart.g.cs
+G:\Lab\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\MainWindow.g.cs
+G:\Lab\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\Views\Data.g.cs
+G:\Lab\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\Views\EquipmentInfo.g.cs
+G:\Lab\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\Views\FaultReport.g.cs
+G:\Lab\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\Views\MainMenu.g.cs
+G:\Lab\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\Views\ReservationList.g.cs
+G:\Lab\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\App.g.cs
+G:\Lab\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\GeneratedInternalTypeHelper.g.cs
+G:\Lab\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\DataVisualizationPlatform_MarkupCompile.cache
+G:\Lab\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\DataVisualizationPlatform_MarkupCompile.lref
+G:\Lab\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\App.baml
+G:\Lab\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\Resources\Styles\EquipmentInfoStyle.baml
+G:\Lab\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\Resources\Styles\FaultReportStyle.baml
+G:\Lab\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\Resources\Styles\ReservationListStyle.baml
+G:\Lab\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\Views\Data.baml
+G:\Lab\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\Views\EquipmentInfo.baml
+G:\Lab\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\Views\FaultReport.baml
+G:\Lab\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\Views\MainMenu.baml
+G:\Lab\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\Views\ReservationList.baml
+G:\Lab\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\DataVisualizationPlatform.g.resources
+G:\Lab\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\DataVisualizationPlatform.GeneratedMSBuildEditorConfig.editorconfig
+G:\Lab\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\DataVisualizationPlatform.AssemblyInfoInputs.cache
+G:\Lab\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\DataVisualizationPlatform.AssemblyInfo.cs
+G:\Lab\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\DataVisualizationPlatform.csproj.CoreCompileInputs.cache
+G:\Lab\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\DataVisu.C5566418.Up2Date
+G:\Lab\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\DataVisualizationPlatform.dll
+G:\Lab\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\refint\DataVisualizationPlatform.dll
+G:\Lab\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\DataVisualizationPlatform.pdb
+G:\Lab\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\DataVisualizationPlatform.genruntimeconfig.cache
+G:\Lab\C# & WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\ref\DataVisualizationPlatform.dll
+G:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\bin\Debug\net8.0-windows\DataVisualizationPlatform.exe
+G:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\bin\Debug\net8.0-windows\DataVisualizationPlatform.deps.json
+G:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\bin\Debug\net8.0-windows\DataVisualizationPlatform.runtimeconfig.json
+G:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\bin\Debug\net8.0-windows\DataVisualizationPlatform.dll
+G:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\bin\Debug\net8.0-windows\DataVisualizationPlatform.pdb
+G:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\bin\Debug\net8.0-windows\CommunityToolkit.Mvvm.dll
+G:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\bin\Debug\net8.0-windows\Newtonsoft.Json.dll
+G:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\DataVisualizationPlatform.csproj.AssemblyReference.cache
+G:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\Controls\SimplePieChart.baml
+G:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\MainWindow.baml
+G:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\Resources\Styles\MainMenuStyle.baml
+G:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\Resources\Styles\MainWindowButton.baml
+G:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\Resources\Styles\MainWindowStyle.baml
+G:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\Resources\Styles\Page.baml
+G:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\Resources\Styles\Text.baml
+G:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\Controls\SimplePieChart.g.cs
+G:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\MainWindow.g.cs
+G:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\Views\Data.g.cs
+G:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\Views\EquipmentInfo.g.cs
+G:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\Views\FaultReport.g.cs
+G:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\Views\MainMenu.g.cs
+G:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\Views\ReservationList.g.cs
+G:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\App.g.cs
+G:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\GeneratedInternalTypeHelper.g.cs
+G:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\DataVisualizationPlatform_MarkupCompile.cache
+G:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\DataVisualizationPlatform_MarkupCompile.lref
+G:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\App.baml
+G:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\Resources\Styles\EquipmentInfoStyle.baml
+G:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\Resources\Styles\FaultReportStyle.baml
+G:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\Resources\Styles\ReservationListStyle.baml
+G:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\Views\Data.baml
+G:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\Views\EquipmentInfo.baml
+G:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\Views\FaultReport.baml
+G:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\Views\MainMenu.baml
+G:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\Views\ReservationList.baml
+G:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\DataVisualizationPlatform.g.resources
+G:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\DataVisualizationPlatform.GeneratedMSBuildEditorConfig.editorconfig
+G:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\DataVisualizationPlatform.AssemblyInfoInputs.cache
+G:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\DataVisualizationPlatform.AssemblyInfo.cs
+G:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\DataVisualizationPlatform.csproj.CoreCompileInputs.cache
+G:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\DataVisu.C5566418.Up2Date
+G:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\DataVisualizationPlatform.dll
+G:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\refint\DataVisualizationPlatform.dll
+G:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\DataVisualizationPlatform.pdb
+G:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\DataVisualizationPlatform.genruntimeconfig.cache
+G:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\ref\DataVisualizationPlatform.dll
+G:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\Resources\Styles\Image.baml
+G:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\Resources\Styles\Card.baml

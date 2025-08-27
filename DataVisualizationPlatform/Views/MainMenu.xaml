@@ -1,0 +1,57 @@
+﻿<Page x:Class="DataVisualizationPlatform.Views.MainMenu"
+      x:Name="MainMenuPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:vm="clr-namespace:DataVisualizationPlatform.ViewModels"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d"
+      d:DesignHeight="450" d:DesignWidth="800"
+      Style="{StaticResource Page_Style}">
+
+    <Page.Resources>
+        <Storyboard x:Key="SlideLeftStoryboard">
+            <DoubleAnimation Storyboard.TargetName="LeftTextBlock"
+                             Storyboard.TargetProperty="(Canvas.Left)"
+                             To="-600" Duration="0:0:0.3"/>
+            <DoubleAnimation Storyboard.TargetName="CenterTextBlock"
+                             Storyboard.TargetProperty="(Canvas.Left)"
+                             To="-600" Duration="0:0:0.3"/>
+            <DoubleAnimation Storyboard.TargetName="RightTextBlock"
+                             Storyboard.TargetProperty="(Canvas.Left)"
+                             To="150" Duration="0:0:0.3"/>
+        </Storyboard>
+        <Storyboard x:Key="SlideRightStoryboard">
+            <DoubleAnimation Storyboard.TargetName="LeftTextBlock"
+                             Storyboard.TargetProperty="(Canvas.Left)"
+                             To="150" Duration="0:0:0.3"/>
+            <DoubleAnimation Storyboard.TargetName="CenterTextBlock"
+                             Storyboard.TargetProperty="(Canvas.Left)"
+                             To="600" Duration="0:0:0.3"/>
+            <DoubleAnimation Storyboard.TargetName="RightTextBlock"
+                             Storyboard.TargetProperty="(Canvas.Left)"
+                             To="600" Duration="0:0:0.3"/>
+        </Storyboard>
+    </Page.Resources>
+
+    <Canvas Background="LightGray"
+            MouseDown="Canvas_MouseDown"
+            MouseMove="Canvas_MouseMove"
+            MouseUp="Canvas_MouseUp">
+        <TextBlock x:Name="LeftTextBlock" Text="{Binding LeftText}" Canvas.Left="{Binding LeftPosition}" Canvas.Top="120" FontSize="20">
+            <TextBlock.RenderTransform>
+                        <TranslateTransform x:Name="LeftTransform" />
+                    </TextBlock.RenderTransform>
+        </TextBlock>
+        <TextBlock x:Name="CenterTextBlock" Text="{Binding CenterText}" Canvas.Left="{Binding CenterPosition}" Canvas.Top="120" FontSize="28" FontWeight="Bold">
+            <TextBlock.RenderTransform>
+                <TranslateTransform x:Name="CenterTransform" />
+            </TextBlock.RenderTransform>
+        </TextBlock>    
+        <TextBlock x:Name="RightTextBlock" Text="{Binding RightText}" Canvas.Left="{Binding RightPosition}" Canvas.Top="120" FontSize="20">
+            <TextBlock.RenderTransform>
+                <TranslateTransform x:Name="RightTransform" />
+            </TextBlock.RenderTransform>
+        </TextBlock>
+    </Canvas>
+</Page>
