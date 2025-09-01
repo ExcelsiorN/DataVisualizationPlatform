@@ -46,7 +46,7 @@
                 <Border x:Name="Page1" Style="{StaticResource PageBorderStyle}">
                     <Grid >
                         <TextBlock Text="大标题 1" Style="{StaticResource PageTitleStyle}"/>
-                        <TextBlock Text="九月一日九点更新" Style="{StaticResource ContentTextStyle}"/>
+                        <TextBlock Text="小标题 1" Style="{StaticResource ContentTextStyle}"/>
                     </Grid>
                 </Border>
 
