@@ -22,6 +22,8 @@
   <ItemGroup>
     <Page Remove="Resources\Styles\CirColorChange.xaml" />
     <Page Remove="Resources\Styles\DataStyle.xaml" />
+    <Page Remove="Resources\Styles\MainMenuStyle.xaml" />
+    <Page Remove="Resources\Styles\MainWindowButton.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -39,6 +41,8 @@
     <Resource Include="Images\img_transaction.png" />
     <Resource Include="Images\Logo.png" />
     <Resource Include="Resources\Styles\DataStyle.xaml" />
+    <Resource Include="Resources\Styles\MainMenuStyle.xaml" />
+    <Resource Include="Resources\Styles\MainWindowButton.xaml" />
   </ItemGroup>
 
 </Project>

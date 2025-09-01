@@ -3,20 +3,16 @@
   "WorkspaceRootPath": "G:\\Lab\\WPF\\DataVisualizationPlatform\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{1D7E6065-81C7-4362-8DC4-F965510D8B5C}|DataVisualizationPlatform\\DataVisualizationPlatform.csproj|g:\\lab\\wpf\\datavisualizationplatform\\datavisualizationplatform\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{1D7E6065-81C7-4362-8DC4-F965510D8B5C}|DataVisualizationPlatform\\DataVisualizationPlatform.csproj|solutionrelative:datavisualizationplatform\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1D7E6065-81C7-4362-8DC4-F965510D8B5C}|DataVisualizationPlatform\\DataVisualizationPlatform.csproj|g:\\lab\\wpf\\datavisualizationplatform\\datavisualizationplatform\\viewmodels\\mainmenuviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1D7E6065-81C7-4362-8DC4-F965510D8B5C}|DataVisualizationPlatform\\DataVisualizationPlatform.csproj|solutionrelative:datavisualizationplatform\\viewmodels\\mainmenuviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{1D7E6065-81C7-4362-8DC4-F965510D8B5C}|DataVisualizationPlatform\\DataVisualizationPlatform.csproj|g:\\lab\\wpf\\datavisualizationplatform\\datavisualizationplatform\\views\\mainmenu.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{1D7E6065-81C7-4362-8DC4-F965510D8B5C}|DataVisualizationPlatform\\DataVisualizationPlatform.csproj|solutionrelative:datavisualizationplatform\\views\\mainmenu.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{1D7E6065-81C7-4362-8DC4-F965510D8B5C}|DataVisualizationPlatform\\DataVisualizationPlatform.csproj|g:\\lab\\wpf\\datavisualizationplatform\\datavisualizationplatform\\views\\mainmenu.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{1D7E6065-81C7-4362-8DC4-F965510D8B5C}|DataVisualizationPlatform\\DataVisualizationPlatform.csproj|solutionrelative:datavisualizationplatform\\views\\mainmenu.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1D7E6065-81C7-4362-8DC4-F965510D8B5C}|DataVisualizationPlatform\\DataVisualizationPlatform.csproj|g:\\lab\\wpf\\datavisualizationplatform\\datavisualizationplatform\\resources\\styles\\mainmenustyle.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{1D7E6065-81C7-4362-8DC4-F965510D8B5C}|DataVisualizationPlatform\\DataVisualizationPlatform.csproj|solutionrelative:datavisualizationplatform\\resources\\styles\\mainmenustyle.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,49 +22,36 @@
       "DocumentGroups": [
         {
           "DockedWidth": 216,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "MainWindow.xaml",
-              "DocumentMoniker": "G:\\Lab\\WPF\\DataVisualizationPlatform\\DataVisualizationPlatform\\MainWindow.xaml",
-              "RelativeDocumentMoniker": "DataVisualizationPlatform\\MainWindow.xaml",
-              "ToolTip": "G:\\Lab\\WPF\\DataVisualizationPlatform\\DataVisualizationPlatform\\MainWindow.xaml",
-              "RelativeToolTip": "DataVisualizationPlatform\\MainWindow.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-08-27T08:16:39.64Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "MainMenuViewModel.cs",
-              "DocumentMoniker": "G:\\Lab\\WPF\\DataVisualizationPlatform\\DataVisualizationPlatform\\ViewModels\\MainMenuViewModel.cs",
-              "RelativeDocumentMoniker": "DataVisualizationPlatform\\ViewModels\\MainMenuViewModel.cs",
-              "ToolTip": "G:\\Lab\\WPF\\DataVisualizationPlatform\\DataVisualizationPlatform\\ViewModels\\MainMenuViewModel.cs",
-              "RelativeToolTip": "DataVisualizationPlatform\\ViewModels\\MainMenuViewModel.cs",
-              "ViewState": "AgIAADEAAAAAAAAAAADgvzYAAABNAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-27T06:52:50.887Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
               "Title": "MainMenu.xaml.cs",
               "DocumentMoniker": "G:\\Lab\\WPF\\DataVisualizationPlatform\\DataVisualizationPlatform\\Views\\MainMenu.xaml.cs",
               "RelativeDocumentMoniker": "DataVisualizationPlatform\\Views\\MainMenu.xaml.cs",
               "ToolTip": "G:\\Lab\\WPF\\DataVisualizationPlatform\\DataVisualizationPlatform\\Views\\MainMenu.xaml.cs",
               "RelativeToolTip": "DataVisualizationPlatform\\Views\\MainMenu.xaml.cs",
-              "ViewState": "AgIAACgAAAAAAAAAAAAcwDEAAAAVAAAAAAAAAA==",
+              "ViewState": "AgIAAKkAAAAAAAAAAAAQwKwAAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-27T06:52:48.059Z",
+              "WhenOpened": "2025-08-29T05:03:09.542Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
+              "Title": "MainMenuStyle.xaml",
+              "DocumentMoniker": "G:\\Lab\\WPF\\DataVisualizationPlatform\\DataVisualizationPlatform\\Resources\\Styles\\MainMenuStyle.xaml",
+              "RelativeDocumentMoniker": "DataVisualizationPlatform\\Resources\\Styles\\MainMenuStyle.xaml",
+              "ToolTip": "G:\\Lab\\WPF\\DataVisualizationPlatform\\DataVisualizationPlatform\\Resources\\Styles\\MainMenuStyle.xaml",
+              "RelativeToolTip": "DataVisualizationPlatform\\Resources\\Styles\\MainMenuStyle.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-08-29T01:02:48.429Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
               "Title": "MainMenu.xaml",
               "DocumentMoniker": "G:\\Lab\\WPF\\DataVisualizationPlatform\\DataVisualizationPlatform\\Views\\MainMenu.xaml",
               "RelativeDocumentMoniker": "DataVisualizationPlatform\\Views\\MainMenu.xaml",

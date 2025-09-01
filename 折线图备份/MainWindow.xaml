@@ -55,7 +55,7 @@
                           Command="{Binding NavigateCommand}" 
                           CommandParameter="MainMenu">
 
-                        <Grid Margin="-80,0,0,0">
+                        <Grid HorizontalAlignment="Center">
                             
                             <TextBlock Text="MainMenu"
                                    Style="{StaticResource Text_Style}" />
@@ -70,7 +70,7 @@
                           Command="{Binding NavigateCommand}" 
                           CommandParameter="EquipmentInfo">
 
-                        <Grid Margin="-50,0,0,0">
+                        <Grid HorizontalAlignment="Center">
 
                             <TextBlock Text="EquipmentInfo"
                                    Style="{StaticResource Text_Style}" />

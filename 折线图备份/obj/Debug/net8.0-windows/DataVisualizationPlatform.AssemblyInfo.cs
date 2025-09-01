@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DataVisualizationPlatform")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d559c7bfb68515004006f956d72082bd251696f2")]
 [assembly: System.Reflection.AssemblyProductAttribute("DataVisualizationPlatform")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DataVisualizationPlatform")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

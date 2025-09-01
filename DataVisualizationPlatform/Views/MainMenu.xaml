@@ -9,49 +9,79 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Style="{StaticResource Page_Style}">
 
+    <Page.DataContext>
+        <vm:MainMenuViewModel/>
+    </Page.DataContext>
+
     <Page.Resources>
-        <Storyboard x:Key="SlideLeftStoryboard">
-            <DoubleAnimation Storyboard.TargetName="LeftTextBlock"
-                             Storyboard.TargetProperty="(Canvas.Left)"
-                             To="-600" Duration="0:0:0.3"/>
-            <DoubleAnimation Storyboard.TargetName="CenterTextBlock"
-                             Storyboard.TargetProperty="(Canvas.Left)"
-                             To="-600" Duration="0:0:0.3"/>
-            <DoubleAnimation Storyboard.TargetName="RightTextBlock"
-                             Storyboard.TargetProperty="(Canvas.Left)"
-                             To="150" Duration="0:0:0.3"/>
-        </Storyboard>
-        <Storyboard x:Key="SlideRightStoryboard">
-            <DoubleAnimation Storyboard.TargetName="LeftTextBlock"
-                             Storyboard.TargetProperty="(Canvas.Left)"
-                             To="150" Duration="0:0:0.3"/>
-            <DoubleAnimation Storyboard.TargetName="CenterTextBlock"
-                             Storyboard.TargetProperty="(Canvas.Left)"
-                             To="600" Duration="0:0:0.3"/>
-            <DoubleAnimation Storyboard.TargetName="RightTextBlock"
-                             Storyboard.TargetProperty="(Canvas.Left)"
-                             To="600" Duration="0:0:0.3"/>
-        </Storyboard>
+        <!-- 引用样式资源 -->
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/Styles/MainMenuStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Page.Resources>
 
-    <Canvas Background="LightGray"
-            MouseDown="Canvas_MouseDown"
-            MouseMove="Canvas_MouseMove"
-            MouseUp="Canvas_MouseUp">
-        <TextBlock x:Name="LeftTextBlock" Text="{Binding LeftText}" Canvas.Left="{Binding LeftPosition}" Canvas.Top="120" FontSize="20">
-            <TextBlock.RenderTransform>
-                        <TranslateTransform x:Name="LeftTransform" />
-                    </TextBlock.RenderTransform>
-        </TextBlock>
-        <TextBlock x:Name="CenterTextBlock" Text="{Binding CenterText}" Canvas.Left="{Binding CenterPosition}" Canvas.Top="120" FontSize="28" FontWeight="Bold">
-            <TextBlock.RenderTransform>
-                <TranslateTransform x:Name="CenterTransform" />
-            </TextBlock.RenderTransform>
-        </TextBlock>    
-        <TextBlock x:Name="RightTextBlock" Text="{Binding RightText}" Canvas.Left="{Binding RightPosition}" Canvas.Top="120" FontSize="20">
-            <TextBlock.RenderTransform>
-                <TranslateTransform x:Name="RightTransform" />
-            </TextBlock.RenderTransform>
-        </TextBlock>
-    </Canvas>
+
+    
+    <Grid Style="{StaticResource MainMenuGridStyle}">
+
+
+        <!-- 使用Canvas来手动控制拖动 -->
+        <Canvas x:Name="MainCanvas" 
+                ClipToBounds="True"
+                Background="Transparent"
+                MouseLeftButtonDown="Canvas_MouseLeftButtonDown"
+                MouseLeftButtonUp="Canvas_MouseLeftButtonUp"
+                MouseMove="Canvas_MouseMove"
+                MouseLeave="Canvas_MouseLeave">
+
+            <!-- 页面容器，使用Canvas定位 -->
+            <StackPanel x:Name="PagesContainer"
+                        Canvas.Left="0"
+                        Canvas.Top="0"
+                        Style="{StaticResource PagesContainerStyle}">
+
+                <!-- 页面1 -->
+                <Border x:Name="Page1" Style="{StaticResource PageBorderStyle}">
+                    <Grid >
+                        <TextBlock Text="大标题 1" Style="{StaticResource PageTitleStyle}"/>
+                        <TextBlock Text="小标题 1" Style="{StaticResource ContentTextStyle}"/>
+                    </Grid>
+                </Border>
+
+                <!-- 页面2 -->
+                <Border x:Name="Page2" Style="{StaticResource PageBorderStyle}">
+                    <Grid>
+                        <TextBlock Text="大标题 2" Style="{StaticResource PageTitleStyle}"/>
+                        <TextBlock Text="小标题 2" Style="{StaticResource ContentTextStyle}"/>
+                    </Grid>
+                </Border>
+
+                <!-- 页面3 -->
+                <Border x:Name="Page3" Style="{StaticResource PageBorderStyle}">
+                    <Grid>
+                        <TextBlock Text="大标题 3" Style="{StaticResource PageTitleStyle}"/>
+                        <TextBlock Text="小标题 3" Style="{StaticResource ContentTextStyle}"/>
+                    </Grid>
+                </Border>
+
+                <!-- 循环回到页面1 -->
+                <Border x:Name="Page1Copy" Style="{StaticResource PageBorderStyle}">
+                    <Grid>
+                        <TextBlock Text="大标题 1" Style="{StaticResource PageTitleStyle}"/>
+                        <TextBlock Text="小标题 1" Style="{StaticResource ContentTextStyle}"/>
+                    </Grid>
+                </Border>
+
+            </StackPanel>
+        </Canvas>
+
+        <!-- 页面指示器 -->
+        <StackPanel Style="{StaticResource IndicatorStackPanelStyle}">
+            <Ellipse x:Name="Indicator1" Style="{StaticResource IndicatorStyle}"/>
+            <Ellipse x:Name="Indicator2" Style="{StaticResource IndicatorStyle}"/>
+            <Ellipse x:Name="Indicator3" Style="{StaticResource IndicatorStyle}"/>
+        </StackPanel>
+    </Grid>
 </Page>

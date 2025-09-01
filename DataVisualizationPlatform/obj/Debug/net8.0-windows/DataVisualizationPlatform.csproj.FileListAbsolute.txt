@@ -91,8 +91,6 @@ G:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\bin\Debug\net8.0-
 G:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\DataVisualizationPlatform.csproj.AssemblyReference.cache
 G:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\Controls\SimplePieChart.baml
 G:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\MainWindow.baml
-G:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\Resources\Styles\MainMenuStyle.baml
-G:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\Resources\Styles\MainWindowButton.baml
 G:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\Resources\Styles\MainWindowStyle.baml
 G:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\Resources\Styles\Page.baml
 G:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\Resources\Styles\Text.baml
@@ -129,3 +127,4 @@ G:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-
 G:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\ref\DataVisualizationPlatform.dll
 G:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\Resources\Styles\Image.baml
 G:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\Resources\Styles\Card.baml
+G:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\DataVisualizationPlatform.sourcelink.json

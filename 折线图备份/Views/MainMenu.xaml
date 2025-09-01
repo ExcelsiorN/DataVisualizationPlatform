@@ -9,6 +9,10 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Style="{StaticResource Page_Style}">
 
+    <Page.DataContext>
+        <vm:MainMenuViewModel/>
+    </Page.DataContext>
+
     <Page.Resources>
         <!-- 引用样式资源 -->
         <ResourceDictionary>
@@ -18,74 +22,62 @@
         </ResourceDictionary>
     </Page.Resources>
 
-    <Grid Background="{StaticResource MainWindowBackground}">
-        <!-- 主要内容区域 -->
-        <Grid Style="{StaticResource MainContentGrid}">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
+    <Grid Style="{StaticResource MainMenuGridStyle}">
+        <!-- 使用Canvas来手动控制拖动 -->
+        <Canvas x:Name="MainCanvas" 
+                ClipToBounds="True"
+                Background="Transparent"
+                MouseLeftButtonDown="Canvas_MouseLeftButtonDown"
+                MouseLeftButtonUp="Canvas_MouseLeftButtonUp"
+                MouseMove="Canvas_MouseMove"
+                MouseLeave="Canvas_MouseLeave">
 
-            <!-- 页面标题 -->
-            <TextBlock Grid.Row="0" 
-                       Text="运营数据概览" 
-                       Style="{StaticResource PageTitle}"/>
+            <!-- 页面容器，使用Canvas定位 -->
+            <StackPanel x:Name="PagesContainer" 
+                        Canvas.Left="0"
+                        Canvas.Top="0"
+                        Style="{StaticResource PagesContainerStyle}">
 
-            <!-- 数据卡片区域 -->
-            <UniformGrid Grid.Row="1" 
-                         Style="{StaticResource CardsContainer}">
-
-                <!-- 已支付订单数量卡片 -->
-                <Border Style="{StaticResource DashboardCard}" Margin="0,0,20,0">
-                    <StackPanel Style="{StaticResource CardContent}">
-                        <!-- 图标 -->
-                        <Viewbox Style="{StaticResource CardIcon}">
-                            <Canvas Width="24" Height="24">
-                                <Path Style="{StaticResource IconPath}" 
-                                      Data="M9,20.42L2.79,14.21L5.62,11.38L9,14.77L18.88,4.88L21.71,7.71L9,20.42Z"/>
-                            </Canvas>
-                        </Viewbox>
-
-                        <TextBlock Text="已支付订单数量" Style="{StaticResource CardTitle}"/>
-                        <TextBlock Text="{Binding PaidOrdersCount}" Style="{StaticResource CardValue}"/>
-                        <TextBlock Text="订单" Style="{StaticResource CardUnit}"/>
-                    </StackPanel>
+                <!-- 页面1 -->
+                <Border x:Name="Page1" Style="{StaticResource PageBorderStyle}">
+                    <Grid Style="{StaticResource PageGridStyle}">
+                        <TextBlock Text="大标题 1" Style="{StaticResource PageTitleStyle}"/>
+                        <TextBlock Text="小标题 1" Style="{StaticResource ContentTextStyle}"/>
+                    </Grid>
                 </Border>
 
-                <!-- 年度运行时长卡片 -->
-                <Border Style="{StaticResource DashboardCard}" Margin="10,0">
-                    <StackPanel Style="{StaticResource CardContent}">
-                        <!-- 图标 -->
-                        <Viewbox Style="{StaticResource CardIcon}">
-                            <Canvas Width="24" Height="24">
-                                <Path Style="{StaticResource IconPath}" 
-                                      Data="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M16.2,16.2L11,13V7H12.5V12.2L17,14.9L16.2,16.2Z"/>
-                            </Canvas>
-                        </Viewbox>
-
-                        <TextBlock Text="年度运行时长" Style="{StaticResource CardTitle}"/>
-                        <TextBlock Text="{Binding AnnualRuntimeHours}" Style="{StaticResource CardValue}"/>
-                        <TextBlock Text="小时" Style="{StaticResource CardUnit}"/>
-                    </StackPanel>
+                <!-- 页面2 -->
+                <Border x:Name="Page2" Style="{StaticResource PageBorderStyle}">
+                    <Grid Style="{StaticResource PageGridStyle}">
+                        <TextBlock Text="大标题 2" Style="{StaticResource PageTitleStyle}"/>
+                        <TextBlock Text="小标题 2" Style="{StaticResource ContentTextStyle}"/>
+                    </Grid>
                 </Border>
 
-                <!-- 年度故障数量卡片 -->
-                <Border Style="{StaticResource DashboardCard}" Margin="20,0,0,0">
-                    <StackPanel Style="{StaticResource CardContent}">
-                        <!-- 图标 -->
-                        <Viewbox Style="{StaticResource CardIcon}">
-                            <Canvas Width="24" Height="24">
-                                <Path Style="{StaticResource WarningIconPath}" 
-                                      Data="M13,13H11V7H13M13,17H11V15H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"/>
-                            </Canvas>
-                        </Viewbox>
-
-                        <TextBlock Text="年度故障数量" Style="{StaticResource CardTitle}"/>
-                        <TextBlock Text="{Binding AnnualFaultCount}" Style="{StaticResource CardValue}"/>
-                        <TextBlock Text="次" Style="{StaticResource CardUnit}"/>
-                    </StackPanel>
+                <!-- 页面3 -->
+                <Border x:Name="Page3" Style="{StaticResource PageBorderStyle}">
+                    <Grid Style="{StaticResource PageGridStyle}">
+                        <TextBlock Text="大标题 3" Style="{StaticResource PageTitleStyle}"/>
+                        <TextBlock Text="小标题 3" Style="{StaticResource ContentTextStyle}"/>
+                    </Grid>
                 </Border>
-            </UniformGrid>
-        </Grid>
+
+                <!-- 循环回到页面1 -->
+                <Border x:Name="Page1Copy" Style="{StaticResource PageBorderStyle}">
+                    <Grid Style="{StaticResource PageGridStyle}">
+                        <TextBlock Text="大标题 1" Style="{StaticResource PageTitleStyle}"/>
+                        <TextBlock Text="小标题 1" Style="{StaticResource ContentTextStyle}"/>
+                    </Grid>
+                </Border>
+
+            </StackPanel>
+        </Canvas>
+
+        <!-- 页面指示器 -->
+        <StackPanel Style="{StaticResource IndicatorStackPanelStyle}">
+            <Ellipse x:Name="Indicator1" Style="{StaticResource IndicatorStyle}"/>
+            <Ellipse x:Name="Indicator2" Style="{StaticResource IndicatorStyle}"/>
+            <Ellipse x:Name="Indicator3" Style="{StaticResource IndicatorStyle}"/>
+        </StackPanel>
     </Grid>
 </Page>

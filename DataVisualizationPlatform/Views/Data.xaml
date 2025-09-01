@@ -142,7 +142,7 @@
                                     </ItemsControl.ItemContainerStyle>
                                 </ItemsControl>
 
-                                <!-- 预约数据点 --><!--
+                                
                                 <ItemsControl ItemsSource="{Binding ReservationPoints}">
                                     <ItemsControl.ItemsPanel>
                                         <ItemsPanelTemplate>
@@ -163,7 +163,7 @@
                                     </ItemsControl.ItemContainerStyle>
                                 </ItemsControl>
 
-                                --><!-- 故障数据点 --><!--
+                                 
                                 <ItemsControl ItemsSource="{Binding FaultPoints}">
                                     <ItemsControl.ItemsPanel>
                                         <ItemsPanelTemplate>
@@ -182,7 +182,7 @@
                                             <Setter Property="Canvas.Top" Value="{Binding Y}"/>
                                         </Style>
                                     </ItemsControl.ItemContainerStyle>
-                                </ItemsControl>-->
+                                </ItemsControl>
                             </Canvas>
                         </Viewbox>
 
