@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.Input;
+using DataVisualizationPlatform.Messages;
 using DataVisualizationPlatform.Services;
 using DataVisualizationPlatform.Models;
 using DataVisualizationPlatform.Views;
@@ -29,8 +30,8 @@ namespace DataVisualizationPlatform.ViewModels
             {
                 WeakReferenceMessenger.Default.Send(new ChangePageMessage
                 {
-                    NewPage = new ReservationList(),
-                    Parameter = param 
+                    PageKey = "ReservationList",
+                    Parameter = param
                 });
                 Console.WriteLine($"消息已发送，参数={param}");
             });

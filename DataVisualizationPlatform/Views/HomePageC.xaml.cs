@@ -8,13 +8,13 @@ namespace DataVisualizationPlatform.Views
     {
         private HomePageCViewModel _viewModel;
 
-        public HomePageC()
+        public HomePageC(HomePageCViewModel viewModel)
         {
             InitializeComponent();
             MapControl.DragButton = MouseButton.Left;
 
-            // 创建ViewModel并设置DataContext
-            _viewModel = new HomePageCViewModel();
+            // 设置ViewModel并设置DataContext
+            _viewModel = viewModel;
             this.DataContext = _viewModel;
 
             // 页面加载完成后设置地图控件引用

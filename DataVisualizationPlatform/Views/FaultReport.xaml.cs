@@ -1,6 +1,7 @@
-﻿using DataVisualizationPlatform.ViewModels;
-using System.Windows.Controls;
+using DataVisualizationPlatform.ViewModels;
+using System;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace DataVisualizationPlatform.Views
 {
@@ -9,15 +10,13 @@ namespace DataVisualizationPlatform.Views
     /// </summary>
     public partial class FaultReport : Page
     {
-        public FaultReport()
+        public FaultReport(FaultReportViewModel viewModel)
         {
             InitializeComponent();
-            var vm = new FaultReportViewModel();
-
-            this.DataContext = vm;
+            this.DataContext = viewModel;
 
             // 订阅事件
-            vm.RequestScrollToTop += () =>
+            viewModel.RequestScrollToTop += () =>
             {
                 Dispatcher.BeginInvoke(new Action(() =>
                 {
@@ -25,7 +24,5 @@ namespace DataVisualizationPlatform.Views
                 }), System.Windows.Threading.DispatcherPriority.Background);
             };
         }
-
-
     }
 }

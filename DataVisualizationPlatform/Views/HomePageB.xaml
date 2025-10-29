@@ -346,7 +346,7 @@
         <!-- 详细数据卡片 -->
         <Border Grid.Column="2"
                 Grid.Row="0"
-                Style="{StaticResource CardStyle}"
+                Style="{StaticResource HPB_CardStyle}"
                 Margin="0,0,0,0"
                 MinWidth="280"
                 MaxHeight="300">

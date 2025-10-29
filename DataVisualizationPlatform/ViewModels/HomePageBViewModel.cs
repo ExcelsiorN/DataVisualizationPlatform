@@ -16,7 +16,7 @@ using System.Windows.Threading;
 
 namespace DataVisualizationPlatform.ViewModels
 {
-    class HomePageBViewModel : INotifyPropertyChanged
+    public class HomePageBViewModel : INotifyPropertyChanged
     {
         private readonly Json _jsonData = new Json();
         private readonly DispatcherTimer _animationTimer;

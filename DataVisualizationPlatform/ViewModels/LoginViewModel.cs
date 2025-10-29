@@ -1,106 +1,71 @@
-﻿using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using DataVisualizationPlatform.Views;
 using System;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Diagnostics;
 
 namespace DataVisualizationPlatform.ViewModels
 {
-    public class LoginViewModel : INotifyPropertyChanged
+    /// <summary>
+    /// 登录ViewModel
+    /// </summary>
+    public partial class LoginViewModel : ViewModelBase
     {
         // 测试账户常量
         private const string TEST_USERNAME = "admin";
         private const string TEST_PASSWORD = "123456";
 
-        private string _username;
-        private string _password;
-        private bool _rememberMe;
-        private bool _isLoading;
-        private string _errorMessage;
+        [ObservableProperty]
+        private string _username = string.Empty;
 
-        public IRelayCommand LoginCommand { get; }
+        [ObservableProperty]
+        private string _password = string.Empty;
+
+        [ObservableProperty]
+        private bool _rememberMe;
+
+        [ObservableProperty]
+        private string _errorMessage = string.Empty;
+
+        // 计算属性
+        public bool HasError => !string.IsNullOrEmpty(ErrorMessage);
+        public string LoginButtonText => IsBusy ? "登录中..." : "登录";
 
         public LoginViewModel()
         {
-            LoginCommand = new RelayCommand(async () => await LoginAsync(), () => !IsLoading);
-        }
-
-        #region 属性
-
-        public string Username
-        {
-            get => _username;
-            set
+            // 订阅IsBusy属性变化，通知LoginButtonText更新
+            PropertyChanged += (s, e) =>
             {
-                _username = value;
-                ErrorMessage = string.Empty; // 清除错误信息
-                OnPropertyChanged();
-            }
+                if (e.PropertyName == nameof(IsBusy))
+                {
+                    OnPropertyChanged(nameof(LoginButtonText));
+                }
+            };
         }
 
-        public string Password
+        // 属性变化时清除错误信息
+        partial void OnUsernameChanged(string value)
         {
-            get => _password;
-            set
-            {
-                _password = value;
-                ErrorMessage = string.Empty; // 清除错误信息
-                OnPropertyChanged();
-            }
+            ErrorMessage = string.Empty;
         }
 
-        public bool RememberMe
+        partial void OnPasswordChanged(string value)
         {
-            get => _rememberMe;
-            set
-            {
-                _rememberMe = value;
-                OnPropertyChanged();
-            }
+            ErrorMessage = string.Empty;
         }
 
-        public bool IsLoading
+        partial void OnErrorMessageChanged(string value)
         {
-            get => _isLoading;
-            set
-            {
-                _isLoading = value;
-                OnPropertyChanged();
-                OnPropertyChanged(nameof(IsNotLoading));
-                OnPropertyChanged(nameof(LoginButtonText));
-            }
+            OnPropertyChanged(nameof(HasError));
         }
 
-        public bool IsNotLoading => !IsLoading;
-
-        public string LoginButtonText => IsLoading ? "登录中..." : "登录";
-
-        public string ErrorMessage
-        {
-            get => _errorMessage;
-            set
-            {
-                _errorMessage = value;
-                OnPropertyChanged();
-                OnPropertyChanged(nameof(HasError));
-            }
-        }
-
-        public bool HasError => !string.IsNullOrEmpty(ErrorMessage);
-
-        #endregion
-
-        #region 登录方法
-
+        [RelayCommand(CanExecute = nameof(CanLogin))]
         private async Task LoginAsync()
         {
-            // 清除错误信息
             ErrorMessage = string.Empty;
 
-            // 简单验证
+            // 验证输入
             if (string.IsNullOrWhiteSpace(Username))
             {
                 ErrorMessage = "请输入用户名";
@@ -113,51 +78,45 @@ namespace DataVisualizationPlatform.ViewModels
                 return;
             }
 
-            IsLoading = true;
+            // 先验证账号密码是否正确
+            if (Username.Trim() != TEST_USERNAME || Password != TEST_PASSWORD)
+            {
+                // 账号密码错误，直接显示错误，不显示遮罩
+                ErrorMessage = "用户名或密码错误";
+                return;
+            }
+
+            // 账号密码正确，显示遮罩并模拟加载过程
+            IsBusy = true;
 
             try
             {
-                // 模拟网络延迟
-                await Task.Delay(800);
+                // 模拟加载过程（例如：验证token、加载用户数据等）
+                await Task.Delay(1500); // 显示1.5秒的加载动画
 
-                // 验证测试账户
-                if (Username.Trim() == TEST_USERNAME && Password == TEST_PASSWORD)
-                {
-                    // 登录成功，跳转到主窗口
-                    var mainWindow = new MainWindow();
-                    mainWindow.Show();
-                    // 查找并关闭Login窗口
-                    var loginWindow = Application.Current.Windows
-                        .OfType<Login>()
-                        .FirstOrDefault();
-                    loginWindow?.Close();
-                }
-                else
-                {
-                    ErrorMessage = "用户名或密码错误";
-                }
+                // 登录成功，通过DI容器获取MainWindow
+                var mainWindow = App.GetService<MainWindow>();
+                mainWindow.Show();
+
+                // 查找并关闭Login窗口
+                var loginWindow = Application.Current.Windows
+                    .OfType<Login>()
+                    .FirstOrDefault();
+                loginWindow?.Close();
             }
             catch (Exception ex)
             {
-                ErrorMessage = $"登录失败: {ex.Message}";
+                // 改进的异常处理
+                ErrorMessage = "登录失败，请稍后重试";
+                System.Diagnostics.Debug.WriteLine($"登录异常: {ex}");
+                // TODO: 添加日志记录
             }
             finally
             {
-                IsLoading = false;
+                IsBusy = false;
             }
         }
 
-        #endregion
-
-        #region INotifyPropertyChanged
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        #endregion
+        private bool CanLogin() => !IsBusy;
     }
 }

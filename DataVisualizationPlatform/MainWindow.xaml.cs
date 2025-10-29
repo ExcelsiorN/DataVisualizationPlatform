@@ -1,4 +1,5 @@
-﻿using DataVisualizationPlatform.ViewModels;
+using DataVisualizationPlatform.Services.Navigation;
+using DataVisualizationPlatform.ViewModels;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,18 +12,26 @@ using System.Windows.Threading;
 
 namespace DataVisualizationPlatform
 {
+    /// <summary>
+    /// MainWindow - 主窗口
+    /// </summary>
     public partial class MainWindow : Window
     {
-        private DispatcherTimer popupCloseTimer;
-        private DispatcherTimer blurRemoveTimer;
+        private readonly INavigationService _navigationService;
+        private DispatcherTimer? popupCloseTimer;
+        private DispatcherTimer? blurRemoveTimer;
         private bool isBlurActive = false;
         private readonly object blurLock = new object();
         private string currentPopupContent = "";
 
-        public MainWindow()
+        public MainWindow(MainWindowViewModel viewModel, INavigationService navigationService)
         {
             InitializeComponent();
-            this.DataContext = new MainViewModel();
+            DataContext = viewModel;
+            _navigationService = navigationService;
+
+            // 绑定导航服务的CurrentPage到UI
+            _navigationService.CurrentPageChanged += OnCurrentPageChanged;
 
             InitializeTimers();
             InitializeEventHandlers();
@@ -31,17 +40,17 @@ namespace DataVisualizationPlatform
 
         private void InitializeTimers()
         {
-            // Popup 延迟关闭计时器 
+            // Popup 延迟关闭计时器
             popupCloseTimer = new DispatcherTimer
             {
-                Interval = TimeSpan.FromMilliseconds(300)  
+                Interval = TimeSpan.FromMilliseconds(300)
             };
             popupCloseTimer.Tick += PopupCloseTimer_Tick;
 
             // 模糊效果移除延迟计时器
             blurRemoveTimer = new DispatcherTimer
             {
-                Interval = TimeSpan.FromMilliseconds(350)  
+                Interval = TimeSpan.FromMilliseconds(350)
             };
             blurRemoveTimer.Tick += BlurRemoveTimer_Tick;
         }
@@ -49,17 +58,19 @@ namespace DataVisualizationPlatform
         private void InitializeEventHandlers()
         {
             // 数据按钮事件处理
-            DataBtn.MouseEnter += OnDataButtonMouseEnter;
-            DataBtn.MouseLeave += OnNavigationItemMouseLeave;
-
-            // 故障报告按钮事件处理
-            //FaultReportBtn.MouseEnter += OnFaultReportButtonMouseEnter;
-            //FaultReportBtn.MouseLeave += OnNavigationItemMouseLeave;
+            if (DataBtn != null)
+            {
+                DataBtn.MouseEnter += OnDataButtonMouseEnter;
+                DataBtn.MouseLeave += OnNavigationItemMouseLeave;
+            }
 
             // 统一Popup事件处理
-            UnifiedPopup.MouseEnter += OnPopupMouseEnter;
-            UnifiedPopup.MouseLeave += OnNavigationItemMouseLeave;
-            UnifiedPopup.Closed += OnPopupClosed;
+            if (UnifiedPopup != null)
+            {
+                UnifiedPopup.MouseEnter += OnPopupMouseEnter;
+                UnifiedPopup.MouseLeave += OnNavigationItemMouseLeave;
+                UnifiedPopup.Closed += OnPopupClosed;
+            }
 
             // 为Popup内容区域也添加鼠标事件
             if (DataPopupContent != null)
@@ -67,6 +78,7 @@ namespace DataVisualizationPlatform
                 DataPopupContent.MouseEnter += OnPopupMouseEnter;
                 DataPopupContent.MouseLeave += OnNavigationItemMouseLeave;
             }
+
             if (FaultReportPopupContent != null)
             {
                 FaultReportPopupContent.MouseEnter += OnPopupMouseEnter;
@@ -79,8 +91,18 @@ namespace DataVisualizationPlatform
             // 初始化时隐藏两个内容面板
             if (DataPopupContent != null)
                 DataPopupContent.Visibility = Visibility.Collapsed;
-            //if (FaultReportPopupContent != null)
-            //    FaultReportPopupContent.Visibility = Visibility.Collapsed;
+
+            if (FaultReportPopupContent != null)
+                FaultReportPopupContent.Visibility = Visibility.Collapsed;
+        }
+
+        private void OnCurrentPageChanged(object? sender, Page? page)
+        {
+            // 更新Frame的内容
+            if (MainContentFrame != null)
+            {
+                MainContentFrame.Content = page;
+            }
         }
 
         #region 鼠标事件处理
@@ -92,13 +114,6 @@ namespace DataVisualizationPlatform
             ShowUnifiedPopup("Data");
         }
 
-        //private void OnFaultReportButtonMouseEnter(object sender, MouseEventArgs e)
-        //{
-        //    StopAllTimers();
-        //    ApplyBlurEffect();
-        //    ShowUnifiedPopup("FaultReport");
-        //}
-
         private void OnPopupMouseEnter(object sender, MouseEventArgs e)
         {
             // 立即停止所有计时器，防止 Popup 被关闭
@@ -109,8 +124,8 @@ namespace DataVisualizationPlatform
         private void OnNavigationItemMouseLeave(object sender, MouseEventArgs e)
         {
             // 启动延迟检查
-            popupCloseTimer.Start();
-            blurRemoveTimer.Start();
+            popupCloseTimer?.Start();
+            blurRemoveTimer?.Start();
         }
 
         // 保留这些方法以兼容 XAML 中的绑定
@@ -118,8 +133,6 @@ namespace DataVisualizationPlatform
         {
             if (sender == DataBtn)
                 OnDataButtonMouseEnter(sender, e);
-            //else if (sender == FaultReportBtn)
-            //    OnFaultReportButtonMouseEnter(sender, e);
             else if (sender is Popup)
                 OnPopupMouseEnter(sender, e);
         }
@@ -135,6 +148,8 @@ namespace DataVisualizationPlatform
 
         private void ShowUnifiedPopup(string contentType)
         {
+            if (UnifiedPopup == null) return;
+
             // 确保停止所有计时器
             StopAllTimers();
 
@@ -153,7 +168,7 @@ namespace DataVisualizationPlatform
             var fadeOutDuration = TimeSpan.FromMilliseconds(100);
             var fadeInDuration = TimeSpan.FromMilliseconds(150);
 
-            if (contentType == "Data")
+            if (contentType == "Data" && DataPopupContent != null && FaultReportPopupContent != null)
             {
                 // 如果故障报告内容可见，先淡出
                 if (FaultReportPopupContent.Visibility == Visibility.Visible)
@@ -180,37 +195,12 @@ namespace DataVisualizationPlatform
                     DataPopupContent.BeginAnimation(OpacityProperty, fadeIn);
                 }
             }
-            //else if (contentType == "FaultReport")
-            //{
-            //    // 如果数据内容可见，先淡出
-            //    if (DataPopupContent.Visibility == Visibility.Visible)
-            //    {
-            //        var fadeOut = new DoubleAnimation(1, 0, fadeOutDuration);
-            //        fadeOut.Completed += (s, e) =>
-            //        {
-            //            DataPopupContent.Visibility = Visibility.Collapsed;
-            //            ClearRadioButtonsInContainer(DataPopupContent);
-
-            //            // 淡入故障报告内容
-            //            FaultReportPopupContent.Visibility = Visibility.Visible;
-            //            var fadeIn = new DoubleAnimation(0, 1, fadeInDuration);
-            //            FaultReportPopupContent.BeginAnimation(OpacityProperty, fadeIn);
-            //        };
-            //        DataPopupContent.BeginAnimation(OpacityProperty, fadeOut);
-            //    }
-            //    else
-            //    {
-            //        // 直接显示故障报告内容
-            //        FaultReportPopupContent.Visibility = Visibility.Visible;
-            //        FaultReportPopupContent.Opacity = 0;
-            //        var fadeIn = new DoubleAnimation(0, 1, fadeInDuration);
-            //        FaultReportPopupContent.BeginAnimation(OpacityProperty, fadeIn);
-            //    }
-            //}
         }
 
         private void CloseUnifiedPopup()
         {
+            if (UnifiedPopup == null) return;
+
             UnifiedPopup.IsOpen = false;
             currentPopupContent = "";
 
@@ -231,9 +221,9 @@ namespace DataVisualizationPlatform
 
         #region 计时器事件处理
 
-        private void PopupCloseTimer_Tick(object sender, EventArgs e)
+        private void PopupCloseTimer_Tick(object? sender, EventArgs e)
         {
-            popupCloseTimer.Stop();
+            popupCloseTimer?.Stop();
 
             // 双重检查 - 再次确认鼠标确实不在导航区域
             Application.Current.Dispatcher.BeginInvoke(new Action(() =>
@@ -242,12 +232,12 @@ namespace DataVisualizationPlatform
                 {
                     CloseUnifiedPopup();
                 }
-            }), System.Windows.Threading.DispatcherPriority.Background);
+            }), DispatcherPriority.Background);
         }
 
-        private void BlurRemoveTimer_Tick(object sender, EventArgs e)
+        private void BlurRemoveTimer_Tick(object? sender, EventArgs e)
         {
-            blurRemoveTimer.Stop();
+            blurRemoveTimer?.Stop();
 
             // 双重检查 - 再次确认鼠标确实不在导航区域
             Application.Current.Dispatcher.BeginInvoke(new Action(() =>
@@ -256,7 +246,7 @@ namespace DataVisualizationPlatform
                 {
                     RemoveBlurEffect();
                 }
-            }), System.Windows.Threading.DispatcherPriority.Background);
+            }), DispatcherPriority.Background);
         }
 
         #endregion
@@ -265,12 +255,15 @@ namespace DataVisualizationPlatform
 
         private void ApplyBlurEffect()
         {
+            if (Display == null) return;
+
             lock (blurLock)
             {
                 if (isBlurActive) return;
 
                 isBlurActive = true;
-                NavigationPanel.Background = Brushes.White;
+                if (NavigationPanel != null)
+                    NavigationPanel.Background = System.Windows.Media.Brushes.White;
 
                 if (!(Display.Effect is BlurEffect))
                 {
@@ -292,12 +285,15 @@ namespace DataVisualizationPlatform
 
         private void RemoveBlurEffect()
         {
+            if (Display == null) return;
+
             lock (blurLock)
             {
                 if (!isBlurActive) return;
 
                 isBlurActive = false;
-                NavigationPanel.Background = Brushes.Transparent;
+                if (NavigationPanel != null)
+                    NavigationPanel.Background = System.Windows.Media.Brushes.Transparent;
 
                 if (Display.Effect is BlurEffect blur)
                 {
@@ -326,7 +322,7 @@ namespace DataVisualizationPlatform
         private bool IsMouseInNavigationArea()
         {
             // 检查按钮
-            if (IsMouseOverElement(DataBtn) || IsMouseOverElement(FaultReportBtn))
+            if (IsMouseOverElement(DataBtn) || (FaultReportBtn != null && IsMouseOverElement(FaultReportBtn)))
                 return true;
 
             // 检查 Popup 及其内容
@@ -345,7 +341,7 @@ namespace DataVisualizationPlatform
             return false;
         }
 
-        private bool IsMouseOverElement(FrameworkElement element)
+        private bool IsMouseOverElement(FrameworkElement? element)
         {
             if (element == null) return false;
 
@@ -390,24 +386,16 @@ namespace DataVisualizationPlatform
 
         private void StopAllTimers()
         {
-            if (popupCloseTimer != null)
-                popupCloseTimer.Stop();
-            if (blurRemoveTimer != null)
-                blurRemoveTimer.Stop();
+            popupCloseTimer?.Stop();
+            blurRemoveTimer?.Stop();
         }
 
-        private void OnPopupClosed(object sender, EventArgs e)
+        private void OnPopupClosed(object? sender, EventArgs e)
         {
             CloseUnifiedPopup();
         }
 
-        private void ClearAllRadioButtonSelections()
-        {
-            ClearRadioButtonsInContainer(DataPopupContent);
-            ClearRadioButtonsInContainer(FaultReportPopupContent);
-        }
-
-        private void ClearRadioButtonsInContainer(DependencyObject container)
+        private void ClearRadioButtonsInContainer(DependencyObject? container)
         {
             if (container == null) return;
 
@@ -432,12 +420,12 @@ namespace DataVisualizationPlatform
 
         private void MinimizeButton_Click(object sender, RoutedEventArgs e)
         {
-            this.WindowState = WindowState.Minimized;
+            WindowState = WindowState.Minimized;
         }
 
         private void MaximizeButton_Click(object sender, RoutedEventArgs e)
         {
-            this.WindowState = this.WindowState == WindowState.Maximized
+            WindowState = WindowState == WindowState.Maximized
                 ? WindowState.Normal
                 : WindowState.Maximized;
         }
@@ -457,20 +445,15 @@ namespace DataVisualizationPlatform
                 blurRemoveTimer.Tick -= BlurRemoveTimer_Tick;
             }
 
-            // 清理内容区域事件订阅
-            if (DataPopupContent != null)
-            {
-                DataPopupContent.MouseEnter -= OnPopupMouseEnter;
-                DataPopupContent.MouseLeave -= OnNavigationItemMouseLeave;
-            }
-            if (FaultReportPopupContent != null)
-            {
-                FaultReportPopupContent.MouseEnter -= OnPopupMouseEnter;
-                FaultReportPopupContent.MouseLeave -= OnNavigationItemMouseLeave;
-            }
-
             Application.Current.Shutdown();
         }
+
         #endregion
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+            _navigationService.CurrentPageChanged -= OnCurrentPageChanged;
+        }
     }
 }

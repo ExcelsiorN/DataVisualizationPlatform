@@ -40,8 +40,8 @@ namespace DataVisualizationPlatform.Views
 
         private void TestClick(object sender, RoutedEventArgs e)
         {
-            // 打开主窗口
-            var mainWindow = new MainWindow();
+            // 通过DI容器获取主窗口
+            var mainWindow = App.GetService<MainWindow>();
             mainWindow.Show();
 
             // 关闭当前窗口（假设这是 LoginWindow）

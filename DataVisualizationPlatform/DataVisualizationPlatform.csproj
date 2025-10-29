@@ -26,6 +26,7 @@
     <PackageReference Include="GMap.NET.Core" Version="2.1.7" />
     <PackageReference Include="GMap.NET.WinPresentation" Version="2.1.7" />
     <PackageReference Include="MahApps.Metro" Version="2.4.10" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
@@ -36,6 +37,10 @@
     <Resource Include="Resources\Styles\FaultReportStyle.xaml" />
     <Resource Include="Resources\Styles\HomePageBStyle.xaml" />
     <Resource Include="Resources\Styles\MainWindowButton.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Converters\" />
   </ItemGroup>
 
 </Project>

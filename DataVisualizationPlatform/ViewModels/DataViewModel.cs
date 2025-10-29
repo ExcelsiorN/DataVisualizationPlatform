@@ -5,13 +5,15 @@ using System.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.Input;
 using DataVisualizationPlatform.Controls;
+using DataVisualizationPlatform.Messages;
 using DataVisualizationPlatform.Models;
 using DataVisualizationPlatform.Services;
+using DataVisualizationPlatform.Services.Navigation;
 using DataVisualizationPlatform.Views;
 
 namespace DataVisualizationPlatform.ViewModels
 {
-    class DataViewModel : INotifyPropertyChanged
+    public class DataViewModel : INotifyPropertyChanged, INavigationAware
     {
         private readonly DispatcherTimer _animationTimer;
         private readonly Json _jsonData = new Json();     
@@ -25,16 +27,6 @@ namespace DataVisualizationPlatform.ViewModels
         {
             _currentYear = DateTime.Now.Year.ToString();
 
-            WeakReferenceMessenger.Default.Register<ChangePageMessage>(this, (r, msg) =>
-            {
-                if (msg.Parameter != null)
-                {
-                    string targetYear = msg.Parameter.ToString();
-                    _currentYear = targetYear; // 更新存储的年份
-                    InitializeData(targetYear);
-                }
-            });
-
             OpenMonthlyDataCommand = new RelayCommand<object>((param) =>
             {
                 
@@ -44,7 +36,7 @@ namespace DataVisualizationPlatform.ViewModels
                     {
                         WeakReferenceMessenger.Default.Send(new ChangePageMessage
                         {
-                            NewPage = new ReservationList(),
+                            PageKey = "ReservationList",
                             Parameter = (month, targetYear)
                         });
                     }
@@ -118,6 +110,30 @@ namespace DataVisualizationPlatform.ViewModels
         }
 
         private static double EaseInOut(double t) => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+        #endregion
+
+        #region INavigationAware
+        public void OnNavigatedTo(object? parameter)
+        {
+            // 接收导航参数（年份）
+            if (parameter != null)
+            {
+                string targetYear = parameter.ToString();
+                _currentYear = targetYear;
+                InitializeData(targetYear);
+            }
+            else
+            {
+                // 如果没有参数，使用当前年份
+                InitializeData(DateTime.Now.Year.ToString());
+            }
+        }
+
+        public void OnNavigatedFrom()
+        {
+            // 页面离开时的清理工作
+            _animationTimer?.Stop();
+        }
         #endregion
 
         #region INotifyPropertyChanged

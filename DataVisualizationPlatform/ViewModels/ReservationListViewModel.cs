@@ -1,8 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
 using DataVisualizationPlatform.Commands;
+using DataVisualizationPlatform.Messages;
 using DataVisualizationPlatform.Models;
 using DataVisualizationPlatform.Services;
+using DataVisualizationPlatform.Services.Navigation;
 using Newtonsoft.Json;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
@@ -11,7 +14,7 @@ using System.Windows.Interop;
 
 namespace DataVisualizationPlatform.ViewModels
 {
-    public class ReservationListViewModel : INotifyPropertyChanged
+    public class ReservationListViewModel : INotifyPropertyChanged, INavigationAware
     {
         private readonly Json _jsonData = new Json();
         public ObservableCollection<ReservationListModel> ReservationList { get; } = new();
@@ -20,22 +23,6 @@ namespace DataVisualizationPlatform.ViewModels
         public ReservationListViewModel()
         {
             FlipCardCommand = new RelayCommand<ReservationListModel>(FlipCard);
-
-            WeakReferenceMessenger.Default.Register<ChangePageMessage>(this, (r, msg) =>
-            {
-                if (msg.Parameter is string targetEquipment)
-                {
-                    // 传入设备名
-                    LoadEquipment(targetEquipment);
-                }
-                else if (msg.Parameter is ValueTuple<int, int> tuple)
-                {
-                    // 传入 (月份, 年份)
-                    var (month, targetYear) = tuple;
-                    LoadEquipmentByDate(month, targetYear);
-                }
-            });
-
         }
 
         private async void FlipCard(ReservationListModel reservationlist)
@@ -113,7 +100,37 @@ namespace DataVisualizationPlatform.ViewModels
             }
         }
 
+        #region INavigationAware
+        public void OnNavigatedTo(object? parameter)
+        {
+            // 清空现有数据
+            ReservationList.Clear();
 
+            // 根据参数类型加载数据
+            if (parameter is string targetEquipment)
+            {
+                // 传入设备名
+                LoadEquipment(targetEquipment);
+            }
+            else if (parameter is ValueTuple<int, int> tuple)
+            {
+                // 传入 (月份, 年份)
+                var (month, targetYear) = tuple;
+                LoadEquipmentByDate(month, targetYear);
+            }
+            else
+            {
+                // 如果没有参数，加载当前月份的数据
+                var now = DateTime.Now;
+                LoadEquipmentByDate(now.Month, now.Year);
+            }
+        }
+
+        public void OnNavigatedFrom()
+        {
+            // 页面离开时的清理工作（如果需要）
+        }
+        #endregion
 
         public event PropertyChangedEventHandler? PropertyChanged;
         protected void OnPropertyChanged(string propName) =>

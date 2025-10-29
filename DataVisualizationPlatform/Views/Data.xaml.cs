@@ -1,14 +1,14 @@
-﻿using DataVisualizationPlatform.ViewModels;
+using DataVisualizationPlatform.ViewModels;
 using System.Windows.Controls;
 
 namespace DataVisualizationPlatform.Views
 {
     public partial class Data : Page
     {
-        public Data()
+        public Data(DataViewModel viewModel)
         {
             InitializeComponent();
-
+            DataContext = viewModel;
         }
     }
 }

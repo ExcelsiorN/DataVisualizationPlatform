@@ -84,7 +84,7 @@
                     <!-- 选择设备 -->
                     <StackPanel Orientation="Vertical" Margin="0,0,20,0">
                         <TextBlock Text="设备选择" Style="{StaticResource Fal_FilterLabelStyle}"/>
-                        <ComboBox Style="{StaticResource ModernComboBoxStyle}"
+                        <ComboBox Style="{StaticResource Fal_ModernComboBoxStyle}"
                                   ItemContainerStyle="{StaticResource Fal_ModernComboBoxItemStyle}"
                                   Width="100"
                                   Height="40"
@@ -102,7 +102,7 @@
                     <!-- 筛选年份 -->
                     <StackPanel Orientation="Vertical" Margin="0,0,20,0">
                         <TextBlock Text="年份" Style="{StaticResource Fal_FilterLabelStyle}"/>
-                        <ComboBox Style="{StaticResource ModernComboBoxStyle}"
+                        <ComboBox Style="{StaticResource Fal_ModernComboBoxStyle}"
                                   ItemContainerStyle="{StaticResource Fal_ModernComboBoxItemStyle}"
                                   Width="100"
                                   Height="40"
@@ -121,7 +121,7 @@
                                Visibility="{Binding IsMonthVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
 
                         <TextBlock Text="月份" Style="{StaticResource Fal_FilterLabelStyle}"/>
-                        <ComboBox Style="{StaticResource ModernComboBoxStyle}"
+                        <ComboBox Style="{StaticResource Fal_ModernComboBoxStyle}"
                                   ItemContainerStyle="{StaticResource Fal_ModernComboBoxItemStyle}"
                                   Width="100"
                                   Height="40"
