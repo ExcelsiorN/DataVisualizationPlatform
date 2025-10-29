@@ -62,7 +62,6 @@ namespace DataVisualizationPlatform.Models
         {
             get
             {
-                // 去除“小时”并尝试转换为 double
                 string ?usedStr = Equ_UsedFixedDurationThisYear?.Replace("小时", "");
                 string ?totalStr = Equ_FixedDurationThisYear?.Replace("小时", "");
 

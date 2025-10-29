@@ -7,14 +7,18 @@
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="Background">
             <Setter.Value>
-                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                    <GradientStop Color="#EEF2F7" Offset="0"/>
-                    <!-- 高光白蓝 -->
-                    <GradientStop Color="#D6DFEA" Offset="0.5"/>
-                    <!-- 浅银蓝 -->
-                    <GradientStop Color="#B7C4D6" Offset="1"/>
-                    <!-- 柔和蓝灰 -->
+                <!-- 苹果玻璃质感卡片渐变（高对比版） -->
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1" Opacity="0.9">
+                    <!-- 高光白 -->
+                    <GradientStop Color="#FFFFFFFF" Offset="0"/>
+                    <!-- 亮银灰 -->
+                    <GradientStop Color="#E5E5EA" Offset="0.45"/>
+                    <!-- 中性银灰 -->
+                    <GradientStop Color="#D1D1D6" Offset="0.75"/>
+                    <!-- 深灰边缘 -->
+                    <GradientStop Color="#A9A9AF" Offset="1"/>
                 </LinearGradientBrush>
+
             </Setter.Value>
         </Setter>
         <Setter Property="Margin" Value="10"/>

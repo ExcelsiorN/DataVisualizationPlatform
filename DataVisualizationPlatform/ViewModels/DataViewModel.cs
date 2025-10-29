@@ -1,328 +1,137 @@
-﻿using DataVisualizationPlatform.Commands;
-using DataVisualizationPlatform.Models;
+﻿using System.Runtime.CompilerServices;
 using System.Collections.ObjectModel;
+using System.Windows.Threading;
 using System.ComponentModel;
-using System.Windows.Input;
+using CommunityToolkit.Mvvm.Messaging;
+using CommunityToolkit.Mvvm.Input;
+using DataVisualizationPlatform.Controls;
+using DataVisualizationPlatform.Models;
+using DataVisualizationPlatform.Services;
+using DataVisualizationPlatform.Views;
 
 namespace DataVisualizationPlatform.ViewModels
 {
-    public class DataViewModel : INotifyPropertyChanged
+    class DataViewModel : INotifyPropertyChanged
     {
-        private readonly DataModel _model = new DataModel();
+        private readonly DispatcherTimer _animationTimer;
+        private readonly Json _jsonData = new Json();     
+        private DateTime _animationStartTime;
+        private double _animationProgress;
+        private string _currentYear; 
 
-        // 辅助类定义
-        public class LineSegment
-        {
-            public double X1 { get; set; }
-            public double Y1 { get; set; }
-            public double X2 { get; set; }
-            public double Y2 { get; set; }
-        }
-
-        public class DataPoint
-        {
-            public double X { get; set; }
-            public double Y { get; set; }
-            public int Value { get; set; }
-        }
-
-        public class MonthLabel
-        {
-            public double X { get; set; }
-            public string Month { get; set; } = string.Empty;
-        }
-
-        public class MonthlyChartDataVM : INotifyPropertyChanged
-        {
-            public string Month { get; set; } = string.Empty;
-            public int ReservationCount { get; set; }
-            public int FaultCount { get; set; }
-
-            public event PropertyChangedEventHandler? PropertyChanged;
-            protected virtual void OnPropertyChanged(string propertyName)
-            {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-            }
-        }
-
-        // 折线图相关属性
-        public ObservableCollection<MonthlyChartDataVM> MonthlyData { get; } = new();
-        public ObservableCollection<LineSegment> ReservationLines { get; } = new();
-        public ObservableCollection<LineSegment> FaultLines { get; } = new();
-        public ObservableCollection<DataPoint> ReservationPoints { get; } = new();
-        public ObservableCollection<DataPoint> FaultPoints { get; } = new();
-        public ObservableCollection<LineSegment> GridLines { get; } = new();
-        public ObservableCollection<MonthLabel> MonthLabels { get; } = new();
-
-        // 图表尺寸和比例
-        private double _chartWidth = 800;
-        private double _chartHeight = 300;
-        private double _centerLineY = 200; // 中心线位置
-        private int _maxReservationCount = 10;
-        private int _maxFaultCount = 10;
-
-        public double ChartWidth
-        {
-            get => _chartWidth;
-            set
-            {
-                _chartWidth = value;
-                OnPropertyChanged(nameof(ChartWidth));
-                UpdateChart();
-            }
-        }
-
-        public double ChartHeight
-        {
-            get => _chartHeight;
-            set
-            {
-                _chartHeight = value;
-                _centerLineY = value * 3 / 4;
-                OnPropertyChanged(nameof(ChartHeight));
-                OnPropertyChanged(nameof(CenterLineY));
-                UpdateChart();
-            }
-        }
-
-        public double CenterLineY
-        {
-            get => _centerLineY;
-            set
-            {
-                _centerLineY = value;
-                OnPropertyChanged(nameof(CenterLineY));
-            }
-        }
-
-        public int MaxReservationCount
-        {
-            get => _maxReservationCount;
-            set
-            {
-                _maxReservationCount = value;
-                OnPropertyChanged(nameof(MaxReservationCount));
-            }
-        }
-
-        public int MaxFaultCount
-        {
-            get => _maxFaultCount;
-            set
-            {
-                _maxFaultCount = value;
-                OnPropertyChanged(nameof(MaxFaultCount));
-            }
-        }
+        public IRelayCommand OpenMonthlyDataCommand { get; }
 
         public DataViewModel()
         {
-            LoadData();
-        }
+            _currentYear = DateTime.Now.Year.ToString();
 
-        // 处理Canvas尺寸变化的方法
-        public void UpdateCanvasSize(double width, double height)
-        {
-            if (width > 0 && height > 0)
+            WeakReferenceMessenger.Default.Register<ChangePageMessage>(this, (r, msg) =>
             {
-                ChartWidth = width;
-                ChartHeight = height;
-            }
-        }
-
-        private void LoadData()
-        {
-            try
-            {
-                var data = _model.GetMonthlyData();
-
-                System.Diagnostics.Debug.WriteLine($"获取到 {data.Count} 条数据");
-
-                if (data.Count == 0)
+                if (msg.Parameter != null)
                 {
-                    return;
+                    string targetYear = msg.Parameter.ToString();
+                    _currentYear = targetYear; // 更新存储的年份
+                    InitializeData(targetYear);
                 }
+            });
 
-                // 计算最大值
-                MaxReservationCount = data.Max(d => d.ReservationCount);
-                MaxFaultCount = data.Max(d => d.FaultCount);
-
-                // 确保最大值不为0
-                if (MaxReservationCount == 0) MaxReservationCount = 1;
-                if (MaxFaultCount == 0) MaxFaultCount = 1;
-
-                MonthlyData.Clear();
-                foreach (var item in data)
+            OpenMonthlyDataCommand = new RelayCommand<object>((param) =>
+            {
+                
+                if (int.TryParse(_currentYear, out int targetYear))
                 {
-                    var viewModel = new MonthlyChartDataVM
+                    if (int.TryParse(param?.ToString(), out int month))
                     {
-                        Month = item.Month,
-                        ReservationCount = item.ReservationCount,
-                        FaultCount = item.FaultCount
-                    };
-                    MonthlyData.Add(viewModel);
-                }
-
-                UpdateChart();
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine($"加载数据时出错: {ex.Message}");
-            }
-        }
-
-        private void UpdateChart()
-        {
-            if (MonthlyData.Count == 0) return;
-
-            ClearChartData();
-            CreateGridLines();
-            CreateMonthLabels();
-            CreateDataLines();
-            CreateDataPoints();
-        }
-
-        private void ClearChartData()
-        {
-            ReservationLines.Clear();
-            FaultLines.Clear();
-            ReservationPoints.Clear();
-            FaultPoints.Clear();
-            GridLines.Clear();
-            MonthLabels.Clear();
-        }
-
-        private void CreateGridLines()
-        {
-            // 水平网格线（每25%一条）
-            for (int i = 1; i <= 3; i++)
-            {
-                double y = (ChartHeight / 4) * i;
-                GridLines.Add(new LineSegment
-                {
-                    X1 = 0,
-                    Y1 = y,
-                    X2 = ChartWidth,
-                    Y2 = y
-                });
-            }
-
-            // 垂直网格线（每个月一条）
-            if (MonthlyData.Count > 1)
-            {
-                double stepX = ChartWidth / (MonthlyData.Count - 1);
-                for (int i = 0; i < MonthlyData.Count; i++)
-                {
-                    double x = i * stepX;
-                    GridLines.Add(new LineSegment
+                        WeakReferenceMessenger.Default.Send(new ChangePageMessage
+                        {
+                            NewPage = new ReservationList(),
+                            Parameter = (month, targetYear)
+                        });
+                    }
+                    else
                     {
-                        X1 = x,
-                        Y1 = 0,
-                        X2 = x,
-                        Y2 = ChartHeight
-                    });
+                        System.Windows.MessageBox.Show("月份参数无效，必须是 1-12 的数字！");
+                    }
                 }
-            }
+            });
+
+            _animationTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(16) };
+            _animationTimer.Tick += AnimationTimer_Tick;
+            StartAnimation();
         }
 
-        private void CreateMonthLabels()
+        #region Properties
+        private ObservableCollection<BarDataItem> _barData;
+        public ObservableCollection<BarDataItem> BarData
         {
-            if (MonthlyData.Count <= 1) return;
-
-            double stepX = ChartWidth / (MonthlyData.Count - 1);
-            for (int i = 0; i < MonthlyData.Count; i++)
-            {
-                double x = i * stepX - 20; // 调整位置使标签居中
-                MonthLabels.Add(new MonthLabel
-                {
-                    X = Math.Max(0, x), // 确保X坐标不为负数
-                    Month = MonthlyData[i].Month
-                });
-            }
+            get => _barData;
+            set => SetProperty(ref _barData, value);
         }
 
-        private void CreateDataLines()
+        public double AnimationProgress
         {
-            if (MonthlyData.Count <= 1) return;
-
-            double stepX = ChartWidth / (MonthlyData.Count - 1);
-
-            // 创建预约数据折线（向上）- 使用3/4高度
-            for (int i = 0; i < MonthlyData.Count - 1; i++)
-            {
-                double x1 = i * stepX;
-                double x2 = (i + 1) * stepX;
-
-                // 预约数据向上绘制（使用图表高度的3/4作为最大范围）
-                double y1 = CenterLineY - (MonthlyData[i].ReservationCount / (double)MaxReservationCount * (ChartHeight * 3 / 4));
-                double y2 = CenterLineY - (MonthlyData[i + 1].ReservationCount / (double)MaxReservationCount * (ChartHeight * 3 / 4));
-
-                ReservationLines.Add(new LineSegment
-                {
-                    X1 = x1,
-                    Y1 = y1,
-                    X2 = x2,
-                    Y2 = y2
-                });
-            }
-
-            // 创建故障数据折线（向下）- 使用1/4高度
-            for (int i = 0; i < MonthlyData.Count - 1; i++)
-            {
-                double x1 = i * stepX;
-                double x2 = (i + 1) * stepX;
-
-                // 故障数据向下绘制（使用图表高度的1/4作为最大范围）
-                double y1 = CenterLineY + (MonthlyData[i].FaultCount / (double)MaxFaultCount * (ChartHeight * 1 / 4));
-                double y2 = CenterLineY + (MonthlyData[i + 1].FaultCount / (double)MaxFaultCount * (ChartHeight * 1 / 4));
-
-                FaultLines.Add(new LineSegment
-                {
-                    X1 = x1,
-                    Y1 = y1,
-                    X2 = x2,
-                    Y2 = y2
-                });
-            }
+            get => _animationProgress;
+            set => SetProperty(ref _animationProgress, value);
         }
+        public int AnimationDuration { get; } = 3000;
+        #endregion
 
-        private void CreateDataPoints()
+        public ObservableCollection<MonthItem> Months { get; } = new()
+    {
+        new MonthItem("1", "1月"),
+        new MonthItem("2", "2月"),
+        new MonthItem("3", "3月"),
+        new MonthItem("4", "4月"),
+        new MonthItem("5", "5月"),
+        new MonthItem("6", "6月"),
+        new MonthItem("7", "7月"),
+        new MonthItem("8", "8月"),
+        new MonthItem("9", "9月"),
+        new MonthItem("10", "10月"),
+        new MonthItem("11", "11月"),
+        new MonthItem("12", "12月")
+    };
+        public record MonthItem(string Key, string DisplayMonth);
+
+        #region Private Methods
+        private void InitializeData(string targetYear)
         {
-            if (MonthlyData.Count == 0) return;
-
-            double stepX = MonthlyData.Count == 1 ? ChartWidth / 2 : ChartWidth / (MonthlyData.Count - 1);
-
-            // 创建预约数据点 - 使用3/4高度
-            for (int i = 0; i < MonthlyData.Count; i++)
-            {
-                double x = MonthlyData.Count == 1 ? stepX : i * stepX;
-                double y = CenterLineY - (MonthlyData[i].ReservationCount / (double)MaxReservationCount * (ChartHeight * 3 / 4));
-
-                ReservationPoints.Add(new DataPoint
-                {
-                    X = x - 4,
-                    Y = y - 4,
-                    Value = MonthlyData[i].ReservationCount
-                });
-            }
-
-            // 创建故障数据点 - 使用1/4高度
-            for (int i = 0; i < MonthlyData.Count; i++)
-            {
-                double x = MonthlyData.Count == 1 ? stepX : i * stepX;
-                double y = CenterLineY + (MonthlyData[i].FaultCount / (double)MaxFaultCount * (ChartHeight * 1 / 4));
-
-                FaultPoints.Add(new DataPoint
-                {
-                    X = x - 4,
-                    Y = y - 4,
-                    Value = MonthlyData[i].FaultCount
-                });
-            }
+            var allData = ChartDataService.LoadBarData(_jsonData);
+            BarData = new ObservableCollection<Models.BarDataItem>(
+                allData.Where(item => item.Label.StartsWith(targetYear + "-"))
+            );
         }
 
-        public event PropertyChangedEventHandler? PropertyChanged;
-        protected void OnPropertyChanged(string propertyName) =>
+        private void StartAnimation()
+        {
+            AnimationProgress = 0;
+            _animationStartTime = DateTime.Now;
+            _animationTimer.Start();
+        }
+
+        private void AnimationTimer_Tick(object sender, EventArgs e)
+        {
+            var elapsed = DateTime.Now - _animationStartTime;
+            var progress = Math.Min(elapsed.TotalMilliseconds / AnimationDuration, 1.0);
+            AnimationProgress = EaseInOut(progress);
+            if (progress >= 1.0) _animationTimer.Stop();
+        }
+
+        private static double EaseInOut(double t) => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+        #endregion
+
+        #region INotifyPropertyChanged
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) =>
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
+        protected bool SetProperty<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
+        {
+            if (Equals(field, value)) return false;
+            field = value;
+            OnPropertyChanged(propertyName);
+            return true;
+        }
+        #endregion
     }
 }

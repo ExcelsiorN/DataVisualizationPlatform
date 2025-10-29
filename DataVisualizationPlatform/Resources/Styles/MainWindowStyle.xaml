@@ -2,17 +2,19 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
 
-    <!-- 色彩资源 -->
-    <LinearGradientBrush x:Key="MainWindowBackground" StartPoint="0,0" EndPoint="1,1">
-        <!-- 高光银蓝区域 -->
-        <GradientStop Color="#D0D8E6" Offset="0"/>
-        <!-- 中间浅蓝灰 -->
-        <GradientStop Color="#A6B9D3" Offset="0.6"/>
-        <!-- 过渡蓝灰 -->
-        <GradientStop Color="#7F94AF" Offset="0.85"/>
-        <!-- 阴影深蓝灰 -->
-        <GradientStop Color="#5E6E88" Offset="1"/>
+    <!-- 苹果玻璃质感灰白渐变 -->
+    <LinearGradientBrush x:Key="MainWindowBackground" StartPoint="0,0" EndPoint="1,1" Opacity="0.85">
+        <!-- 明亮白色高光 -->
+        <GradientStop Color="#FFFFFFFF" Offset="0"/>
+        <!-- 浅银灰 -->
+        <GradientStop Color="#F2F2F7" Offset="0.4"/>
+        <!-- 中性银灰 -->
+        <GradientStop Color="#D9D9E0" Offset="0.75"/>
+        <!-- 较深玻璃灰 -->
+        <GradientStop Color="#BEBEC5" Offset="1"/>
     </LinearGradientBrush>
+
+
 
     <SolidColorBrush x:Key="TitleForeground" Color="#FFFFFF"/>
     <SolidColorBrush x:Key="MenuItemBorder" Color="#FFFFFF"/>

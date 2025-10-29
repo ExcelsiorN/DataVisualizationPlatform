@@ -22,7 +22,7 @@
         <vm:ReservationListViewModel />
     </Page.DataContext>
 
-    <ScrollViewer Padding="20" VerticalScrollBarVisibility="Hidden">
+    <ScrollViewer Padding="10" VerticalScrollBarVisibility="Hidden">
         <ItemsControl ItemsSource="{Binding ReservationList}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>

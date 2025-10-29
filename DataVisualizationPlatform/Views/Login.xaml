@@ -1,0 +1,360 @@
+﻿<Window x:Class="DataVisualizationPlatform.Views.Login"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:DataVisualizationPlatform.ViewModels"
+        mc:Ignorable="d"
+        Height="700" 
+        Width="500"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        ResizeMode="NoResize">
+
+    <Window.DataContext>
+        <vm:LoginViewModel/>
+    </Window.DataContext>
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/Styles/LoginStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <BooleanToVisibilityConverter x:Key="BoolToVisConverter"/>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid>
+        <!-- 主容器卡片 -->
+        <Border Background="White" 
+                CornerRadius="16"
+                MouseLeftButtonDown="Border_MouseLeftButtonDown">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="30" 
+                                  ShadowDepth="0" 
+                                  Opacity="0.2" 
+                                  Color="#000000"/>
+            </Border.Effect>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- 顶部栏 -->
+                <Grid Grid.Row="0" Height="50">
+                    <!-- 关闭按钮 -->
+                    <ScrollViewer VerticalScrollBarVisibility="Disabled">
+                        <StackPanel Orientation="Horizontal"
+                                    HorizontalAlignment="Right">
+
+                            <Button Content="🏠"
+                                    Width="46" 
+                                    Height="46" 
+                                    Click="TestClick">
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Background" Value="Transparent"/>
+                                        <Setter Property="BorderThickness" Value="0"/>
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="Button">
+                                                    <Border Background="{TemplateBinding Background}"
+                                                            CornerRadius="0,16,0,8">
+                                                        <ContentPresenter HorizontalAlignment="Center"
+                                                                          VerticalAlignment="Center"/>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="LightGray"/>
+                                            </Trigger>
+                                            <Trigger Property="IsPressed" Value="True">
+                                                <Setter Property="Background" Value="Gray"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+
+                            </Button>
+                            
+                            <Button x:Name="CloseButton" 
+                                Width="46" 
+                                Height="46" 
+                                Click="CloseButton_Click"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Top"
+                                Margin="0,2,2,0"
+                                Cursor="Hand">
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Background" Value="Transparent"/>
+                                        <Setter Property="BorderThickness" Value="0"/>
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="Button">
+                                                    <Border Background="{TemplateBinding Background}"
+                                                            CornerRadius="0,16,0,8">
+                                                        <ContentPresenter HorizontalAlignment="Center"
+                                                                          VerticalAlignment="Center"/>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="LightGray"/>
+                                            </Trigger>
+                                            <Trigger Property="IsPressed" Value="True">
+                                                <Setter Property="Background" Value="Gray"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                                <Path Data="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+                                  Fill="Gray" 
+                                  Stretch="Uniform"
+                                  Width="16" 
+                                  Height="16"/>
+                            </Button>
+                            
+                        </StackPanel>
+                    </ScrollViewer>
+                    
+                </Grid>
+
+                <!-- 内容区域 -->
+                <ScrollViewer Grid.Row="1" 
+                              VerticalScrollBarVisibility="Disabled"
+                              HorizontalScrollBarVisibility="Disabled">
+                    <StackPanel Margin="40,0,40,40">
+                        <!-- Logo区域 -->
+                        <Border Width="80" 
+                                Height="80" 
+                                Background="#EEF2FF" 
+                                CornerRadius="40"
+                                Margin="0,0,0,24"
+                                HorizontalAlignment="Center">
+                            <Image Source="\Resources\Images\XYLogo.png" 
+                                   Height="60" Width="60"/>
+                        </Border>
+
+                        <!-- 标题 -->
+                        <TextBlock Text="欢迎回来" 
+                                   FontSize="28" 
+                                   FontWeight="Bold"
+                                   HorizontalAlignment="Center"
+                                   Foreground="#1F2937"
+                                   Margin="0,0,0,8"/>
+
+                        <!-- 错误提示 -->
+                        <Border Background="#FEE2E2" 
+                                BorderBrush="#FCA5A5" 
+                                BorderThickness="1"
+                                CornerRadius="8"
+                                Padding="12"
+                                Margin="0,0,0,20"
+                                Visibility="{Binding HasError, Converter={StaticResource BoolToVisConverter}}">
+                            <StackPanel Orientation="Horizontal">
+                                <Path Data="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"
+                                      Fill="#DC2626" 
+                                      Stretch="Uniform"
+                                      Width="16" 
+                                      Height="16"
+                                      VerticalAlignment="Center"
+                                      Margin="0,0,8,0"/>
+                                <TextBlock Text="{Binding ErrorMessage}" 
+                                           Foreground="#DC2626" 
+                                           FontSize="13"
+                                           VerticalAlignment="Center"
+                                           TextWrapping="Wrap"/>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- 用户名输入 -->
+                        <TextBlock Text="用户名" 
+                                   FontSize="14" 
+                                   FontWeight="SemiBold"
+                                   Foreground="#374151"
+                                   Margin="0,0,0,8"/>
+
+                        <Grid Margin="0,0,0,20">
+                            <TextBox x:Name="UsernameTextBox"
+                                     Style="{StaticResource ModernTextBox}"
+                                     Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"
+                                     TabIndex="1">
+                                <TextBox.InputBindings>
+                                    <KeyBinding Key="Return" 
+                                                Command="{Binding LoginCommand}"/>
+                                </TextBox.InputBindings>
+                            </TextBox>
+                            <Path Data="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+                                  Fill="#9CA3AF"
+                                  Stretch="Uniform"
+                                  Width="20" 
+                                  Height="20"
+                                  HorizontalAlignment="Left"
+                                  VerticalAlignment="Center"
+                                  Margin="12,0,0,0"
+                                  IsHitTestVisible="False"/>
+                        </Grid>
+
+                        <!-- 密码输入 -->
+                        <TextBlock Text="密码" 
+                                   FontSize="14" 
+                                   FontWeight="SemiBold"
+                                   Foreground="#374151"
+                                   Margin="0,0,0,8"/>
+
+                        <Grid Margin="0,0,0,20">
+                            <PasswordBox x:Name="PasswordBox"
+                                         Style="{StaticResource ModernPasswordBox}"
+                                         PasswordChanged="PasswordBox_PasswordChanged"
+                                         TabIndex="2">
+                                <PasswordBox.InputBindings>
+                                    <KeyBinding Key="Return" Command="{Binding LoginCommand}"/>
+                                </PasswordBox.InputBindings>
+                            </PasswordBox>
+                            <Path Data="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6zm9 14H6V10h12v10zm-6-3c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"
+                                  Fill="#9CA3AF"
+                                  Stretch="Uniform"
+                                  Width="20" 
+                                  Height="20"
+                                  HorizontalAlignment="Left"
+                                  VerticalAlignment="Center"
+                                  Margin="12,0,0,0"
+                                  IsHitTestVisible="False"/>
+                        </Grid>
+
+                        <!-- 记住我和忘记密码 -->
+                        <Grid Margin="0,0,0,24">
+                            <CheckBox Content="记住我" 
+                                      FontSize="14"
+                                      Foreground="#6B7280"
+                                      IsChecked="{Binding RememberMe}"
+                                      VerticalAlignment="Center"/>
+                            <TextBlock Text="忘记密码?" 
+                                       FontSize="14"
+                                       Foreground="#6366F1"
+                                       HorizontalAlignment="Right"
+                                       VerticalAlignment="Center"
+                                       Cursor="Hand">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="TextDecorations" Value="Underline"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </Grid>
+
+                        <!-- 登录按钮 -->
+                        <Button Content="{Binding LoginButtonText}"
+                                Style="{StaticResource LoginButton}"
+                                Command="{Binding LoginCommand}"
+                                IsEnabled="{Binding IsNotLoading}"
+                                TabIndex="3"
+                                Height="48"
+                                FontSize="16"
+                                FontWeight="SemiBold"/>
+
+                        <!-- 分隔线 -->
+                        <Grid Margin="0,24,0,24">
+                            <Border Height="1" Background="#E5E7EB"/>
+                        </Grid>
+
+                        <!-- 注册提示 -->
+                        <StackPanel Orientation="Horizontal" 
+                                    HorizontalAlignment="Center">
+                            <TextBlock Text="还没有账户？" 
+                                       FontSize="14"
+                                       Foreground="#6B7280"
+                                       VerticalAlignment="Center"/>
+                            <TextBlock Text="立即注册" 
+                                       FontSize="14"
+                                       Foreground="#6366F1"
+                                       FontWeight="SemiBold"
+                                       Margin="4,0,0,0"
+                                       Cursor="Hand"
+                                       VerticalAlignment="Center">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="TextDecorations" Value="Underline"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </StackPanel>
+
+                        <!-- 测试提示 -->
+                        <Border Background="#DBEAFE" 
+                                BorderBrush="#93C5FD" 
+                                BorderThickness="1"
+                                CornerRadius="8"
+                                Padding="16"
+                                Margin="0,24,0,0">
+                            <StackPanel>
+                                <TextBlock Text="💡 测试账号" 
+                                           FontSize="12" 
+                                           FontWeight="Bold"
+                                           Foreground="#1E40AF"
+                                           Margin="0,0,0,4"/>
+                                <TextBlock FontSize="12" 
+                                           Foreground="#1E3A8A">
+                                    <Run Text="用户名: "/>
+                                    <Run Text="admin" FontWeight="Bold"/>
+                                </TextBlock>
+                                <TextBlock FontSize="12" 
+                                           Foreground="#1E3A8A">
+                                    <Run Text="密码: "/>
+                                    <Run Text="123456" FontWeight="Bold"/>
+                                </TextBlock>
+                            </StackPanel>
+                        </Border>
+                        
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+        </Border>
+
+        <!-- 加载遮罩 -->
+        <Border Background="#80000000" 
+                CornerRadius="16"
+                Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisConverter}}">
+            <Border Background="White"
+                    CornerRadius="12"
+                    Padding="32,24"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="20" 
+                                      ShadowDepth="0" 
+                                      Opacity="0.3" 
+                                      Color="#000000"/>
+                </Border.Effect>
+                <StackPanel>
+                    <TextBlock Text="⏳" 
+                               FontSize="32"
+                               HorizontalAlignment="Center"
+                               Margin="0,0,0,12"/>
+                    <TextBlock Text="正在登录..." 
+                               FontSize="16"
+                               Foreground="#6B7280"
+                               HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Border>
+        </Border>
+    </Grid>
+</Window>

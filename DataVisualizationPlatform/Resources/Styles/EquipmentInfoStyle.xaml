@@ -8,7 +8,7 @@
     <cmd:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
 
     <!-- 标题文字 -->
-    <Style x:Key="CardTitleText" TargetType="TextBlock">
+    <Style x:Key="Equ_CardTitleText" TargetType="TextBlock">
         <Setter Property="FontSize" Value="16"/>
         <Setter Property="FontWeight" Value="Bold"/>
         <Setter Property="Margin" Value="0,0,0,5"/>
@@ -17,7 +17,7 @@
     </Style>
 
     <!-- 正文文字 -->
-    <Style x:Key="CardItemText" TargetType="TextBlock">
+    <Style x:Key="Equ_CardItemText" TargetType="TextBlock">
         <Setter Property="FontSize" Value="16"/>
         <Setter Property="Margin" Value="0,2,0,0"/>
         <Setter Property="Foreground" Value="#555"/>

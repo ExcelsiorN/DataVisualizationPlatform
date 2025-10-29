@@ -2,21 +2,26 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:converters="clr-namespace:DataVisualizationPlatform.Commands"
-             StartupUri="MainWindow.xaml">
+             StartupUri="Views/Login.xaml"
+             ShutdownMode="OnLastWindowClose">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Resources/Styles/MainWindowStyle.xaml"/>
                 <ResourceDictionary Source="/Resources/Styles/MainWindowButton.xaml"/>
+                <ResourceDictionary Source="/Resources/Styles/MainMenuPopupStyle.xaml"/>
                 <ResourceDictionary Source="/Resources/Styles/Text.xaml"/>
                 <ResourceDictionary Source="/Resources/Styles/Page.xaml"/>
                 <ResourceDictionary Source="/Resources/Styles/Image.xaml"/>
                 <ResourceDictionary Source="/Resources/Styles/Card.xaml"/>
+                <ResourceDictionary Source="/Resources/Styles/Chart.xaml"/>
+                <ResourceDictionary Source="/Resources/Styles/Button.xaml"/>
+                <ResourceDictionary Source="/Resources/Styles/MainWindowStyle.xaml"/>
+                
             </ResourceDictionary.MergedDictionaries>
 
-            <!--<converters:StatusToBrushConverter x:Key="StatusToBrushConverter"/>
-            <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>-->
-
+            <converters:StatusToBrushConverter x:Key="StatusToBrushConverter"/>
+            <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
 
         </ResourceDictionary>
     </Application.Resources>

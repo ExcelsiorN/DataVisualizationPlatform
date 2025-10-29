@@ -5,13 +5,25 @@
     <Compile Update="Controls\SimplePieChart.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\Edit.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\FaultReport.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\Data.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\MainMenu.xaml.cs">
+    <Compile Update="Views\HomePageA.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\HomePageB.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\HomePageC.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Login.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

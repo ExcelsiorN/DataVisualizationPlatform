@@ -8,7 +8,7 @@ namespace DataVisualizationPlatform.Views
         public Data()
         {
             InitializeComponent();
-            this.DataContext = new DataViewModel();
+
         }
     }
 }

@@ -9,39 +9,32 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Images\img_customer.png" />
-    <None Remove="Images\img_home.png" />
-    <None Remove="Images\img_order.png" />
-    <None Remove="Images\img_product.png" />
-    <None Remove="Images\img_setting.png" />
-    <None Remove="Images\img_shipment.png" />
-    <None Remove="Images\img_transaction.png" />
-    <None Remove="Images\Logo.png" />
+    <None Remove="Resources\Images\NextPage.png" />
+    <None Remove="Resources\Images\PrePage.png" />
+    <None Remove="Resources\Images\XYLogo.png" />
   </ItemGroup>
 
   <ItemGroup>
     <Page Remove="Resources\Styles\CirColorChange.xaml" />
-    <Page Remove="Resources\Styles\DataStyle.xaml" />
-    <Page Remove="Resources\Styles\MainMenuStyle.xaml" />
+    <Page Remove="Resources\Styles\FaultReportStyle.xaml" />
+    <Page Remove="Resources\Styles\HomePageBStyle.xaml" />
     <Page Remove="Resources\Styles\MainWindowButton.xaml" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+    <PackageReference Include="GMap.NET.Core" Version="2.1.7" />
+    <PackageReference Include="GMap.NET.WinPresentation" Version="2.1.7" />
+    <PackageReference Include="MahApps.Metro" Version="2.4.10" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Images\img_customer.png" />
-    <Resource Include="Images\img_home.png" />
-    <Resource Include="Images\img_order.png" />
-    <Resource Include="Images\img_product.png" />
-    <Resource Include="Images\img_setting.png" />
-    <Resource Include="Images\img_shipment.png" />
-    <Resource Include="Images\img_transaction.png" />
-    <Resource Include="Images\Logo.png" />
-    <Resource Include="Resources\Styles\DataStyle.xaml" />
-    <Resource Include="Resources\Styles\MainMenuStyle.xaml" />
+    <Resource Include="Resources\Images\NextPage.png" />
+    <Resource Include="Resources\Images\PrePage.png" />
+    <Resource Include="Resources\Images\XYLogo.png" />
+    <Resource Include="Resources\Styles\FaultReportStyle.xaml" />
+    <Resource Include="Resources\Styles\HomePageBStyle.xaml" />
     <Resource Include="Resources\Styles\MainWindowButton.xaml" />
   </ItemGroup>
 

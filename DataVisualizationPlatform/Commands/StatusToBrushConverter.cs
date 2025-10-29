@@ -1,7 +1,6 @@
-﻿using System;
-using System.Globalization;
-using System.Windows.Data;
+﻿using System.Windows.Data;
 using System.Windows.Media;
+using System.Globalization;
 
 namespace DataVisualizationPlatform.Commands;
 
@@ -20,6 +19,9 @@ public class StatusToBrushConverter : IValueConverter
             "未完成" => Brushes.Gray,
             "已退款" => Brushes.Red,
             "已取消" => Brushes.Red,
+            "待处理" => Brushes.Red,
+            "处理中" => Brushes.Orange,
+            "已处理" => Brushes.Green,
             _ => Brushes.LightGray,
         };
     }

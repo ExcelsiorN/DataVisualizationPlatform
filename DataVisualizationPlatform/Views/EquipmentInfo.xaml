@@ -22,7 +22,7 @@
         <vm:EquipmentInfoViewModel />
     </Page.DataContext>
 
-    <ScrollViewer Padding="20" VerticalScrollBarVisibility="Hidden">
+    <ScrollViewer Padding="10" VerticalScrollBarVisibility="Hidden">
         <ItemsControl ItemsSource="{Binding EquipmentList}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -33,8 +33,7 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Button Command="{Binding DataContext.OpenReservationListCommand, ElementName=EquipmentInfoPage}" 
-                            CommandParameter="{Binding Equ_Id}"
-                            >
+                            CommandParameter="{Binding Equ_Id}">
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
                                 <ContentPresenter />
@@ -44,14 +43,14 @@
                             <Grid Style="{StaticResource FlipContainerStyle}">
                                 <StackPanel Margin="10" >
                                     <TextBlock Text="{Binding Equ_Name}" 
-                                               Style="{StaticResource CardTitleText}" 
+                                               Style="{StaticResource Equ_CardTitleText}" 
                                                Margin="0,0,0,20"/>
                                     <StackPanel Orientation="Horizontal" 
                                                 Margin="10,5,0,20" 
                                                 HorizontalAlignment="Left">
                                         <TextBlock Text="{Binding Equ_Id}"
                                                    Margin="-10,-2,10,0" 
-                                                   Style="{StaticResource CardItemText}"/>
+                                                   Style="{StaticResource Equ_CardItemText}"/>
                                         <Ellipse Width="10" Height="10"
                                                  Fill="{Binding Equ_OnlineStatus, Converter={StaticResource StatusToBrushConverter}}"
                                                  VerticalAlignment="Center" />
@@ -59,12 +58,18 @@
                                                    Margin="5,0,0,0" />
                                     </StackPanel>
 
-                                    <TextBlock Text="{Binding Equ_TotalOperationTime, StringFormat=运行时间：{0}}" Style="{StaticResource CardItemText}" />
-                                    <TextBlock Text="{Binding Equ_UsageRateThisYear, StringFormat=使用率：{0}}" Style="{StaticResource CardItemText}" />
-                                    <TextBlock Text="{Binding Equ_UsedFixedDurationThisYear, StringFormat=已用固定时长：{0}}" Style="{StaticResource CardItemText}" />
-                                    <TextBlock Text="{Binding Equ_FixedDurationThisYear, StringFormat=总固定时长：{0}}" Style="{StaticResource CardItemText}" />
-                                    <TextBlock Text="{Binding Equ_AvailableBookingPeriod, StringFormat=预约配置：{0}}" Style="{StaticResource CardItemText}" />
-                                    <TextBlock Text="{Binding Equ_DeploymentAddress, StringFormat=地址：{0}}" Style="{StaticResource CardItemText}" />
+                                    <TextBlock Text="{Binding Equ_TotalOperationTime, StringFormat=运行时间：{0}}" 
+                                               Style="{StaticResource Equ_CardItemText}" />
+                                    <TextBlock Text="{Binding Equ_UsageRateThisYear, StringFormat=使用率：{0}}" 
+                                               Style="{StaticResource Equ_CardItemText}" />
+                                    <TextBlock Text="{Binding Equ_UsedFixedDurationThisYear, StringFormat=已用固定时长：{0}}" 
+                                               Style="{StaticResource Equ_CardItemText}" />
+                                    <TextBlock Text="{Binding Equ_FixedDurationThisYear, StringFormat=总固定时长：{0}}" 
+                                               Style="{StaticResource Equ_CardItemText}" />
+                                    <TextBlock Text="{Binding Equ_AvailableBookingPeriod, StringFormat=预约配置：{0}}" 
+                                               Style="{StaticResource Equ_CardItemText}" />
+                                    <TextBlock Text="{Binding Equ_DeploymentAddress, StringFormat=地址：{0}}" 
+                                               Style="{StaticResource Equ_CardItemText}" />
 
                                 </StackPanel>
                             </Grid>

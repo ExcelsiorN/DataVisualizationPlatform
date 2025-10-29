@@ -4,8 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:Local="clr-namespace:DataVisualizationPlatform"
+        xmlns:views="clr-namespace:DataVisualizationPlatform.Views"
+        xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         mc:Ignorable="d"
-        Title="数据可视化平台 - 主页" Height="800" Width="1200"
+        WindowStyle="None"
+        Height="800" Width="1200"
         WindowStartupLocation="CenterScreen"
         Background="{StaticResource MainWindowBackground}">
 
@@ -13,37 +17,71 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Styles/MainWindowStyle.xaml"/>
+                <ResourceDictionary Source="Resources/Styles/PopupStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+
+            <!-- 转换器 -->
+            <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
         </ResourceDictionary>
     </Window.Resources>
 
+
     <Grid>
-
         <!--// Window Border //-->
-
         <Grid>
-
             <!--// Base Grid //-->
-            
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-                <!--// Navigation Panel //-->
+            <!--// Navigation Panel //-->
 
-            <Grid>
+            <Grid x:Name="NavigationPanel"
+                  Background="Transparent">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <!--<Border
-                    CornerRadius="20,0,0,20" />-->
-                
-                <Image Source="Images/Logo.png" 
-                       Height="50"
-                       Margin="15,10,0,0"></Image>
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Left"
+                            Grid.Column="0">
+                    <!-- 最小化按钮 -->
+                    <Button x:Name="MinimizeButton" Width="40" Height="40" 
+                                Click="MinimizeButton_Click"
+                                Background="Transparent" BorderThickness="0">
+                        <Path Data="M0,0 L10,0" Stroke="White" StrokeThickness="1" 
+                                  VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Button>
+
+                    <!-- 最大化/还原按钮 -->
+                    <Button x:Name="MaximizeButton" Width="40" Height="40" 
+                                Click="MaximizeButton_Click"
+                                Background="Transparent" BorderThickness="0">
+                        <Path x:Name="MaximizePath" Data="M0,0 L10,0 L10,10 L0,10 Z" 
+                                  Stroke="White" StrokeThickness="1" Fill="Transparent"
+                                  VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Button>
+
+                    <!-- 关闭按钮 -->
+                    <Button x:Name="CloseButton" Width="40" Height="40" 
+                                Click="CloseButton_Click"
+                                Background="Transparent" BorderThickness="0">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#E81123"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Path Data="M0,0 L10,10 M0,10 L10,0" Stroke="White" StrokeThickness="1"
+                                  VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Button>
+                </StackPanel>
 
                 <StackPanel Orientation="Horizontal"
                             HorizontalAlignment="Right"
@@ -52,13 +90,13 @@
                     <!--// Home //-->
 
                     <RadioButton Style="{StaticResource BtnStyle}"
-                          Command="{Binding NavigateCommand}" 
-                          CommandParameter="MainMenu">
+                                 Command="{Binding NavigateCommand}" 
+                                 CommandParameter="MainMenu">
 
                         <Grid HorizontalAlignment="Center">
-                            
+
                             <TextBlock Text="MainMenu"
-                                   Style="{StaticResource Text_Style}" />
+                                       Style="{StaticResource Text_Style}" />
 
                         </Grid>
 
@@ -67,62 +105,186 @@
                     <!--// EquipmentInfo //-->
 
                     <RadioButton Style="{StaticResource BtnStyle}"
-                          Command="{Binding NavigateCommand}" 
-                          CommandParameter="EquipmentInfo">
+                                 Command="{Binding NavigateCommand}" 
+                                 CommandParameter="EquipmentInfo">
 
                         <Grid HorizontalAlignment="Center">
 
                             <TextBlock Text="EquipmentInfo"
-                                   Style="{StaticResource Text_Style}" />
+                                       Style="{StaticResource Text_Style}" />
 
                         </Grid>
 
                     </RadioButton>
 
-                    <!--// FaultReport //-->
+                    <!-- FaultReport -->
+                    <RadioButton x:Name="FaultReportBtn"
+                                 Style="{StaticResource BtnStyle}"
+                                 Command="{Binding NavigateCommand}" 
+                                 CommandParameter="FaultReport">
 
-                    <RadioButton Style="{StaticResource BtnStyle}"
-                          Command="{Binding NavigateCommand}" 
-                          CommandParameter="FaultReport">
-
-                        <Grid Margin="-77,0,0,0">
-                            
-                            <TextBlock Text="FaultReport"
-                                   Style="{StaticResource Text_Style}" />
-
-                        </Grid>
+                        <TextBlock Text="FaultReport" Style="{StaticResource Text_Style}" />
 
                     </RadioButton>
 
-                    <!--// Data //-->
-
-                    <RadioButton Style="{StaticResource BtnStyle}"
-                          Command="{Binding NavigateCommand}" 
-                          CommandParameter="Data">
-
-                        <Grid Margin="-120,0,0,0">
-
-                            <TextBlock Text="Data"
-                                   Style="{StaticResource Text_Style}" />
-
-                        </Grid>
-
+                    <!-- Data -->
+                    <RadioButton x:Name="DataBtn"
+                                 Style="{StaticResource BtnStyle}"
+                                 Command="{Binding OpenCurrentMonthDataCommand}"
+                                 MouseEnter="ButtonOrPopup_MouseEnter"
+                                 MouseLeave="ButtonOrPopup_MouseLeave">
+                        <TextBlock Text="Data" Style="{StaticResource Text_Style}" />
                     </RadioButton>
 
+                    <!-- 统一的弹出菜单 -->
+                    <Popup x:Name="UnifiedPopup"
+                           PlacementTarget="{Binding ElementName=NavigationPanel}"
+                           Placement="Bottom"
+                           StaysOpen="True"
+                           AllowsTransparency="True"
+                           Width="{Binding ElementName=NavigationPanel, Path=ActualWidth}"
+                           MouseEnter="ButtonOrPopup_MouseEnter"
+                           MouseLeave="ButtonOrPopup_MouseLeave">
+                        <Border Background="White" Padding="10">
+                            <Grid Width="{Binding ElementName=NavigationPanel, Path=ActualWidth}">
+
+                                <!-- FaultReport 内容 -->
+                                <StackPanel x:Name="FaultReportPopupContent"
+                                            Visibility="Collapsed">
+                                    <ScrollViewer VerticalScrollBarVisibility="Hidden"
+                                                  HorizontalScrollBarVisibility="Disabled"
+                                                  HorizontalAlignment="Right"
+                                                  Margin="0,0,240,0"
+                                                  MaxHeight="300"
+                                                  Visibility="Collapsed">
+                                        <ItemsControl ItemsSource="{Binding Months}"
+                                                      VirtualizingStackPanel.IsVirtualizing="False"
+                                                      VirtualizingStackPanel.VirtualizationMode="Standard">
+                                            <ItemsControl.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <StackPanel Orientation="Vertical"/>
+                                                </ItemsPanelTemplate>
+                                            </ItemsControl.ItemsPanel>
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <RadioButton Style="{StaticResource MonthButtonStyle}"
+                                                                 GroupName="PopupMenuItems"
+                                                                 Command="{Binding DataContext.OpenFaultReportCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                                                 CommandParameter="{Binding Key}">
+                                                        <Grid HorizontalAlignment="Center" Margin="5">
+                                                            <TextBlock Text="{Binding DisplayMonth}"
+                                                                       Style="{StaticResource Text_Style}" />
+                                                        </Grid>
+                                                    </RadioButton>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </ScrollViewer>
+                                </StackPanel>
+
+                                <!-- Data 内容 -->
+                                <StackPanel x:Name="DataPopupContent" 
+                                            Visibility="Collapsed">
+                                    <ScrollViewer VerticalScrollBarVisibility="Hidden"
+                                                  HorizontalScrollBarVisibility="Disabled"
+                                                  HorizontalAlignment="Right"
+                                                  Margin="0,0,10,0"
+                                                  Height="200">
+                                        <ItemsControl ItemsSource="{Binding Years}">
+                                            <ItemsControl.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <StackPanel Orientation="Vertical"/>
+                                                </ItemsPanelTemplate>
+                                            </ItemsControl.ItemsPanel>
+
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <RadioButton Style="{StaticResource YearButtonStyle}"
+                                                                 GroupName="PopupMenuItems"
+                                                                 Command="{Binding DataContext.OpenYearlyDataCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                                                 CommandParameter="{Binding Key}">
+                                                        <Grid HorizontalAlignment="Center" Margin="5">
+                                                            <TextBlock Text="{Binding DisplayYear}"
+                                                                       Style="{StaticResource Text_Style}" />
+                                                        </Grid>
+                                                    </RadioButton>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </ScrollViewer>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </Popup>
 
                 </StackPanel>
-
             </Grid>
 
-            <Grid Grid.Row="1">
 
+            <Grid Grid.Row="1" x:Name="Display">
+
+                <!-- Frame 层 -->
                 <Frame x:Name="MainContentFrame" 
-                   Content="{Binding CurrentPage}"
-                   NavigationUIVisibility="Hidden"/>
+                       Content="{Binding CurrentPage}"
+                       NavigationUIVisibility="Hidden"
+                       Grid.ColumnSpan="2"
+                       Margin="100,50,100,50"/>
 
+                <!-- 固定按钮层 -->
+                <Grid Grid.ColumnSpan="2" VerticalAlignment="Center" Margin="10,0,0,10">
+                    <Button Command="{Binding PreviousPageCommand}"
+                                Visibility="{Binding IsButton1Visible, Converter={StaticResource BoolToVisibilityConverter}}"
+                                HorizontalAlignment="Left"
+                                Margin="10,0,0,0"
+                                Background="Transparent"
+                                BorderThickness="0">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <ContentPresenter />
+                            </ControlTemplate>
+                        </Button.Template>
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Opacity" Value="0"/>
+                                <Style.Triggers>
+                                    <!-- 鼠标移入按钮 -->
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Opacity" Value="0.5"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Image Source="Resources/Images/PrePage.png" Height="60" Width="60" />
+                    </Button>
 
+                    <Button Command="{Binding NextPageCommand}"
+                                Visibility="{Binding IsButton2Visible, Converter={StaticResource BoolToVisibilityConverter}}"
+                                HorizontalAlignment="Right"
+                                Margin="0,0,10,0"
+                                Background="Transparent"
+                                BorderThickness="0">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <ContentPresenter />
+                            </ControlTemplate>
+                        </Button.Template>
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Opacity" Value="0"/>
+                                <Style.Triggers>
+                                    <!-- 鼠标移入按钮 -->
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Opacity" Value="0.5"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Image Source="Resources/Images/NextPage.png" Height="60" Width="60" />
+                    </Button>
+
+                </Grid>
             </Grid>
 
         </Grid>
     </Grid>
-   </Window>
+</Window>

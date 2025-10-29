@@ -1,227 +1,479 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:sys="clr-namespace:System;assembly=mscorlib"
-                    xmlns:cmd="clr-namespace:DataVisualizationPlatform.Commands">
+<?xml version="1.0" encoding="utf-8"?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <!-- 转换器 -->
-    <cmd:StatusToBrushConverter x:Key="StatusToBrushConverter" />
-    <cmd:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    <!-- ==================== 颜色资源 ==================== -->
+    <SolidColorBrush x:Key="PrimaryColor" Color="#4A90E2"/>
+    <SolidColorBrush x:Key="PrimaryDarkColor" Color="#2E5C8A"/>
+    <SolidColorBrush x:Key="AccentColor" Color="#5CB85C"/>
+    <SolidColorBrush x:Key="BackgroundColor" Color="#F5F7FA"/>
+    <SolidColorBrush x:Key="CardBackgroundColor" Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="TextPrimaryColor" Color="Black"/>
+    <SolidColorBrush x:Key="TextSecondaryColor" Color="#7F8C8D"/>
+    <SolidColorBrush x:Key="BorderColor" Color="#E1E8ED"/>
+    <SolidColorBrush x:Key="HoverColor" Color="#F8FAFC"/>
+    
+    <!-- 状态颜色 -->
+    <SolidColorBrush x:Key="SuccessColor" Color="#5CB85C"/>
+    <SolidColorBrush x:Key="WarningColor" Color="#F0AD4E"/>
+    <SolidColorBrush x:Key="DangerColor" Color="#D9534F"/>
+    <SolidColorBrush x:Key="InfoColor" Color="#5BC0DE"/>
 
-    <!-- 卡片样式 -->
-    <Style x:Key="CardStyle" TargetType="Border">
-        <Setter Property="CornerRadius" Value="20"/>
-        <Setter Property="BorderBrush" Value="#DDD"/>
-        <Setter Property="BorderThickness" Value="1"/>
+    <!-- ==================== 渐变背景 ==================== -->
+    <LinearGradientBrush x:Key="PageGradientBackground" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Color="#F8FAFB" Offset="0"/>
+        <GradientStop Color="#EEF2F7" Offset="1"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="Header  GradientBackground" StartPoint="0,0" EndPoint="1,0">
+        <GradientStop Color="#FFFFFF" Offset="0"/>
+        <GradientStop Color="#F9FBFD" Offset="1"/>
+    </LinearGradientBrush>
+
+    <!-- ==================== 阴影效果资源 ==================== -->
+    <DropShadowEffect x:Key="CardShadowEffect" 
+                      Color="#000000" 
+                      Opacity="0.08" 
+                      BlurRadius="12" 
+                      ShadowDepth="3" 
+                      Direction="270"/>
+
+    <DropShadowEffect x:Key="HeaderShadowEffect" 
+                      Color="#000000" 
+                      Opacity="0.05" 
+                      BlurRadius="10" 
+                      ShadowDepth="2" 
+                      Direction="270"/>
+
+    <DropShadowEffect x:Key="IconShadowEffect" 
+                      Color="#4A90E2" 
+                      Opacity="0.3" 
+                      BlurRadius="12" 
+                      ShadowDepth="0"/>
+
+    <DropShadowEffect x:Key="HoverShadowEffect" 
+                      Color="#4A90E2" 
+                      Opacity="0.15" 
+                      BlurRadius="20" 
+                      ShadowDepth="3" 
+                      Direction="270"/>
+
+    <DropShadowEffect x:Key="ComboBoxHoverShadowEffect" 
+                      Color="#4A90E2" 
+                      Opacity="0.2" 
+                      BlurRadius="8" 
+                      ShadowDepth="0"/>
+
+    <!-- ==================== 主网格样式 ==================== -->
+    <Style x:Key="Fal_MainGridStyle" TargetType="Grid">
+        <Setter Property="Background" Value="{StaticResource PageGradientBackground}"/>
+    </Style>
+
+    <!-- ==================== 筛选区域样式 ==================== -->
+    <Style x:Key="Fal_FilterAreaBorderStyle" TargetType="Border">
+        <Setter Property="Padding" Value="30,20"/>
+        <Setter Property="Margin" Value="0,0,0,20"/>
+        <Setter Property="BorderBrush" Value="{StaticResource BorderColor}"/>
+        <Setter Property="BorderThickness" Value="0,0,0,1"/>
+        <Setter Property="Effect" Value="{StaticResource HeaderShadowEffect}"/>
+    </Style>
+
+    <!-- ==================== 图标边框样式 ==================== -->
+    <Style x:Key="Fal_IconBorderStyle" TargetType="Border">
+        <Setter Property="Width" Value="42"/>
+        <Setter Property="Height" Value="42"/>
+        <Setter Property="CornerRadius" Value="10"/>
+        <Setter Property="Margin" Value="0,0,15,0"/>
         <Setter Property="Background">
             <Setter.Value>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                    <GradientStop Color="#EEF2F7" Offset="0"/>
-                    <!-- 高光白蓝 -->
-                    <GradientStop Color="#D6DFEA" Offset="0.5"/>
-                    <!-- 浅银蓝 -->
-                    <GradientStop Color="#B7C4D6" Offset="1"/>
-                    <!-- 柔和蓝灰 -->
+                    <GradientStop Color="#4A90E2" Offset="0"/>
+                    <GradientStop Color="#357ABD" Offset="1"/>
                 </LinearGradientBrush>
             </Setter.Value>
         </Setter>
-        <Setter Property="Margin" Value="10"/>
-        <Setter Property="Padding" Value="15"/>
-        <Setter Property="Width" Value="250"/>
-        <Setter Property="Height" Value="300"/>
+        <Setter Property="Effect" Value="{StaticResource IconShadowEffect}"/>
+    </Style>
+
+    <!-- ==================== 页面标题样式 ==================== -->
+    <Style x:Key="Fal_PageTitleStyle" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="24"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="{StaticResource TextPrimaryColor}"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+    <!-- ==================== 筛选标签样式 ==================== -->
+    <Style x:Key="Fal_FilterLabelStyle" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Foreground" Value="{StaticResource TextSecondaryColor}"/>
+        <Setter Property="Margin" Value="0,0,0,8"/>
+    </Style>
+
+    <!-- ==================== 现代化ComboBox样式 ==================== -->
+    <Style x:Key="Fal_ModernComboBoxStyle" TargetType="ComboBox">
+        <Setter Property="Height" Value="38"/>
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="Foreground" Value="{StaticResource TextPrimaryColor}"/>
+        <Setter Property="Background" Value="{StaticResource CardBackgroundColor}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource BorderColor}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        
+        <Setter Property="Padding" Value="12,8"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ComboBox">
+                    <Grid>
+                        <Border x:Name="Border"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="8">
+                            <Grid>
+                                <!-- ToggleButton 覆盖整个区域 -->
+                                <ToggleButton x:Name="DropDownToggle"
+                                          Focusable="False"
+                                          ClickMode="Press"
+                                          Background="Transparent"
+                                          BorderThickness="0"
+                                          IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}">
+                                    <ToggleButton.Template>
+                                        <ControlTemplate TargetType="ToggleButton">
+                                            <Grid Background="Transparent">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                </Grid.ColumnDefinitions>
+
+                                                <!-- 下拉箭头 -->
+                                                <Path Grid.Column="1"
+                                                  x:Name="Arrow"
+                                                  Data="M 0 0 L 4 4 L 8 0 Z"
+                                                  Fill="{StaticResource TextSecondaryColor}"
+                                                  Margin="0,0,12,0"
+                                                  VerticalAlignment="Center"
+                                                  RenderTransformOrigin="0.5,0.5">
+                                                    <Path.RenderTransform>
+                                                        <RotateTransform x:Name="ArrowRotate" Angle="0"/>
+                                                    </Path.RenderTransform>
+                                                </Path>
+                                            </Grid>
+                                            <ControlTemplate.Triggers>
+                                                <!-- 展开时箭头旋转动画 -->
+                                                <Trigger Property="IsChecked" Value="True">
+                                                    <Trigger.EnterActions>
+                                                        <BeginStoryboard>
+                                                            <Storyboard>
+                                                                <DoubleAnimation Storyboard.TargetName="ArrowRotate"
+                                                                           Storyboard.TargetProperty="Angle"
+                                                                           To="180"
+                                                                           Duration="0:0:0.2">
+                                                                    <DoubleAnimation.EasingFunction>
+                                                                        <CubicEase EasingMode="EaseOut"/>
+                                                                    </DoubleAnimation.EasingFunction>
+                                                                </DoubleAnimation>
+                                                            </Storyboard>
+                                                        </BeginStoryboard>
+                                                    </Trigger.EnterActions>
+                                                    <Trigger.ExitActions>
+                                                        <BeginStoryboard>
+                                                            <Storyboard>
+                                                                <DoubleAnimation Storyboard.TargetName="ArrowRotate"
+                                                                           Storyboard.TargetProperty="Angle"
+                                                                           To="0"
+                                                                           Duration="0:0:0.2">
+                                                                    <DoubleAnimation.EasingFunction>
+                                                                        <CubicEase EasingMode="EaseOut"/>
+                                                                    </DoubleAnimation.EasingFunction>
+                                                                </DoubleAnimation>
+                                                            </Storyboard>
+                                                        </BeginStoryboard>
+                                                    </Trigger.ExitActions>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </ToggleButton.Template>
+                                </ToggleButton>
+
+                                <!-- 显示选中项（关键：IsHitTestVisible="False" 不阻挡点击） -->
+                                <ContentPresenter x:Name="ContentSite"
+                                              Margin="{TemplateBinding Padding}"
+                                              VerticalAlignment="Center"
+                                              HorizontalAlignment="Left"
+                                              Content="{TemplateBinding SelectionBoxItem}"
+                                              ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                              IsHitTestVisible="False"/>
+
+                                <!-- 下拉弹出菜单 -->
+                                <Popup x:Name="Popup"
+                                       Placement="Bottom"
+                                       IsOpen="{TemplateBinding IsDropDownOpen}"
+                                       AllowsTransparency="True"
+                                       Focusable="False"
+                                       PopupAnimation="Slide">
+                                    <Border Background="{StaticResource CardBackgroundColor}"
+                                        BorderBrush="{StaticResource BorderColor}"
+                                        BorderThickness="1"
+                                        CornerRadius="8"
+                                        Margin="0,4,0,0"
+                                        MinWidth="{TemplateBinding ActualWidth}">
+                                        <Border.Effect>
+                                            <DropShadowEffect Color="#000000" 
+                                                          Opacity="0.15" 
+                                                          BlurRadius="15" 
+                                                          ShadowDepth="5" 
+                                                          Direction="270"/>
+                                        </Border.Effect>
+                                        <ScrollViewer MaxHeight="200" 
+                                                  VerticalScrollBarVisibility="Hidden"
+                                                  Padding="4">
+                                            <ItemsPresenter/>
+                                        </ScrollViewer>
+                                    </Border>
+                                </Popup>
+                            </Grid>
+                        </Border>
+                    </Grid>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource PrimaryColor}"/>
+                            <Setter TargetName="Border" Property="Effect" Value="{StaticResource ComboBoxHoverShadowEffect}"/>
+                        </Trigger>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource PrimaryColor}"/>
+                            <Setter TargetName="Border" Property="BorderThickness" Value="2"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="Border" Property="Opacity" Value="0.5"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <!-- ==================== ComboBox下拉项样式 ==================== -->
+    <Style x:Key="Fal_ModernComboBoxItemStyle" TargetType="ComboBoxItem">
+        <Setter Property="Height" Value="36"/>
+        <Setter Property="Padding" Value="12,8"/>
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="Foreground" Value="{StaticResource TextPrimaryColor}"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ComboBoxItem">
+                    <Border x:Name="Border"
+                        Background="{TemplateBinding Background}"
+                        BorderThickness="0"
+                        CornerRadius="6"
+                        Margin="2"
+                        Padding="{TemplateBinding Padding}">
+                        <ContentPresenter VerticalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <!-- 悬停效果 -->
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="#F5F5F5"/>
+                        </Trigger>
+                        <!-- 选中效果 -->
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="#E3F2FD"/>
+                            <Setter Property="Foreground" Value="{StaticResource PrimaryColor}"/>
+                            <Setter Property="FontWeight" Value="SemiBold"/>
+                        </Trigger>
+                        <!-- 选中且悬停 -->
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsSelected" Value="True"/>
+                                <Condition Property="IsMouseOver" Value="True"/>
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="Border" Property="Background" Value="{StaticResource PrimaryColor}"/>
+                            <Setter Property="Foreground" Value="White"/>
+                        </MultiTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- ==================== 内容区域边框样式 ==================== -->
+    <Style x:Key="Fal_ContentAreaBorderStyle" TargetType="Border">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Margin" Value="30,0,30,30"/>
+    </Style>
+
+    <!-- ==================== 现代化ScrollViewer样式 ==================== -->
+    <Style x:Key="Fal_ModernScrollViewerStyle" TargetType="ScrollViewer">
+        <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="HorizontalScrollBarVisibility" Value="Disabled"/>
+    </Style>
+
+    <!-- ==================== 故障报告项按钮样式 ==================== -->
+    <Style x:Key="Fal_FaultReportItemButtonStyle" TargetType="Button">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}">
+                        <ContentPresenter/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- 刷新按钮的样式 -->
+    <Style x:Key="Fal_RefreshButtonStyle" TargetType="Button">
+        <Setter Property="Background" Value="#F3F3F3"/>
+        <Setter Property="BorderBrush" Value="#CCC"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Padding" Value="8"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
         <Setter Property="Effect">
             <Setter.Value>
-                <DropShadowEffect BlurRadius="8" ShadowDepth="4" Opacity="0.5"/>
+                <DropShadowEffect Color="Gray" BlurRadius="5" ShadowDepth="2" Opacity="0.3"/>
             </Setter.Value>
         </Setter>
-
-        <!-- 添加 RenderTransform 以支持缩放和翻转 -->
-        <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
-        <Setter Property="RenderTransform">
+        <Setter Property="Template">
             <Setter.Value>
-                <TransformGroup>
-                    <!-- [0]：翻转用 -->
-                    <ScaleTransform ScaleX="1" ScaleY="1"/>
-                    <!-- [1]：放大用 -->
-                    <ScaleTransform ScaleX="1" ScaleY="1"/>
-                </TransformGroup>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="border"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="8"
+                            Padding="{TemplateBinding Padding}">
+                        <ContentPresenter 
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+
+                        <!-- 悬停状态 -->
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="#E6F1FF"/>
+                            <Setter TargetName="border" Property="BorderBrush" Value="#66A3FF"/>
+                            <Setter Property="Effect">
+                                <Setter.Value>
+                                    <DropShadowEffect Color="#66A3FF" BlurRadius="10" ShadowDepth="0" Opacity="0.5"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+
+                        <!-- 按下状态 -->
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="#C9E0FF"/>
+                            <Setter TargetName="border" Property="BorderBrush" Value="#4A90E2"/>
+                            <Setter Property="Effect" Value="{x:Null}"/>
+                        </Trigger>
+
+                        <!-- 禁用状态 -->
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="border" Property="Opacity" Value="0.5"/>
+                            <Setter TargetName="border" Property="Background" Value="#EEE"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
             </Setter.Value>
         </Setter>
+    </Style>
 
-        <!-- 动画触发 -->
-        <Style.Resources>
-            <!-- 鼠标进入动画 -->
-            <Storyboard x:Key="MouseEnterStoryboard">
-                <DoubleAnimation Storyboard.TargetProperty="(RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)"
-                             To="0.95" Duration="0:0:0.15"/>
-                <DoubleAnimation Storyboard.TargetProperty="(RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)"
-                             To="0.95" Duration="0:0:0.15"/>
-            </Storyboard>
-
-            <!-- 鼠标离开动画 -->
-            <Storyboard x:Key="MouseLeaveStoryboard">
-                <DoubleAnimation Storyboard.TargetProperty="(RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)"
-                             To="1" Duration="0:0:0.15"/>
-                <DoubleAnimation Storyboard.TargetProperty="(RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)"
-                             To="1" Duration="0:0:0.15"/>
-            </Storyboard>
-        </Style.Resources>
-
+    <!-- ==================== 故障报告项边框样式 ==================== -->
+    <Style x:Key="Fal_FaultReportItemBorderStyle" TargetType="Border">
+        <Setter Property="Background" Value="{StaticResource CardBackgroundColor}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource BorderColor}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="CornerRadius" Value="12"/>
+        <Setter Property="Padding" Value="20,18"/>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect Color="#000000" Opacity="0.06" 
+                                BlurRadius="15" ShadowDepth="2" Direction="270"/>
+            </Setter.Value>
+        </Setter>
         <Style.Triggers>
-            <!-- 鼠标悬停阴影变化 -->
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Effect">
-                    <Setter.Value>
-                        <DropShadowEffect BlurRadius="12" ShadowDepth="6" Opacity="0.7"/>
-                    </Setter.Value>
-                </Setter>
+                <Setter Property="Background" Value="{StaticResource HoverColor}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource PrimaryColor}"/>
+                <Setter Property="Effect" Value="{StaticResource HoverShadowEffect}"/>
             </Trigger>
-
-            <!-- 鼠标进入 -->
-            <EventTrigger RoutedEvent="MouseEnter">
-                <BeginStoryboard Storyboard="{StaticResource MouseEnterStoryboard}"/>
-            </EventTrigger>
-
-            <!-- 鼠标离开 -->
-            <EventTrigger RoutedEvent="MouseLeave">
-                <BeginStoryboard Storyboard="{StaticResource MouseLeaveStoryboard}"/>
-            </EventTrigger>
-
-            <!-- 翻转动画（绑定 IsFlipped） -->
-            <DataTrigger Binding="{Binding IsFlipped}" Value="True">
-                <DataTrigger.EnterActions>
-                    <BeginStoryboard>
-                        <Storyboard>
-                            <!-- 压缩到 0 宽 -->
-                            <DoubleAnimation
-                            Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)"
-                            From="1" To="0" Duration="0:0:0.25">
-                                <DoubleAnimation.EasingFunction>
-                                    <QuadraticEase EasingMode="EaseIn"/>
-                                </DoubleAnimation.EasingFunction>
-                            </DoubleAnimation>
-                            <!-- 再从 0 恢复到 1 -->
-                            <DoubleAnimation
-                            Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)"
-                            From="0" To="1" BeginTime="0:0:0.25" Duration="0:0:0.25">
-                                <DoubleAnimation.EasingFunction>
-                                    <QuadraticEase EasingMode="EaseOut"/>
-                                </DoubleAnimation.EasingFunction>
-                            </DoubleAnimation>
-                        </Storyboard>
-                    </BeginStoryboard>
-                </DataTrigger.EnterActions>
-
-                <DataTrigger.ExitActions>
-                    <BeginStoryboard>
-                        <Storyboard>
-                            <DoubleAnimation
-                            Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)"
-                            From="1" To="0" Duration="0:0:0.25">
-                                <DoubleAnimation.EasingFunction>
-                                    <QuadraticEase EasingMode="EaseIn"/>
-                                </DoubleAnimation.EasingFunction>
-                            </DoubleAnimation>
-                            <DoubleAnimation
-                            Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)"
-                            From="0" To="1" BeginTime="0:0:0.25" Duration="0:0:0.25">
-                                <DoubleAnimation.EasingFunction>
-                                    <QuadraticEase EasingMode="EaseOut"/>
-                                </DoubleAnimation.EasingFunction>
-                            </DoubleAnimation>
-                        </Storyboard>
-                    </BeginStoryboard>
-                </DataTrigger.ExitActions>
-            </DataTrigger>
-
-            <!-- 放大动画（绑定 IsExpanded） -->
-            <DataTrigger Binding="{Binding IsExpanded}" Value="True">
-                <Setter Property="Panel.ZIndex" Value="999"/>
-                <DataTrigger.EnterActions>
-                    <BeginStoryboard>
-                        <Storyboard>
-                            <DoubleAnimation
-                            Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[1].(ScaleTransform.ScaleX)"
-                            To="3" Duration="0:0:0.4">
-                                <DoubleAnimation.EasingFunction>
-                                    <BackEase EasingMode="EaseOut" Amplitude="0.3"/>
-                                </DoubleAnimation.EasingFunction>
-                            </DoubleAnimation>
-                            <DoubleAnimation
-                            Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[1].(ScaleTransform.ScaleY)"
-                            To="3" Duration="0:0:0.4">
-                                <DoubleAnimation.EasingFunction>
-                                    <BackEase EasingMode="EaseOut" Amplitude="0.3"/>
-                                </DoubleAnimation.EasingFunction>
-                            </DoubleAnimation>
-                        </Storyboard>
-                    </BeginStoryboard>
-                </DataTrigger.EnterActions>
-
-                <DataTrigger.ExitActions>
-                    <BeginStoryboard>
-                        <Storyboard>
-                            <DoubleAnimation
-                            Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[1].(ScaleTransform.ScaleX)"
-                            To="1" Duration="0:0:0.3">
-                                <DoubleAnimation.EasingFunction>
-                                    <QuadraticEase EasingMode="EaseInOut"/>
-                                </DoubleAnimation.EasingFunction>
-                            </DoubleAnimation>
-                            <DoubleAnimation
-                            Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[1].(ScaleTransform.ScaleY)"
-                            To="1" Duration="0:0:0.3">
-                                <DoubleAnimation.EasingFunction>
-                                    <QuadraticEase EasingMode="EaseInOut"/>
-                                </DoubleAnimation.EasingFunction>
-                            </DoubleAnimation>
-                        </Storyboard>
-                    </BeginStoryboard>
-                </DataTrigger.ExitActions>
-            </DataTrigger>
         </Style.Triggers>
     </Style>
 
-    <!-- 翻转容器样式（简化版，主要负责内容切换） -->
-    <Style x:Key="FlipZoomContainerStyle" TargetType="Grid">
-        <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+    <!-- ==================== 状态指示器样式 ==================== -->
+    <Style x:Key="Fal_StatusIndicatorStyle" TargetType="Border">
+        <Setter Property="Width" Value="32"/>
+        <Setter Property="Height" Value="32"/>
+        <Setter Property="CornerRadius" Value="8"/>
+        <Setter Property="Background" Value="#F0F4F8"/>
+        <Setter Property="Margin" Value="0,0,20,0"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
     </Style>
 
-    <!-- 标题文字 -->
-    <Style x:Key="CardTitleText" TargetType="TextBlock">
-        <Setter Property="FontSize" Value="16"/>
-        <Setter Property="FontWeight" Value="Bold"/>
-        <Setter Property="Margin" Value="0,0,0,5"/>
-        <Setter Property="Foreground" Value="#222"/>
-        <Setter Property="TextAlignment" Value="Center"/>
-    </Style>
-
-    <!-- 正文文字 -->
-    <Style x:Key="CardItemText" TargetType="TextBlock">
-        <Setter Property="FontSize" Value="16"/>
-        <Setter Property="Margin" Value="0,2,0,0"/>
-        <Setter Property="Foreground" Value="#555"/>
-    </Style>
-
-    <!-- 背面标题文字 -->
-    <Style x:Key="BackTitleText" TargetType="TextBlock">
-        <Setter Property="FontSize" Value="18"/>
-        <Setter Property="FontWeight" Value="Bold"/>
-        <Setter Property="Margin" Value="0,0,0,15"/>
-        <Setter Property="Foreground" Value="#222"/>
-        <Setter Property="TextAlignment" Value="Center"/>
-    </Style>
-
-    <!-- 图表标签文字 -->
-    <Style x:Key="ChartLabelText" TargetType="TextBlock">
-        <Setter Property="FontSize" Value="14"/>
+    <!-- ==================== 字段标签样式 ==================== -->
+    <Style x:Key="Fal_FieldLabelStyle" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="10"/>
+        <Setter Property="Foreground" Value="{StaticResource TextSecondaryColor}"/>
         <Setter Property="FontWeight" Value="SemiBold"/>
-        <Setter Property="Foreground" Value="#444"/>
-        <Setter Property="TextAlignment" Value="Center"/>
-        <Setter Property="Margin" Value="0,5,0,0"/>
+        <Setter Property="Margin" Value="0,0,0,4"/>
     </Style>
 
-    <!-- 在线状态颜色转换器（需在代码中实现） -->
-    <sys:Boolean x:Key="True">True</sys:Boolean>
+    <!-- ==================== 字段值样式 ==================== -->
+    <Style x:Key="Fal_FieldValueStyle" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Foreground" Value="{StaticResource TextPrimaryColor}"/>
+        <Setter Property="FontWeight" Value="Medium"/>
+        <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+    </Style>
+
+    <!-- ==================== 状态标签边框样式 ==================== -->
+    <Style x:Key="Fal_StatusTagBorderStyle" TargetType="Border">
+        <Setter Property="CornerRadius" Value="6"/>
+        <Setter Property="Padding" Value="12,6"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="Margin" Value="10,0,0,0"/>
+        <Setter Property="Opacity" Value="0.7"/>
+    </Style>
+
+    <!-- ==================== 状态标签文本样式 ==================== -->
+    <Style x:Key="Fal_StatusTagTextStyle" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="{StaticResource TextPrimaryColor}"/>
+        <Setter Property="TextAlignment" Value="Center"/>
+    </Style>
+
+    <!-- ==================== 动画资源 ==================== -->
+    <Storyboard x:Key="FadeInAnimation">
+        <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                        From="0" To="1" Duration="0:0:0.3">
+            <DoubleAnimation.EasingFunction>
+                <CubicEase EasingMode="EaseOut"/>
+            </DoubleAnimation.EasingFunction>
+        </DoubleAnimation>
+    </Storyboard>
+
+    <Storyboard x:Key="ScaleUpAnimation">
+        <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+                        From="0.98" To="1" Duration="0:0:0.2">
+            <DoubleAnimation.EasingFunction>
+                <BackEase EasingMode="EaseOut" Amplitude="0.3"/>
+            </DoubleAnimation.EasingFunction>
+        </DoubleAnimation>
+        <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+                        From="0.98" To="1" Duration="0:0:0.2">
+            <DoubleAnimation.EasingFunction>
+                <BackEase EasingMode="EaseOut" Amplitude="0.3"/>
+            </DoubleAnimation.EasingFunction>
+        </DoubleAnimation>
+    </Storyboard>
 
 </ResourceDictionary>

@@ -1,11 +1,12 @@
-﻿<Page x:Class="DataVisualizationPlatform.Views.FaultReport"
+<?xml version="1.0" encoding="utf-8"?>
+<Page x:Class="DataVisualizationPlatform.Views.FaultReport"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:vm="clr-namespace:DataVisualizationPlatform.ViewModels"
       xmlns:controls="clr-namespace:DataVisualizationPlatform.Controls"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      mc:Ignorable="d"
+      mc:Ignorable="d"  
       d:DesignHeight="450" d:DesignWidth="800"
       Style="{StaticResource Page_Style}">
 
@@ -22,53 +23,195 @@
         <vm:FaultReportViewModel />
     </Page.DataContext>
 
-    <ScrollViewer Padding="20" VerticalScrollBarVisibility="Hidden">
-        <ItemsControl ItemsSource="{Binding EquipmentList}">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <WrapPanel IsItemsHost="True" Orientation="Horizontal" />
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
+    <Grid Style="{StaticResource Fal_MainGridStyle}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Border Style="{StaticResource CardStyle}">
-                        <Border.InputBindings>
-                            <MouseBinding MouseAction="LeftClick" 
-                                        Command="{Binding DataContext.FlipCardCommand, RelativeSource={RelativeSource AncestorType=Page}}"
-                                        CommandParameter="{Binding}" />
-                        </Border.InputBindings>
+        <!-- 顶部筛选区域 -->
+        <Border Grid.Row="0" Style="{StaticResource Fal_FilterAreaBorderStyle}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
 
-                        <Grid Style="{StaticResource FlipZoomContainerStyle}">
-                            <!-- 正面内容 -->
-                            <StackPanel Margin="10" Panel.ZIndex="1"
-                                        Visibility="{Binding IsContentFlipped, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=Invert}">
-                                <TextBlock Text="{Binding Equ_Name}" Style="{StaticResource CardTitleText}" Margin="0,0,0,20"/>
-                                <StackPanel Orientation="Horizontal" Margin="10,5,0,20" HorizontalAlignment="Left">
-                                    <Ellipse Width="10" Height="10"
-                                           Fill="{Binding Equ_OnlineStatus, Converter={StaticResource StatusToBrushConverter}}"
-                                           VerticalAlignment="Center" />
-                                    <TextBlock Text="{Binding Equ_OnlineStatus}" Margin="5,0,0,0" />
-                                </StackPanel>
+                <!-- 左侧标题 -->
+                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
 
-                                <TextBlock Text="{Binding Equ_TotalOperationTime, StringFormat=运行时间：{0}}" Style="{StaticResource CardItemText}" />
-                                <TextBlock Text="{Binding Equ_UsageRateThisYear, StringFormat=使用率：{0}}" Style="{StaticResource CardItemText}" />
-                                <TextBlock Text="{Binding Equ_UsedFixedDurationThisYear, StringFormat=已用固定时长：{0}}" Style="{StaticResource CardItemText}" />
-                                <TextBlock Text="{Binding Equ_FixedDurationThisYear, StringFormat=总固定时长：{0}}" Style="{StaticResource CardItemText}" />
-                                <TextBlock Text="{Binding Equ_AvailableBookingPeriod, StringFormat=预约配置：{0}}" Style="{StaticResource CardItemText}" />
-                                <TextBlock Text="{Binding Equ_DeploymentAddress, StringFormat=地址：{0}}" Style="{StaticResource CardItemText}" />
-                            </StackPanel>
+                    <Button Command="{Binding RefreshCommand}"
+                            Style="{StaticResource Fal_RefreshButtonStyle}">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="Transparent">
+                                    <ContentPresenter 
+                                        HorizontalAlignment="Left" 
+                                        VerticalAlignment="Stretch"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                        <Border Style="{StaticResource Fal_IconBorderStyle}">
+                            <TextBlock Text="🗘" FontSize="40" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                    </Button>
 
-                            <!-- 背面内容 -->
-                            <StackPanel Margin="20" 
-                                        Visibility="{Binding IsContentFlipped, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <TextBlock Text="故障报告管理" Style="{StaticResource Fal_PageTitleStyle}"/>
+                </StackPanel>
 
-                                <TextBlock Text="{Binding Equ_Name}" Style="{StaticResource BackTitleText}" />
-                            </StackPanel>
-                        </Grid>
-                    </Border>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-    </ScrollViewer>
+                <!-- 右侧筛选器 -->
+                <StackPanel Grid.Column="1" Orientation="Horizontal" 
+                           HorizontalAlignment="Right" VerticalAlignment="Center">
+
+                    <!-- 选择状态 -->
+                    <StackPanel Orientation="Vertical" Margin="0,0,20,0">
+                        <TextBlock Text="故障状态" Style="{StaticResource Fal_FilterLabelStyle}"/>
+                        <ComboBox Style="{StaticResource Fal_ModernComboBoxStyle}"
+                                  ItemContainerStyle="{StaticResource Fal_ModernComboBoxItemStyle}"
+                                  Width="100"
+                                  Height="40"
+                                  ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                                  ItemsSource="{Binding Statuses}"
+                                  SelectedItem="{Binding SelectedFal_Info, Mode=TwoWay}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </StackPanel>
+
+                    <!-- 选择设备 -->
+                    <StackPanel Orientation="Vertical" Margin="0,0,20,0">
+                        <TextBlock Text="设备选择" Style="{StaticResource Fal_FilterLabelStyle}"/>
+                        <ComboBox Style="{StaticResource ModernComboBoxStyle}"
+                                  ItemContainerStyle="{StaticResource Fal_ModernComboBoxItemStyle}"
+                                  Width="100"
+                                  Height="40"
+                                  ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                                  ItemsSource="{Binding Devices}"
+                                  SelectedItem="{Binding SelectedDevice, Mode=TwoWay}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </StackPanel>
+
+                    <!-- 筛选年份 -->
+                    <StackPanel Orientation="Vertical" Margin="0,0,20,0">
+                        <TextBlock Text="年份" Style="{StaticResource Fal_FilterLabelStyle}"/>
+                        <ComboBox Style="{StaticResource ModernComboBoxStyle}"
+                                  ItemContainerStyle="{StaticResource Fal_ModernComboBoxItemStyle}"
+                                  Width="100"
+                                  Height="40"
+                                  ItemsSource="{Binding Years}"
+                                  SelectedItem="{Binding SelectedYear, Mode=TwoWay}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </StackPanel>
+
+                    <!-- 筛选月份 -->
+                    <StackPanel Orientation="Vertical"
+                               Visibility="{Binding IsMonthVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+
+                        <TextBlock Text="月份" Style="{StaticResource Fal_FilterLabelStyle}"/>
+                        <ComboBox Style="{StaticResource ModernComboBoxStyle}"
+                                  ItemContainerStyle="{StaticResource Fal_ModernComboBoxItemStyle}"
+                                  Width="100"
+                                  Height="40"
+                                  ItemsSource="{Binding Months}"
+                                  SelectedItem="{Binding SelectedMonth, Mode=TwoWay}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- 内容区域 -->
+        <Border Grid.Row="1" Style="{StaticResource Fal_ContentAreaBorderStyle}">
+            <ScrollViewer x:Name="FaultDisplay"
+                         VerticalScrollBarVisibility="Auto"
+                         HorizontalScrollBarVisibility="Disabled"
+                         Style="{StaticResource Fal_ModernScrollViewerStyle}">
+                <ItemsControl ItemsSource="{Binding FaultReportList}"
+                             Margin="0,0,10,0">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Button Style="{StaticResource Fal_FaultReportItemButtonStyle}"
+                                   Margin="0,0,0,12">
+                                <Border Style="{StaticResource Fal_FaultReportItemBorderStyle}">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <!-- 状态指示器 -->
+                                        <Border Grid.Column="0" Style="{StaticResource Fal_StatusIndicatorStyle}">
+                                            <Ellipse Width="10" Height="10"
+                                                    Fill="{Binding Fal_Info, Converter={StaticResource StatusToBrushConverter}}"/>
+                                        </Border>
+
+                                        <!-- 设备ID -->
+                                        <StackPanel Grid.Column="1" VerticalAlignment="Center"
+                                                    Margin="0,0,40,0">
+                                            <TextBlock Text="设备编号" Style="{StaticResource Fal_FieldLabelStyle}"/>
+                                            <TextBlock Text="{Binding Fal_Eqid}" Style="{StaticResource Fal_FieldValueStyle}"/>
+                                        </StackPanel>
+
+                                        <!-- 故障类型 -->
+                                        <StackPanel Grid.Column="2" VerticalAlignment="Center"
+                                                    Margin="0,0,40,0">
+                                            <TextBlock Text="故障类型" Style="{StaticResource Fal_FieldLabelStyle}"/>
+                                            <TextBlock Text="{Binding Fal_Type}" Style="{StaticResource Fal_FieldValueStyle}"/>
+                                        </StackPanel>
+
+                                        <!-- 故障日期 -->
+                                        <StackPanel Grid.Column="3" VerticalAlignment="Center"
+                                                    Margin="0,0,40,0">
+                                            <TextBlock Text="发生时间" Style="{StaticResource Fal_FieldLabelStyle}"/>
+                                            <TextBlock Text="{Binding Fal_Data}" Style="{StaticResource Fal_FieldValueStyle}"/>
+                                        </StackPanel>
+
+                                        <!-- 故障详情 -->
+                                        <StackPanel x:Name="DetailStackPanel" Grid.Column="4" VerticalAlignment="Center">
+                                            <TextBlock Text="故障详情" Style="{StaticResource Fal_FieldLabelStyle}"/>
+                                            <TextBlock Text="{Binding Fal_Detail}" 
+                                                       Style="{StaticResource Fal_FieldValueStyle}"
+                                                       TextTrimming="CharacterEllipsis"
+                                                       MaxWidth="{Binding ActualWidth, ElementName=DetailStackPanel}"/> 
+                                        </StackPanel>
+
+
+                                        <!-- 状态标签 -->
+                                        <Border Grid.Column="5" 
+                                               Style="{StaticResource Fal_StatusTagBorderStyle}"
+                                               Background="{Binding Fal_Info, Converter={StaticResource StatusToBrushConverter}}">
+                                            <TextBlock Text="{Binding Fal_Info}" 
+                                                      Style="{StaticResource Fal_StatusTagTextStyle}"/>
+                                        </Border>
+                                    </Grid>
+                                </Border>
+                            </Button>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Border>
+    </Grid>
 </Page>

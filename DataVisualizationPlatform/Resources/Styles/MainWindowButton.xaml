@@ -20,18 +20,17 @@
                             BorderThickness="0">
 
                         <Border.Background>
-                            <!-- 默认背景：远峰蓝主色 -->
                             <SolidColorBrush x:Name="BorderBackground" Color="Transparent" />
                         </Border.Background>
 
                         <Grid>
                             <Border x:Name="Indicator"
-                                        Height="4"
-                                        HorizontalAlignment="Stretch"
-                                        VerticalAlignment="Bottom"
-                                        Background="#5E6E88"  
-                                        Opacity="0"
-                                        CornerRadius="2" />
+                                    Height="4"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Bottom"
+                                    Background="#5E6E88"  
+                                    Opacity="0"
+                                    CornerRadius="2" />
 
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                         </Grid>
@@ -42,15 +41,10 @@
                         <EventTrigger RoutedEvent="Border.MouseEnter" SourceName="border">
                             <BeginStoryboard>
                                 <Storyboard>
-                                    <ColorAnimation Storyboard.TargetName="BorderBackground"
-                                Storyboard.TargetProperty="Color"
-                                From="Transparent"
-                                To="Transparent"
-                                Duration="0:0:0.6" />
                                     <DoubleAnimation Storyboard.TargetName="Indicator"
-                                 Storyboard.TargetProperty="Opacity"
-                                 To="1"
-                                 Duration="0:0:0.6" />
+                                                     Storyboard.TargetProperty="Opacity"
+                                                     To="1"
+                                                     Duration="0:0:0.6"/>
                                 </Storyboard>
                             </BeginStoryboard>
                         </EventTrigger>
@@ -59,25 +53,20 @@
                         <EventTrigger RoutedEvent="Border.MouseLeave" SourceName="border">
                             <BeginStoryboard>
                                 <Storyboard>
-                                    <ColorAnimation Storyboard.TargetName="BorderBackground"
-                                Storyboard.TargetProperty="Color"
-                                From="Transparent"
-                                To="Transparent"
-                                Duration="0:0:0.6" />
                                     <DoubleAnimation Storyboard.TargetName="Indicator"
-                                 Storyboard.TargetProperty="Opacity"
-                                 To="0"
-                                 Duration="0:0:0.3" />
+                                                     Storyboard.TargetProperty="Opacity"
+                                                     To="0"
+                                                     Duration="0:0:0.3" />
                                 </Storyboard>
                             </BeginStoryboard>
                         </EventTrigger>
 
                         <!-- 选中状态 -->
-                        <Trigger Property="IsChecked" Value="True">
+                        <!--<Trigger Property="IsChecked" Value="True">
                             <Setter Property="Background"
                 TargetName="border"
                 Value="#8CA0BA" />
-                        </Trigger>
+                        </Trigger>-->
                     </ControlTemplate.Triggers>
 
 

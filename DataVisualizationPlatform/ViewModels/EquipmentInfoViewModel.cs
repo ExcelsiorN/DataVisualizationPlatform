@@ -1,13 +1,13 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Windows.Input;
 using CommunityToolkit.Mvvm.Messaging;
-using DataVisualizationPlatform.Models;
+using CommunityToolkit.Mvvm.Input;
 using DataVisualizationPlatform.Services;
+using DataVisualizationPlatform.Models;
 using DataVisualizationPlatform.Views;
 using Newtonsoft.Json;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Windows.Controls;
-using System.Windows.Input;
+
 
 namespace DataVisualizationPlatform.ViewModels
 {

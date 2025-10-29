@@ -1,11 +1,16 @@
-﻿
+﻿G:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\obj\Debug\net8.0-windows\GeneratedInternalTypeHelper.g.cs
 FG:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\App.xaml;;
+FG:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\MainWindow.xaml;;
+FG:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\Resources\Styles\DataStyle.xaml;;
 FG:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\Resources\Styles\EquipmentInfoStyle.xaml;;
-FG:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\Resources\Styles\FaultReportStyle.xaml;;
 FG:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\Resources\Styles\ReservationListStyle.xaml;;
 FG:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\Views\Data.xaml;;
+FG:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\Views\Edit.xaml;;
 FG:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\Views\EquipmentInfo.xaml;;
 FG:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\Views\FaultReport.xaml;;
-FG:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\Views\MainMenu.xaml;;
+FG:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\Views\HomePageA.xaml;;
+FG:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\Views\HomePageB.xaml;;
+FG:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\Views\HomePageC.xaml;;
+FG:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\Views\Login.xaml;;
 FG:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\Views\ReservationList.xaml;;
 
