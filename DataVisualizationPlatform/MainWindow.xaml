@@ -40,52 +40,14 @@
             <Grid x:Name="NavigationPanel"
                   Background="Transparent">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
+                <!-- 菜单按钮 - 左对齐 -->
                 <StackPanel Orientation="Horizontal"
                             HorizontalAlignment="Left"
                             Grid.Column="0">
-                    <!-- 最小化按钮 -->
-                    <Button x:Name="MinimizeButton" Width="40" Height="40" 
-                                Click="MinimizeButton_Click"
-                                Background="Transparent" BorderThickness="0">
-                        <Path Data="M0,0 L10,0" Stroke="White" StrokeThickness="1" 
-                                  VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                    </Button>
-
-                    <!-- 最大化/还原按钮 -->
-                    <Button x:Name="MaximizeButton" Width="40" Height="40" 
-                                Click="MaximizeButton_Click"
-                                Background="Transparent" BorderThickness="0">
-                        <Path x:Name="MaximizePath" Data="M0,0 L10,0 L10,10 L0,10 Z" 
-                                  Stroke="White" StrokeThickness="1" Fill="Transparent"
-                                  VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                    </Button>
-
-                    <!-- 关闭按钮 -->
-                    <Button x:Name="CloseButton" Width="40" Height="40" 
-                                Click="CloseButton_Click"
-                                Background="Transparent" BorderThickness="0">
-                        <Button.Style>
-                            <Style TargetType="Button">
-                                <Setter Property="Background" Value="Transparent"/>
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Background" Value="#E81123"/>
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Button.Style>
-                        <Path Data="M0,0 L10,10 M0,10 L10,0" Stroke="White" StrokeThickness="1"
-                                  VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                    </Button>
-                </StackPanel>
-
-                <StackPanel Orientation="Horizontal"
-                            HorizontalAlignment="Right"
-                            Grid.Column="1">
 
                     <!--// Home //-->
 
@@ -136,25 +98,67 @@
                         <TextBlock Text="Data" Style="{StaticResource Text_Style}" />
                     </RadioButton>
 
-                    <!-- 统一的弹出菜单 -->
-                    <Popup x:Name="UnifiedPopup"
-                           PlacementTarget="{Binding ElementName=NavigationPanel}"
-                           Placement="Bottom"
-                           StaysOpen="True"
-                           AllowsTransparency="True"
-                           Width="{Binding ElementName=NavigationPanel, Path=ActualWidth}"
-                           MouseEnter="ButtonOrPopup_MouseEnter"
-                           MouseLeave="ButtonOrPopup_MouseLeave">
-                        <Border Background="White" Padding="10">
-                            <Grid Width="{Binding ElementName=NavigationPanel, Path=ActualWidth}">
+                </StackPanel>
+
+                <!-- 窗口控制按钮 - 右对齐 -->
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Right"
+                            Grid.Column="1">
+                    <!-- 最小化按钮 -->
+                    <Button x:Name="MinimizeButton" Width="40" Height="40"
+                                Click="MinimizeButton_Click"
+                                Background="Transparent" BorderThickness="0">
+                        <Path Data="M0,0 L10,0" Stroke="White" StrokeThickness="1"
+                                  VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Button>
+
+                    <!-- 最大化/还原按钮 -->
+                    <Button x:Name="MaximizeButton" Width="40" Height="40"
+                                Click="MaximizeButton_Click"
+                                Background="Transparent" BorderThickness="0">
+                        <Path x:Name="MaximizePath" Data="M0,0 L10,0 L10,10 L0,10 Z"
+                                  Stroke="White" StrokeThickness="1" Fill="Transparent"
+                                  VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Button>
+
+                    <!-- 关闭按钮 -->
+                    <Button x:Name="CloseButton" Width="40" Height="40"
+                                Click="CloseButton_Click"
+                                Background="Transparent" BorderThickness="0">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#E81123"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Path Data="M0,0 L10,10 M0,10 L10,0" Stroke="White" StrokeThickness="1"
+                                  VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Button>
+                </StackPanel>
+
+                <!-- 统一的弹出菜单 -->
+                <Popup x:Name="UnifiedPopup"
+                       PlacementTarget="{Binding ElementName=NavigationPanel}"
+                       Placement="Bottom"
+                       StaysOpen="True"
+                       AllowsTransparency="True"
+                       Width="{Binding ElementName=NavigationPanel, Path=ActualWidth}"
+                       MouseEnter="ButtonOrPopup_MouseEnter"
+                       MouseLeave="ButtonOrPopup_MouseLeave">
+                    <Border Background="White" Padding="10">
+                        <Grid Width="{Binding ElementName=NavigationPanel, Path=ActualWidth}">
 
                                 <!-- FaultReport 内容 -->
                                 <StackPanel x:Name="FaultReportPopupContent"
                                             Visibility="Collapsed">
                                     <ScrollViewer VerticalScrollBarVisibility="Hidden"
                                                   HorizontalScrollBarVisibility="Disabled"
-                                                  HorizontalAlignment="Right"
-                                                  Margin="0,0,240,0"
+                                                  HorizontalAlignment="Left"
+                                                  Margin="240,0,0,0"
                                                   MaxHeight="300"
                                                   Visibility="Collapsed">
                                         <ItemsControl ItemsSource="{Binding Months}"
@@ -183,12 +187,12 @@
                                 </StackPanel>
 
                                 <!-- Data 内容 -->
-                                <StackPanel x:Name="DataPopupContent" 
+                                <StackPanel x:Name="DataPopupContent"
                                             Visibility="Collapsed">
                                     <ScrollViewer VerticalScrollBarVisibility="Hidden"
                                                   HorizontalScrollBarVisibility="Disabled"
-                                                  HorizontalAlignment="Right"
-                                                  Margin="0,0,10,0"
+                                                  HorizontalAlignment="Left"
+                                                  Margin="360,0,0,0"
                                                   Height="200">
                                         <ItemsControl ItemsSource="{Binding Years}">
                                             <ItemsControl.ItemsPanel>
@@ -217,7 +221,6 @@
                         </Border>
                     </Popup>
 
-                </StackPanel>
             </Grid>
 
 

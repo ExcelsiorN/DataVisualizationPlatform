@@ -1,11 +1,11 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib"
-                    xmlns:cmd="clr-namespace:DataVisualizationPlatform.Commands">
+                    xmlns:cvt="clr-namespace:DataVisualizationPlatform.Converters">
 
     <!-- 转换器 -->
-    <cmd:StatusToBrushConverter x:Key="StatusToBrushConverter" />
-    <cmd:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    <cvt:StatusToBrushConverter x:Key="StatusToBrushConverter" />
+    <cvt:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
 
     <!-- 标题文字 -->
     <Style x:Key="CardTitleText" TargetType="TextBlock">

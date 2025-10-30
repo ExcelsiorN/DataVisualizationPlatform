@@ -66,8 +66,8 @@
                     <!-- 选择状态 -->
                     <StackPanel Orientation="Vertical" Margin="0,0,20,0">
                         <TextBlock Text="故障状态" Style="{StaticResource Fal_FilterLabelStyle}"/>
-                        <ComboBox Style="{StaticResource Fal_ModernComboBoxStyle}"
-                                  ItemContainerStyle="{StaticResource Fal_ModernComboBoxItemStyle}"
+                        <ComboBox Style="{StaticResource ModernComboBoxStyle}"
+                                  ItemContainerStyle="{StaticResource ModernComboBoxItemStyle}"
                                   Width="100"
                                   Height="40"
                                   ScrollViewer.VerticalScrollBarVisibility="Hidden"
@@ -84,8 +84,8 @@
                     <!-- 选择设备 -->
                     <StackPanel Orientation="Vertical" Margin="0,0,20,0">
                         <TextBlock Text="设备选择" Style="{StaticResource Fal_FilterLabelStyle}"/>
-                        <ComboBox Style="{StaticResource Fal_ModernComboBoxStyle}"
-                                  ItemContainerStyle="{StaticResource Fal_ModernComboBoxItemStyle}"
+                        <ComboBox Style="{StaticResource ModernComboBoxStyle}"
+                                  ItemContainerStyle="{StaticResource ModernComboBoxItemStyle}"
                                   Width="100"
                                   Height="40"
                                   ScrollViewer.VerticalScrollBarVisibility="Hidden"
@@ -102,8 +102,8 @@
                     <!-- 筛选年份 -->
                     <StackPanel Orientation="Vertical" Margin="0,0,20,0">
                         <TextBlock Text="年份" Style="{StaticResource Fal_FilterLabelStyle}"/>
-                        <ComboBox Style="{StaticResource Fal_ModernComboBoxStyle}"
-                                  ItemContainerStyle="{StaticResource Fal_ModernComboBoxItemStyle}"
+                        <ComboBox Style="{StaticResource ModernComboBoxStyle}"
+                                  ItemContainerStyle="{StaticResource ModernComboBoxItemStyle}"
                                   Width="100"
                                   Height="40"
                                   ItemsSource="{Binding Years}"
@@ -121,8 +121,8 @@
                                Visibility="{Binding IsMonthVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
 
                         <TextBlock Text="月份" Style="{StaticResource Fal_FilterLabelStyle}"/>
-                        <ComboBox Style="{StaticResource Fal_ModernComboBoxStyle}"
-                                  ItemContainerStyle="{StaticResource Fal_ModernComboBoxItemStyle}"
+                        <ComboBox Style="{StaticResource ModernComboBoxStyle}"
+                                  ItemContainerStyle="{StaticResource ModernComboBoxItemStyle}"
                                   Width="100"
                                   Height="40"
                                   ItemsSource="{Binding Months}"

@@ -1,7 +1,7 @@
 ﻿<Application x:Class="DataVisualizationPlatform.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:converters="clr-namespace:DataVisualizationPlatform.Commands"
+             xmlns:converters="clr-namespace:DataVisualizationPlatform.Converters"
              ShutdownMode="OnLastWindowClose">
     <Application.Resources>
         <ResourceDictionary>
@@ -16,7 +16,8 @@
                 <ResourceDictionary Source="/Resources/Styles/Chart.xaml"/>
                 <ResourceDictionary Source="/Resources/Styles/Button.xaml"/>
                 <ResourceDictionary Source="/Resources/Styles/MainWindowStyle.xaml"/>
-                
+                <ResourceDictionary Source="/Resources/Styles/ComboBox.xaml"/>
+
             </ResourceDictionary.MergedDictionaries>
 
             <converters:StatusToBrushConverter x:Key="StatusToBrushConverter"/>

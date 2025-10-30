@@ -2,7 +2,7 @@
 using System.Windows.Data;
 using System.Globalization;
 
-namespace DataVisualizationPlatform.Commands
+namespace DataVisualizationPlatform.Converters
 {
     public class BooleanToVisibilityConverter : IValueConverter
     {

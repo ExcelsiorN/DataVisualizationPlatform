@@ -2,7 +2,7 @@
 using System.Windows.Media;
 using System.Globalization;
 
-namespace DataVisualizationPlatform.Commands;
+namespace DataVisualizationPlatform.Converters;
 
 public class StatusToBrushConverter : IValueConverter
 {

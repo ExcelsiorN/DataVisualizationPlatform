@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib"
-                    xmlns:cmd="clr-namespace:DataVisualizationPlatform.Commands">
+                    xmlns:cmd="clr-namespace:DataVisualizationPlatform.Converters">
 
     <!-- 转换器 -->
     <cmd:StatusToBrushConverter x:Key="StatusToBrushConverter" />
