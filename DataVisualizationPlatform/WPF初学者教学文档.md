@@ -1730,6 +1730,610 @@ public class FaultReportViewModel : INotifyPropertyChanged
 
 ---
 
+### 7.3 案例3：数据编辑系统与跨页面数据同步
+
+#### 场景说明
+在DataVisualizationPlatform项目中，我们需要实现一个设备信息编辑页面，支持增删改查操作，并且数据修改后能够实时同步到其他页面，无需重启应用。
+
+这个案例展示了：
+- ✅ 完整的CRUD操作实现
+- ✅ 文件I/O操作（读写源代码文件）
+- ✅ 跨页面消息通信
+- ✅ 单例模式的数据服务
+- ✅ 动态数据加载
+
+---
+
+#### 第1步：创建消息类
+
+**作用**：使用消息传递实现跨页面通信。
+
+```csharp
+// Messages/EquipmentDataUpdatedMessage.cs
+namespace DataVisualizationPlatform.Messages
+{
+    /// <summary>
+    /// 设备数据更新消息
+    /// 当设备数据被修改后，发送此消息通知其他页面刷新
+    /// </summary>
+    public class EquipmentDataUpdatedMessage
+    {
+        public DateTime UpdatedAt { get; set; } = DateTime.Now;
+    }
+}
+```
+
+**关键点**：
+- 消息类可以携带数据，也可以只作为通知
+- 使用`WeakReferenceMessenger`避免内存泄漏
+
+---
+
+#### 第2步：创建数据服务
+
+**作用**：提供动态数据加载功能，从源代码文件读取最新数据。
+
+```csharp
+// Services/JsonDataService.cs
+public class JsonDataService
+{
+    private static JsonDataService? _instance;
+    private static readonly object _lock = new object();
+
+    // 单例模式实现
+    public static JsonDataService Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                lock (_lock)
+                {
+                    if (_instance == null)
+                    {
+                        _instance = new JsonDataService();
+                    }
+                }
+            }
+            return _instance;
+        }
+    }
+
+    /// <summary>
+    /// 从Json.cs文件中动态读取设备信息
+    /// </summary>
+    public string GetEquipmentInfoJson()
+    {
+        try
+        {
+            string jsonFilePath = FindJsonFilePath();
+            if (string.IsNullOrEmpty(jsonFilePath))
+            {
+                return new Json()._EquipmentInfo;
+            }
+
+            // 读取文件内容
+            string fileContent = File.ReadAllText(jsonFilePath, Encoding.UTF8);
+
+            // 使用正则表达式提取_EquipmentInfo字段内容
+            var match = Regex.Match(fileContent,
+                @"public readonly string _EquipmentInfo = @""([\s\S]*?)"";",
+                RegexOptions.Multiline);
+
+            if (match.Success && match.Groups.Count > 1)
+            {
+                string content = match.Groups[1].Value;
+                // 反转义双引号
+                content = content.Replace("\"\"", "\"");
+                // 移除多余的缩进
+                content = Regex.Replace(content, @"^        ", "", RegexOptions.Multiline);
+                return content;
+            }
+
+            return new Json()._EquipmentInfo;
+        }
+        catch
+        {
+            return new Json()._EquipmentInfo;
+        }
+    }
+
+    private string FindJsonFilePath()
+    {
+        string currentDir = AppDomain.CurrentDomain.BaseDirectory;
+
+        // 向上查找项目根目录
+        DirectoryInfo? directory = new DirectoryInfo(currentDir);
+        while (directory != null && directory.Name != "DataVisualizationPlatform")
+        {
+            directory = directory.Parent;
+        }
+
+        if (directory != null)
+        {
+            string jsonPath = Path.Combine(directory.FullName, "Services", "Json.cs");
+            if (File.Exists(jsonPath))
+                return jsonPath;
+        }
+
+        return string.Empty;
+    }
+}
+```
+
+**关键点**：
+- **单例模式**：使用双重检查锁定确保线程安全
+- **动态读取**：每次调用都从文件读取最新数据
+- **正则表达式**：精确提取源代码中的JSON字符串
+- **异常处理**：读取失败时返回默认数据
+
+---
+
+#### 第3步：实现EditViewModel
+
+**完整的CRUD功能实现**：
+
+```csharp
+// ViewModels/EditViewModel.cs
+public class EditViewModel : INotifyPropertyChanged
+{
+    private EquipmentInfoModel? _selectedEquipment;
+    private string _searchText = string.Empty;
+
+    public ObservableCollection<EquipmentInfoModel> EquipmentList { get; } = new();
+    public ObservableCollection<EquipmentInfoModel> FilteredEquipmentList { get; } = new();
+
+    public ICommand AddCommand { get; }
+    public ICommand DeleteCommand { get; }
+    public ICommand SaveCommand { get; }
+    public ICommand SearchCommand { get; }
+
+    public EditViewModel()
+    {
+        LoadEquipmentData();
+
+        AddCommand = new RelayCommand<object>(AddEquipment);
+        DeleteCommand = new RelayCommand<object>(DeleteEquipment, CanDeleteEquipment);
+        SaveCommand = new RelayCommand<object>(SaveEquipmentData);
+        SearchCommand = new RelayCommand<object>(SearchEquipment);
+    }
+
+    // 选中的设备
+    public EquipmentInfoModel? SelectedEquipment
+    {
+        get => _selectedEquipment;
+        set
+        {
+            if (_selectedEquipment != value)
+            {
+                _selectedEquipment = value;
+                OnPropertyChanged();
+            }
+        }
+    }
+
+    // 搜索文本
+    public string SearchText
+    {
+        get => _searchText;
+        set
+        {
+            if (_searchText != value)
+            {
+                _searchText = value;
+                OnPropertyChanged();
+                SearchEquipment(null);  // 自动搜索
+            }
+        }
+    }
+
+    // 加载设备数据
+    private void LoadEquipmentData()
+    {
+        try
+        {
+            // 使用JsonDataService获取最新数据
+            var equipmentJson = JsonDataService.Instance.GetEquipmentInfoJson();
+            var equipmentData = JsonConvert.DeserializeObject<ObservableCollection<EquipmentInfoModel>>(equipmentJson);
+
+            EquipmentList.Clear();
+            FilteredEquipmentList.Clear();
+
+            if (equipmentData != null)
+            {
+                foreach (var item in equipmentData)
+                {
+                    EquipmentList.Add(item);
+                    FilteredEquipmentList.Add(item);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"加载设备数据失败: {ex.Message}", "错误",
+                MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    // 添加设备
+    private void AddEquipment(object? parameter)
+    {
+        var newEquipment = new EquipmentInfoModel
+        {
+            Equ_Id = $"fntp-{EquipmentList.Count}",
+            Equ_Name = "新设备",
+            Equ_OnlineStatus = "离线",
+            Equ_AvailableBookingPeriod = "预约时段配置1",
+            Equ_TotalOperationTime = "0年0月0天",
+            Equ_FixedDurationThisYear = "0.0小时",
+            Equ_UsedFixedDurationThisYear = "0.0小时",
+            Equ_UsageRateThisYear = "0.0%",
+            Equ_DeploymentAddress = "0.0, 0.0"
+        };
+
+        EquipmentList.Add(newEquipment);
+        FilteredEquipmentList.Add(newEquipment);
+        SelectedEquipment = newEquipment;
+
+        // 自动保存
+        SaveEquipmentData(null);
+    }
+
+    // 删除设备
+    private void DeleteEquipment(object? parameter)
+    {
+        if (SelectedEquipment == null) return;
+
+        var result = MessageBox.Show(
+            $"确定要删除设备 '{SelectedEquipment.Equ_Name}' ({SelectedEquipment.Equ_Id}) 吗？",
+            "确认删除",
+            MessageBoxButton.YesNo,
+            MessageBoxImage.Question);
+
+        if (result == MessageBoxResult.Yes)
+        {
+            EquipmentList.Remove(SelectedEquipment);
+            FilteredEquipmentList.Remove(SelectedEquipment);
+            SelectedEquipment = null;
+
+            // 自动保存
+            SaveEquipmentData(null);
+        }
+    }
+
+    private bool CanDeleteEquipment(object? parameter)
+    {
+        return SelectedEquipment != null;
+    }
+
+    // 保存设备数据到Json.cs文件
+    private void SaveEquipmentData(object? parameter)
+    {
+        try
+        {
+            // 1. 序列化数据为JSON
+            var jsonString = JsonConvert.SerializeObject(EquipmentList, Formatting.Indented);
+
+            // 2. 读取Json.cs文件
+            string jsonFilePath = FindJsonFilePath();
+            string fileContent = File.ReadAllText(jsonFilePath, Encoding.UTF8);
+
+            // 3. 查找_EquipmentInfo字段的位置
+            int startIndex = fileContent.IndexOf("public readonly string _EquipmentInfo = @\"");
+            int contentStart = fileContent.IndexOf("@\"", startIndex) + 2;
+            int contentEnd = fileContent.IndexOf("\";", contentStart);
+
+            // 4. 格式化JSON字符串（添加缩进和转义）
+            string formattedJson = FormatJsonForCSharp(jsonString);
+
+            // 5. 替换内容
+            string newContent = fileContent.Substring(0, contentStart) +
+                              formattedJson +
+                              fileContent.Substring(contentEnd);
+
+            // 6. 写回文件
+            File.WriteAllText(jsonFilePath, newContent, Encoding.UTF8);
+
+            // 7. 发送更新消息，通知其他页面刷新
+            WeakReferenceMessenger.Default.Send(new EquipmentDataUpdatedMessage());
+
+            MessageBox.Show("设备数据保存成功！", "成功",
+                MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"保存设备数据失败: {ex.Message}", "错误",
+                MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    // 将JSON格式化为C#字符串格式
+    private string FormatJsonForCSharp(string jsonString)
+    {
+        var lines = jsonString.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
+        var formattedLines = lines.Select(line =>
+        {
+            string indentedLine = "        " + line;  // 添加缩进
+            indentedLine = indentedLine.Replace("\"", "\"\"");  // 转义引号
+            return indentedLine;
+        });
+
+        return string.Join("\r\n", formattedLines);
+    }
+
+    // 搜索设备
+    private void SearchEquipment(object? parameter)
+    {
+        FilteredEquipmentList.Clear();
+
+        if (string.IsNullOrWhiteSpace(SearchText))
+        {
+            foreach (var item in EquipmentList)
+            {
+                FilteredEquipmentList.Add(item);
+            }
+        }
+        else
+        {
+            var filtered = EquipmentList.Where(e =>
+                e.Equ_Id.Contains(SearchText, StringComparison.OrdinalIgnoreCase) ||
+                e.Equ_Name.Contains(SearchText, StringComparison.OrdinalIgnoreCase) ||
+                e.Equ_OnlineStatus.Contains(SearchText, StringComparison.OrdinalIgnoreCase)
+            );
+
+            foreach (var item in filtered)
+            {
+                FilteredEquipmentList.Add(item);
+            }
+        }
+    }
+
+    public event PropertyChangedEventHandler? PropertyChanged;
+    protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+}
+```
+
+**关键点**：
+- **自动保存**：增加和删除操作后自动保存
+- **文件I/O**：直接修改源代码文件`Json.cs`
+- **消息广播**：保存成功后发送消息通知其他页面
+- **搜索功能**：支持按ID、名称、状态搜索
+
+---
+
+#### 第4步：订阅消息更新
+
+**在其他ViewModel中订阅数据更新消息**：
+
+```csharp
+// ViewModels/HomePageBViewModel.cs
+public class HomePageBViewModel : INotifyPropertyChanged
+{
+    public HomePageBViewModel()
+    {
+        // 订阅设备数据更新消息
+        WeakReferenceMessenger.Default.Register<EquipmentDataUpdatedMessage>(
+            this, (recipient, message) =>
+            {
+                // 收到消息后重新加载数据
+                LoadData();
+                CalculateEquipmentStatistics();
+            });
+    }
+
+    private void LoadData()
+    {
+        // 使用JsonDataService获取最新数据
+        var equipmentJson = JsonDataService.Instance.GetEquipmentInfoJson();
+        var equipment = JsonConvert.DeserializeObject<List<EquipmentInfoModel>>(equipmentJson);
+
+        EquipmentList.Clear();
+        if (equipment != null)
+        {
+            foreach (var item in equipment)
+            {
+                EquipmentList.Add(item);
+            }
+        }
+    }
+}
+```
+
+```csharp
+// ViewModels/EquipmentInfoViewModel.cs
+public class EquipmentInfoViewModel : INotifyPropertyChanged
+{
+    public EquipmentInfoViewModel()
+    {
+        // 同样订阅更新消息
+        WeakReferenceMessenger.Default.Register<EquipmentDataUpdatedMessage>(
+            this, (recipient, message) =>
+            {
+                LoadEquipment();
+            });
+    }
+
+    private void LoadEquipment()
+    {
+        var equipmentJson = JsonDataService.Instance.GetEquipmentInfoJson();
+        var equipment = JsonConvert.DeserializeObject<List<EquipmentInfoModel>>(equipmentJson);
+
+        EquipmentList.Clear();
+        if (equipment != null)
+        {
+            foreach (var item in equipment)
+            {
+                EquipmentList.Add(item);
+            }
+        }
+    }
+}
+```
+
+**关键点**：
+- **弱引用**：`WeakReferenceMessenger`自动管理订阅生命周期
+- **Lambda表达式**：简洁的消息处理
+- **动态加载**：从文件读取最新数据，而不是使用缓存
+
+---
+
+#### 第5步：完整的数据流程
+
+```
+用户操作流程：
+1. 用户在Edit页面添加/修改/删除设备
+   ↓
+2. EditViewModel.SaveEquipmentData()
+   ↓
+3. 序列化数据为JSON字符串
+   ↓
+4. 使用正则表达式替换Json.cs文件中的内容
+   ↓
+5. File.WriteAllText()写入文件
+   ↓
+6. 发送EquipmentDataUpdatedMessage消息
+   ↓
+7. HomePageBViewModel和EquipmentInfoViewModel收到消息
+   ↓
+8. 调用JsonDataService.GetEquipmentInfoJson()
+   ↓
+9. 从文件读取最新JSON数据
+   ↓
+10. 反序列化并更新ObservableCollection
+   ↓
+11. UI自动更新显示最新数据
+```
+
+---
+
+#### 核心技术总结
+
+##### 1. 单例模式
+```csharp
+// 双重检查锁定，确保线程安全
+public static JsonDataService Instance
+{
+    get
+    {
+        if (_instance == null)
+        {
+            lock (_lock)
+            {
+                if (_instance == null)
+                {
+                    _instance = new JsonDataService();
+                }
+            }
+        }
+        return _instance;
+    }
+}
+```
+
+##### 2. 消息传递模式
+```csharp
+// 发送消息
+WeakReferenceMessenger.Default.Send(new EquipmentDataUpdatedMessage());
+
+// 订阅消息
+WeakReferenceMessenger.Default.Register<EquipmentDataUpdatedMessage>(
+    this, (recipient, message) =>
+    {
+        // 处理消息
+    });
+```
+
+##### 3. 文件I/O操作
+```csharp
+// 读取文件
+string content = File.ReadAllText(path, Encoding.UTF8);
+
+// 正则表达式提取
+var match = Regex.Match(content, pattern, RegexOptions.Multiline);
+
+// 写入文件
+File.WriteAllText(path, newContent, Encoding.UTF8);
+```
+
+##### 4. 属性变化通知
+```csharp
+// Model需要完整的属性实现
+private string _equ_OnlineStatus = string.Empty;
+public string Equ_OnlineStatus
+{
+    get => _equ_OnlineStatus;
+    set
+    {
+        if (_equ_OnlineStatus != value)
+        {
+            _equ_OnlineStatus = value;
+            OnPropertyChanged(nameof(Equ_OnlineStatus));
+        }
+    }
+}
+```
+
+---
+
+#### 学到的经验
+
+##### 经验1：数据同步的重要性
+在多页面应用中，数据修改后必须通知所有相关页面更新，否则会出现数据不一致。
+
+##### 经验2：单例模式的应用
+对于全局共享的服务（如数据服务），使用单例模式可以：
+- 节省内存
+- 确保数据一致性
+- 简化访问方式
+
+##### 经验3：消息传递vs直接调用
+消息传递的优势：
+- ✅ 解耦：发送者和接收者互不依赖
+- ✅ 灵活：可以有多个订阅者
+- ✅ 安全：使用弱引用避免内存泄漏
+
+##### 经验4：Model必须实现INotifyPropertyChanged
+如果Model的属性使用自动属性，UI不会自动更新。必须：
+```csharp
+// ❌ 错误：使用自动属性
+public string Equ_Name { get; set; }
+
+// ✅ 正确：完整实现
+private string _equ_Name = string.Empty;
+public string Equ_Name
+{
+    get => _equ_Name;
+    set
+    {
+        if (_equ_Name != value)
+        {
+            _equ_Name = value;
+            OnPropertyChanged(nameof(Equ_Name));
+        }
+    }
+}
+```
+
+##### 经验5：ComboBox绑定陷阱
+```csharp
+// ❌ 错误：绑定到SelectedItem会显示"ComboBoxItem:在线"
+<ComboBox SelectedItem="{Binding Equ_OnlineStatus}">
+    <ComboBoxItem Content="在线"/>
+</ComboBox>
+
+// ✅ 正确：使用SelectedValue和SelectedValuePath
+<ComboBox SelectedValue="{Binding Equ_OnlineStatus, UpdateSourceTrigger=PropertyChanged}"
+          SelectedValuePath="Content">
+    <ComboBoxItem Content="在线"/>
+    <ComboBoxItem Content="离线"/>
+</ComboBox>
+```
+
+---
+
 ## 第八章：学习路径
 
 ### 8.1 初学者学习路线
@@ -2001,6 +2605,10 @@ System.Diagnostics.Debug.WriteLine($"当前值: {value}");
 
 **祝你学习愉快！**
 
-**文档版本**: v1.0
-**最后更新**: 2025-10-29
-**适用项目**: DataVisualizationPlatform 1.0.0
+**文档版本**: v1.1
+**最后更新**: 2025-10-30
+**适用项目**: DataVisualizationPlatform 1.1.0
+
+**更新记录**:
+- v1.1 (2025-10-30): 新增案例3 - 数据编辑系统与跨页面数据同步
+- v1.0 (2025-10-29): 初始版本

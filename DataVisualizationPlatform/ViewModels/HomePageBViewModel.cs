@@ -56,6 +56,14 @@ namespace DataVisualizationPlatform.ViewModels
             ExportDataCommand = new RelayCommand<object>(ExportData);
             ViewReportCommand = new RelayCommand<object>(ViewReport);
             EditDataCommand = new RelayCommand<object>(EditData);
+
+            // 订阅设备数据更新消息
+            WeakReferenceMessenger.Default.Register<EquipmentDataUpdatedMessage>(this, (recipient, message) =>
+            {
+                // 重新加载设备数据
+                LoadData();
+                CalculateEquipmentStatistics();
+            });
         }
 
         #region Properties
@@ -80,7 +88,9 @@ namespace DataVisualizationPlatform.ViewModels
             {
                 var faultReport = JsonConvert.DeserializeObject<List<BarDataItem>>(_jsonData._FaultReport);
                 var data = JsonConvert.DeserializeObject<List<ReservationListModel>>(_jsonData._ReservationList);
-                var equipment = JsonConvert.DeserializeObject<List<EquipmentInfoModel>>(_jsonData._EquipmentInfo);
+                // 使用 JsonDataService 获取最新的设备数据
+                var equipmentJson = JsonDataService.Instance.GetEquipmentInfoJson();
+                var equipment = JsonConvert.DeserializeObject<List<EquipmentInfoModel>>(equipmentJson);
                 FaultReportList.Clear();
                 DataList.Clear();
                 EquipmentList.Clear();

@@ -1,3 +1,4 @@
+using DataVisualizationPlatform.ViewModels;
 using System.Windows.Controls;
 
 namespace DataVisualizationPlatform.Views
@@ -7,10 +8,10 @@ namespace DataVisualizationPlatform.Views
     /// </summary>
     public partial class Edit : Page
     {
-        public Edit()
+        public Edit(EditViewModel viewModel)
         {
             InitializeComponent();
-            // Edit页面可能没有对应的ViewModel，保持原样
+            DataContext = viewModel;
         }
     }
 }

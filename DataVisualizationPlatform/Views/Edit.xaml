@@ -1,14 +1,324 @@
 ﻿<Page x:Class="DataVisualizationPlatform.Views.Edit"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:DataVisualizationPlatform.Views"
-      mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="Edit">
+      xmlns:vm="clr-namespace:DataVisualizationPlatform.ViewModels"
+      mc:Ignorable="d"
+      d:DesignHeight="600" d:DesignWidth="1000"
+      Title="设备信息编辑"
+      Background="#F5F5F5">
 
-    <Grid>
+    <Page.Resources>
+        <Style x:Key="ToolbarButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#2196F3"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Padding" Value="15,8"/>
+            <Setter Property="Margin" Value="5,0"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="4"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#1976D2"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" Value="#BDBDBD"/>
+                    <Setter Property="Cursor" Value="Arrow"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
 
+        <Style x:Key="DeleteButtonStyle" TargetType="Button" BasedOn="{StaticResource ToolbarButtonStyle}">
+            <Setter Property="Background" Value="#F44336"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#D32F2F"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="SaveButtonStyle" TargetType="Button" BasedOn="{StaticResource ToolbarButtonStyle}">
+            <Setter Property="Background" Value="#4CAF50"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#388E3C"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="TextBoxStyle" TargetType="TextBox">
+            <Setter Property="Padding" Value="8"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="BorderBrush" Value="#BDBDBD"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Background" Value="White"/>
+        </Style>
+
+        <Style x:Key="LabelStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="Foreground" Value="#424242"/>
+            <Setter Property="Margin" Value="0,0,0,5"/>
+        </Style>
+    </Page.Resources>
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- 工具栏 -->
+        <Border Grid.Row="0"
+                Background="White"
+                CornerRadius="8"
+                Padding="15"
+                Margin="0,0,0,15">
+            <Border.Effect>
+                <DropShadowEffect ShadowDepth="2" BlurRadius="8" Opacity="0.2"/>
+            </Border.Effect>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- 搜索框 -->
+                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="搜索设备："
+                               Style="{StaticResource LabelStyle}"
+                               VerticalAlignment="Center"
+                               Margin="0,0,10,0"/>
+                    <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+                             Width="250"
+                             Style="{StaticResource TextBoxStyle}"
+                             VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <!-- 操作按钮 -->
+                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                    <Button Content="➕ 添加设备"
+                            Command="{Binding AddCommand}"
+                            Style="{StaticResource ToolbarButtonStyle}"/>
+                    <Button Content="🗑️ 删除设备"
+                            Command="{Binding DeleteCommand}"
+                            Style="{StaticResource DeleteButtonStyle}"/>
+                    <Button Content="💾 保存数据"
+                            Command="{Binding SaveCommand}"
+                            Style="{StaticResource SaveButtonStyle}"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- 主内容区域 -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- 左侧：设备列表 -->
+            <Border Grid.Column="0"
+                    Background="White"
+                    CornerRadius="8"
+                    Margin="0,0,15,0">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth="2" BlurRadius="8" Opacity="0.2"/>
+                </Border.Effect>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- 列表标题 -->
+                    <Border Grid.Row="0"
+                            Background="#2196F3"
+                            CornerRadius="8,8,0,0"
+                            Padding="15,10">
+                        <TextBlock Text="设备列表"
+                                   FontSize="16"
+                                   FontWeight="Bold"
+                                   Foreground="White"/>
+                    </Border>
+
+                    <!-- 设备列表 -->
+                    <ListBox Grid.Row="1"
+                             ItemsSource="{Binding FilteredEquipmentList}"
+                             SelectedItem="{Binding SelectedEquipment}"
+                             BorderThickness="0"
+                             ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="#E0E0E0"
+                                        BorderThickness="0,0,0,1"
+                                        Padding="10"
+                                        Background="Transparent">
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding Equ_Name}"
+                                                   FontWeight="Bold"
+                                                   FontSize="14"
+                                                   Foreground="#263238"/>
+                                        <TextBlock Text="{Binding Equ_Id}"
+                                                   FontSize="12"
+                                                   Foreground="#757575"
+                                                   Margin="0,2,0,0"/>
+                                        <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                                            <Border Background="{Binding Equ_OnlineStatus, Converter={StaticResource StatusToBrushConverter}}"
+                                                    CornerRadius="3"
+                                                    Padding="6,2">
+                                                <TextBlock Text="{Binding Equ_OnlineStatus}"
+                                                           FontSize="11"
+                                                           Foreground="White"/>
+                                            </Border>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </Border>
+
+            <!-- 右侧：编辑表单 -->
+            <Border Grid.Column="1"
+                    Background="White"
+                    CornerRadius="8">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth="2" BlurRadius="8" Opacity="0.2"/>
+                </Border.Effect>
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="20" DataContext="{Binding SelectedEquipment}">
+                        <TextBlock Text="设备详细信息"
+                                   FontSize="20"
+                                   FontWeight="Bold"
+                                   Foreground="#263238"
+                                   Margin="0,0,0,20"/>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="20"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <!-- 设备ID -->
+                            <StackPanel Grid.Row="0" Grid.Column="0" Margin="0,0,0,15">
+                                <TextBlock Text="设备ID" Style="{StaticResource LabelStyle}"/>
+                                <TextBox Text="{Binding Equ_Id, UpdateSourceTrigger=PropertyChanged}"
+                                         Style="{StaticResource TextBoxStyle}"/>
+                            </StackPanel>
+
+                            <!-- 设备名称 -->
+                            <StackPanel Grid.Row="0" Grid.Column="2" Margin="0,0,0,15">
+                                <TextBlock Text="设备名称" Style="{StaticResource LabelStyle}"/>
+                                <TextBox Text="{Binding Equ_Name, UpdateSourceTrigger=PropertyChanged}"
+                                         Style="{StaticResource TextBoxStyle}"/>
+                            </StackPanel>
+
+                            <!-- 在线状态 -->
+                            <StackPanel Grid.Row="1" Grid.Column="0" Margin="0,0,0,15">
+                                <TextBlock Text="在线状态" Style="{StaticResource LabelStyle}"/>
+                                <ComboBox SelectedValue="{Binding Equ_OnlineStatus, UpdateSourceTrigger=PropertyChanged}"
+                                          SelectedValuePath="Content"
+                                          Padding="8"
+                                          FontSize="14">
+                                    <ComboBoxItem Content="在线"/>
+                                    <ComboBoxItem Content="离线"/>
+                                </ComboBox>
+                            </StackPanel>
+
+                            <!-- 预约时段配置 -->
+                            <StackPanel Grid.Row="1" Grid.Column="2" Margin="0,0,0,15">
+                                <TextBlock Text="预约时段配置" Style="{StaticResource LabelStyle}"/>
+                                <TextBox Text="{Binding Equ_AvailableBookingPeriod, UpdateSourceTrigger=PropertyChanged}"
+                                         Style="{StaticResource TextBoxStyle}"/>
+                            </StackPanel>
+
+                            <!-- 总运行时间 -->
+                            <StackPanel Grid.Row="2" Grid.Column="0" Margin="0,0,0,15">
+                                <TextBlock Text="总运行时间" Style="{StaticResource LabelStyle}"/>
+                                <TextBox Text="{Binding Equ_TotalOperationTime, UpdateSourceTrigger=PropertyChanged}"
+                                         Style="{StaticResource TextBoxStyle}"/>
+                            </StackPanel>
+
+                            <!-- 固定时长（本年） -->
+                            <StackPanel Grid.Row="2" Grid.Column="2" Margin="0,0,0,15">
+                                <TextBlock Text="固定时长（本年）" Style="{StaticResource LabelStyle}"/>
+                                <TextBox Text="{Binding Equ_FixedDurationThisYear, UpdateSourceTrigger=PropertyChanged}"
+                                         Style="{StaticResource TextBoxStyle}"/>
+                            </StackPanel>
+
+                            <!-- 已用固定时长（本年） -->
+                            <StackPanel Grid.Row="3" Grid.Column="0" Margin="0,0,0,15">
+                                <TextBlock Text="已用固定时长（本年）" Style="{StaticResource LabelStyle}"/>
+                                <TextBox Text="{Binding Equ_UsedFixedDurationThisYear, UpdateSourceTrigger=PropertyChanged}"
+                                         Style="{StaticResource TextBoxStyle}"/>
+                            </StackPanel>
+
+                            <!-- 使用率（本年） -->
+                            <StackPanel Grid.Row="3" Grid.Column="2" Margin="0,0,0,15">
+                                <TextBlock Text="使用率（本年）" Style="{StaticResource LabelStyle}"/>
+                                <TextBox Text="{Binding Equ_UsageRateThisYear, UpdateSourceTrigger=PropertyChanged}"
+                                         Style="{StaticResource TextBoxStyle}"/>
+                            </StackPanel>
+
+                            <!-- 部署地址 -->
+                            <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,0,0,15">
+                                <TextBlock Text="部署地址（经度, 纬度）" Style="{StaticResource LabelStyle}"/>
+                                <TextBox Text="{Binding Equ_DeploymentAddress, UpdateSourceTrigger=PropertyChanged}"
+                                         Style="{StaticResource TextBoxStyle}"/>
+                            </StackPanel>
+                        </Grid>
+
+                        <!-- 提示信息 -->
+                        <Border Background="#E3F2FD"
+                                CornerRadius="4"
+                                Padding="15"
+                                Margin="0,20,0,0">
+                            <StackPanel>
+                                <TextBlock Text="💡 使用说明"
+                                           FontWeight="Bold"
+                                           FontSize="14"
+                                           Foreground="#1976D2"
+                                           Margin="0,0,0,10"/>
+                                <TextBlock TextWrapping="Wrap"
+                                           FontSize="12"
+                                           Foreground="#424242"
+                                           LineHeight="20">
+                                    <Run Text="1. 从左侧列表选择要编辑的设备"/>
+                                    <LineBreak/>
+                                    <Run Text="2. 修改右侧表单中的设备信息"/>
+                                    <LineBreak/>
+                                    <Run Text="3. 点击顶部''保存数据''按钮保存所有修改"/>
+                                    <LineBreak/>
+                                    <Run Text="4. 修改将直接写入到 Json.cs 文件中"/>
+                                </TextBlock>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </ScrollViewer>
+            </Border>
+        </Grid>
     </Grid>
 </Page>

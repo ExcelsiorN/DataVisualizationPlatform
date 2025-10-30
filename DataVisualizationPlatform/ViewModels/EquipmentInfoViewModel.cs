@@ -36,13 +36,21 @@ namespace DataVisualizationPlatform.ViewModels
                 Console.WriteLine($"消息已发送，参数={param}");
             });
 
+            // 订阅设备数据更新消息
+            WeakReferenceMessenger.Default.Register<EquipmentDataUpdatedMessage>(this, (recipient, message) =>
+            {
+                // 重新加载设备数据
+                LoadEquipment();
+            });
         }
 
         private void LoadEquipment()
         {
             try
             {
-                var equipment = JsonConvert.DeserializeObject<List<EquipmentInfoModel>>(_jsonData._EquipmentInfo);
+                // 使用 JsonDataService 获取最新的设备数据
+                var equipmentJson = JsonDataService.Instance.GetEquipmentInfoJson();
+                var equipment = JsonConvert.DeserializeObject<List<EquipmentInfoModel>>(equipmentJson);
                 EquipmentList.Clear();
 
                 if (equipment != null)

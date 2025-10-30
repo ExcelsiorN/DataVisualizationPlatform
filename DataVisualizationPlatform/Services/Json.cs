@@ -5,73 +5,97 @@ namespace DataVisualizationPlatform.Services
 {
     public class Json
     {
-        public readonly string _EquipmentInfo = @"[
-            {
-                ""Equ_Id"": ""fntp-0"",
-                ""Equ_Name"": ""A320-NEO-FNPT"",
-                ""Equ_OnlineStatus"": ""在线"",
-                ""Equ_AvailableBookingPeriod"": ""预约时段配置2"",
-                ""Equ_TotalOperationTime"": ""0年4月6天"",
-                ""Equ_FixedDurationThisYear"": ""2920.0小时"",
-                ""Equ_UsedFixedDurationThisYear"": ""0.0小时"",
-                ""Equ_UsageRateThisYear"": ""0.0%"",
-                ""Equ_DeploymentAddress"": ""39.9042, 116.4074""
-            },
-            {
-                ""Equ_Id"": ""fntp-1"",
-                ""Equ_Name"": ""B737-MAX-FNPT"",
-                ""Equ_OnlineStatus"": ""在线"",
-                ""Equ_AvailableBookingPeriod"": ""预约时段配置1"",
-                ""Equ_TotalOperationTime"": ""1年2月15天"",
-                ""Equ_FixedDurationThisYear"": ""3500.0小时"",
-                ""Equ_UsedFixedDurationThisYear"": ""1250.5小时"",
-                ""Equ_UsageRateThisYear"": ""35.7%"",
-                ""Equ_DeploymentAddress"": ""31.2304, 121.4737""
-            },
-            {
-                ""Equ_Id"": ""fntp-2"",
-                ""Equ_Name"": ""A320-NEO-FNPT"",
-                ""Equ_OnlineStatus"": ""离线"",
-                ""Equ_AvailableBookingPeriod"": ""预约时段配置3"",
-                ""Equ_TotalOperationTime"": ""0年8月20天"",
-                ""Equ_FixedDurationThisYear"": ""1800.0小时"",
-                ""Equ_UsedFixedDurationThisYear"": ""900.0小时"",
-                ""Equ_UsageRateThisYear"": ""50.0%"",
-                ""Equ_DeploymentAddress"": ""43.8256, 87.6168""
-            },
-            {
-                ""Equ_Id"": ""fntp-3"",
-                ""Equ_Name"": ""A320-NEO-FNPT"",
-                ""Equ_OnlineStatus"": ""在线"",
-                ""Equ_AvailableBookingPeriod"": ""预约时段配置2"",
-                ""Equ_TotalOperationTime"": ""3年0月10天"",
-                ""Equ_FixedDurationThisYear"": ""5000.0小时"",
-                ""Equ_UsedFixedDurationThisYear"": ""3750.0小时"",
-                ""Equ_UsageRateThisYear"": ""75.0%"",
-                ""Equ_DeploymentAddress"": ""23.1291, 113.2644""
-            },
-            {
-                ""Equ_Id"": ""fntp-4"",
-                ""Equ_Name"": ""A320-NEO-FNPT"",
-                ""Equ_OnlineStatus"": ""在线"",
-                ""Equ_AvailableBookingPeriod"": ""预约时段配置4"",
-                ""Equ_TotalOperationTime"": ""2年6月5天"",
-                ""Equ_FixedDurationThisYear"": ""4000.0小时"",
-                ""Equ_UsedFixedDurationThisYear"": ""2000.0小时"",
-                ""Equ_UsageRateThisYear"": ""50.0%"",
-                ""Equ_DeploymentAddress"": ""29.5630, 106.5516""
-            },
-            {
-                ""Equ_Id"": ""fntp-5"",
-                ""Equ_Name"": ""A320-NEO-FNPT"",
-                ""Equ_OnlineStatus"": ""离线"",
-                ""Equ_AvailableBookingPeriod"": ""预约时段配置1"",
-                ""Equ_TotalOperationTime"": ""1年1月1天"",
-                ""Equ_FixedDurationThisYear"": ""2500.0小时"",
-                ""Equ_UsedFixedDurationThisYear"": ""1000.0小时"",
-                ""Equ_UsageRateThisYear"": ""40.0%"",
-                ""Equ_DeploymentAddress"": ""45.8038, 126.5348""
-            }
+        public readonly string _EquipmentInfo = @"        [
+          {
+            ""Equ_Id"": ""fntp-0"",
+            ""Equ_Name"": ""A320-NEO-FNPT"",
+            ""Equ_OnlineStatus"": ""在线"",
+            ""Equ_AvailableBookingPeriod"": ""预约时段配置2"",
+            ""Equ_TotalOperationTime"": ""0年4月6天"",
+            ""Equ_FixedDurationThisYear"": ""2920.0小时"",
+            ""Equ_UsedFixedDurationThisYear"": ""0.0小时"",
+            ""Equ_UsageRateThisYear"": ""0.0%"",
+            ""Equ_DeploymentAddress"": ""39.9042, 116.4074"",
+            ""IsFlipped"": false,
+            ""IsContentFlipped"": false,
+            ""UsageRatePercentage"": 0.0,
+            ""UsedDurationPercentage"": 0.0
+          },
+          {
+            ""Equ_Id"": ""fntp-1"",
+            ""Equ_Name"": ""B737-MAX-FNPT"",
+            ""Equ_OnlineStatus"": ""在线"",
+            ""Equ_AvailableBookingPeriod"": ""预约时段配置1"",
+            ""Equ_TotalOperationTime"": ""1年2月15天"",
+            ""Equ_FixedDurationThisYear"": ""3500.0小时"",
+            ""Equ_UsedFixedDurationThisYear"": ""1250.5小时"",
+            ""Equ_UsageRateThisYear"": ""35.7%"",
+            ""Equ_DeploymentAddress"": ""31.2304, 121.4737"",
+            ""IsFlipped"": false,
+            ""IsContentFlipped"": false,
+            ""UsageRatePercentage"": 35.7,
+            ""UsedDurationPercentage"": 35.72857142857143
+          },
+          {
+            ""Equ_Id"": ""fntp-2"",
+            ""Equ_Name"": ""A320-NEO-FNPT"",
+            ""Equ_OnlineStatus"": ""在线"",
+            ""Equ_AvailableBookingPeriod"": ""预约时段配置3"",
+            ""Equ_TotalOperationTime"": ""0年8月20天"",
+            ""Equ_FixedDurationThisYear"": ""1800.0小时"",
+            ""Equ_UsedFixedDurationThisYear"": ""900.0小时"",
+            ""Equ_UsageRateThisYear"": ""50.0%"",
+            ""Equ_DeploymentAddress"": ""43.8256, 87.6168"",
+            ""IsFlipped"": false,
+            ""IsContentFlipped"": false,
+            ""UsageRatePercentage"": 50.0,
+            ""UsedDurationPercentage"": 50.0
+          },
+          {
+            ""Equ_Id"": ""fntp-3"",
+            ""Equ_Name"": ""A320-NEO-FNPT"",
+            ""Equ_OnlineStatus"": ""在线"",
+            ""Equ_AvailableBookingPeriod"": ""预约时段配置2"",
+            ""Equ_TotalOperationTime"": ""3年0月10天"",
+            ""Equ_FixedDurationThisYear"": ""5000.0小时"",
+            ""Equ_UsedFixedDurationThisYear"": ""3750.0小时"",
+            ""Equ_UsageRateThisYear"": ""75.0%"",
+            ""Equ_DeploymentAddress"": ""23.1291, 113.2644"",
+            ""IsFlipped"": false,
+            ""IsContentFlipped"": false,
+            ""UsageRatePercentage"": 75.0,
+            ""UsedDurationPercentage"": 75.0
+          },
+          {
+            ""Equ_Id"": ""fntp-4"",
+            ""Equ_Name"": ""A320-NEO-FNPT"",
+            ""Equ_OnlineStatus"": ""在线"",
+            ""Equ_AvailableBookingPeriod"": ""预约时段配置4"",
+            ""Equ_TotalOperationTime"": ""2年6月5天"",
+            ""Equ_FixedDurationThisYear"": ""4000.0小时"",
+            ""Equ_UsedFixedDurationThisYear"": ""2000.0小时"",
+            ""Equ_UsageRateThisYear"": ""50.0%"",
+            ""Equ_DeploymentAddress"": ""29.5630, 106.5516"",
+            ""IsFlipped"": false,
+            ""IsContentFlipped"": false,
+            ""UsageRatePercentage"": 50.0,
+            ""UsedDurationPercentage"": 50.0
+          },
+          {
+            ""Equ_Id"": ""fntp-5"",
+            ""Equ_Name"": ""A320-NEO-FNPT"",
+            ""Equ_OnlineStatus"": ""在线"",
+            ""Equ_AvailableBookingPeriod"": ""预约时段配置1"",
+            ""Equ_TotalOperationTime"": ""1年1月1天"",
+            ""Equ_FixedDurationThisYear"": ""2500.0小时"",
+            ""Equ_UsedFixedDurationThisYear"": ""1000.0小时"",
+            ""Equ_UsageRateThisYear"": ""40.0%"",
+            ""Equ_DeploymentAddress"": ""45.8038, 126.5348"",
+            ""IsFlipped"": false,
+            ""IsContentFlipped"": false,
+            ""UsageRatePercentage"": 40.0,
+            ""UsedDurationPercentage"": 40.0
+          }
         ]";
 
         public readonly string _ReservationList = @"[

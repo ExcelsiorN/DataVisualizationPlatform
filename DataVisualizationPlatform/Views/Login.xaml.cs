@@ -20,7 +20,6 @@ namespace DataVisualizationPlatform.Views
 
         /// <summary>
         /// 处理密码框的密码变化事件
-        /// 因为 PasswordBox.Password 不是依赖属性,无法直接绑定
         /// </summary>
         private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
         {
