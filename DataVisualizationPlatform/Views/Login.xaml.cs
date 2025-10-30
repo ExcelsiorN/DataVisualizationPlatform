@@ -44,7 +44,7 @@ namespace DataVisualizationPlatform.Views
             var mainWindow = App.GetService<MainWindow>();
             mainWindow.Show();
 
-            // 关闭当前窗口（假设这是 LoginWindow）
+            // 关闭当前窗口
             this.Close();
         }
 

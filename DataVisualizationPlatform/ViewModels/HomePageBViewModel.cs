@@ -1,5 +1,7 @@
-﻿using DataVisualizationPlatform.Commands;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using DataVisualizationPlatform.Commands;
 using DataVisualizationPlatform.Controls;
+using DataVisualizationPlatform.Messages;
 using DataVisualizationPlatform.Models;
 using DataVisualizationPlatform.Services;
 using DataVisualizationPlatform.Views;
@@ -32,6 +34,7 @@ namespace DataVisualizationPlatform.ViewModels
         public ICommand LogoutCommand { get; }
         public ICommand ExportDataCommand { get; }
         public ICommand ViewReportCommand { get; }
+        public ICommand EditDataCommand { get; }
 
         public HomePageBViewModel()
         {
@@ -52,6 +55,7 @@ namespace DataVisualizationPlatform.ViewModels
             LogoutCommand = new RelayCommand<object>(NavigateToLogin);
             ExportDataCommand = new RelayCommand<object>(ExportData);
             ViewReportCommand = new RelayCommand<object>(ViewReport);
+            EditDataCommand = new RelayCommand<object>(EditData);
         }
 
         #region Properties
@@ -233,6 +237,15 @@ namespace DataVisualizationPlatform.ViewModels
         {
             // 实现查看报告功能
             MessageBox.Show("系统设置功能正在开发中...", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void EditData(object parameter)
+        {
+            // 导航到Edit页面
+            WeakReferenceMessenger.Default.Send(new ChangePageMessage
+            {
+                PageKey = "Edit"
+            });
         }
 
         private void StartAnimation()

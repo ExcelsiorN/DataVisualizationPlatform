@@ -296,9 +296,9 @@
                         </StackPanel>
                     </Button>
 
-                    <!-- 数据分析按钮 -->
+                    <!-- 数据编辑按钮 -->
                     <Button Style="{StaticResource HPB_FunctionButtonStyle}"
-                            Command="{Binding ViewReportCommand}">
+                            Command="{Binding EditDataCommand}">
                         <StackPanel Orientation="Vertical">
                             <Border Style="{StaticResource HPB_IconContainerStyle}"
                                     Background="#F3E5F5">
@@ -310,7 +310,7 @@
                                       HorizontalAlignment="Center"
                                       VerticalAlignment="Center"/>
                             </Border>
-                            <TextBlock Text="数据编辑" 
+                            <TextBlock Text="数据编辑"
                                        FontSize="12"
                                        FontWeight="Medium"
                                        Foreground="#424242"

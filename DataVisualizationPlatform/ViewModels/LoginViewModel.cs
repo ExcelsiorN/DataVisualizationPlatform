@@ -78,7 +78,7 @@ namespace DataVisualizationPlatform.ViewModels
                 return;
             }
 
-            // 先验证账号密码是否正确
+            // 验证账号密码
             if (Username.Trim() != TEST_USERNAME || Password != TEST_PASSWORD)
             {
                 // 账号密码错误，直接显示错误，不显示遮罩
@@ -109,7 +109,6 @@ namespace DataVisualizationPlatform.ViewModels
                 // 改进的异常处理
                 ErrorMessage = "登录失败，请稍后重试";
                 System.Diagnostics.Debug.WriteLine($"登录异常: {ex}");
-                // TODO: 添加日志记录
             }
             finally
             {
