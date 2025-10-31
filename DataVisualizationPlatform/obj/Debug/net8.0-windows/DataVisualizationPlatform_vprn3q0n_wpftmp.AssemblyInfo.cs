@@ -14,11 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DataVisualizationPlatform")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-<<<<<<< Updated upstream
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e8da2c9446e77b4c6c79912526a347b3b0a14a50")]
-=======
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cfb1efa33a0481bd1ecb051b6ae946681531aa51")]
->>>>>>> Stashed changes
 [assembly: System.Reflection.AssemblyProductAttribute("DataVisualizationPlatform")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DataVisualizationPlatform")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

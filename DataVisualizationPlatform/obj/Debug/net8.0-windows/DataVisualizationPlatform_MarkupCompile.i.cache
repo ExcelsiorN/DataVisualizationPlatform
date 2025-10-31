@@ -16,5 +16,5 @@ G:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\App.xaml
 2121324995332
 Controls\SimplePieChart.xaml;MainWindow.xaml;Resources\Styles\Button.xaml;Resources\Styles\Card.xaml;Resources\Styles\Chart.xaml;Resources\Styles\ComboBox.xaml;Resources\Styles\DataStyle.xaml;Resources\Styles\EditStyle.xaml;Resources\Styles\EquipmentInfoStyle.xaml;Resources\Styles\Image.xaml;Resources\Styles\LoginStyle.xaml;Resources\Styles\MainMenuPopupStyle.xaml;Resources\Styles\MainWindowStyle.xaml;Resources\Styles\Page.xaml;Resources\Styles\PopupStyle.xaml;Resources\Styles\ReservationListStyle.xaml;Resources\Styles\Text.xaml;Views\Data.xaml;Views\Edit.xaml;Views\EquipmentInfo.xaml;Views\FaultReport.xaml;Views\HomePageA.xaml;Views\HomePageB.xaml;Views\HomePageC.xaml;Views\Login.xaml;Views\ReservationList.xaml;
 
-True
+False
 

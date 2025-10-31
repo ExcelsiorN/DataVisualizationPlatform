@@ -7,8 +7,25 @@
       "RelativeMoniker": "D:0:0:{B868CA7E-5E9D-2D3D-899A-D8F766E05E8B}|DataVisualizationPlatform.csproj|solutionrelative:mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
+<<<<<<< Updated upstream
       "AbsoluteMoniker": "D:0:0:{B868CA7E-5E9D-2D3D-899A-D8F766E05E8B}|DataVisualizationPlatform.csproj|g:\\lab\\wpf\\datavisualizationplatform\\datavisualizationplatform\\resources\\styles\\equipmentinfostyle.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{B868CA7E-5E9D-2D3D-899A-D8F766E05E8B}|DataVisualizationPlatform.csproj|solutionrelative:resources\\styles\\equipmentinfostyle.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+=======
+      "AbsoluteMoniker": "D:0:0:{B868CA7E-5E9D-2D3D-899A-D8F766E05E8B}|DataVisualizationPlatform.csproj|g:\\lab\\wpf\\datavisualizationplatform\\datavisualizationplatform\\services\\json.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B868CA7E-5E9D-2D3D-899A-D8F766E05E8B}|DataVisualizationPlatform.csproj|solutionrelative:services\\json.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B868CA7E-5E9D-2D3D-899A-D8F766E05E8B}|DataVisualizationPlatform.csproj|g:\\lab\\wpf\\datavisualizationplatform\\datavisualizationplatform\\views\\homepageb.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{B868CA7E-5E9D-2D3D-899A-D8F766E05E8B}|DataVisualizationPlatform.csproj|solutionrelative:views\\homepageb.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B868CA7E-5E9D-2D3D-899A-D8F766E05E8B}|DataVisualizationPlatform.csproj|g:\\lab\\wpf\\datavisualizationplatform\\datavisualizationplatform\\viewmodels\\homepagebviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B868CA7E-5E9D-2D3D-899A-D8F766E05E8B}|DataVisualizationPlatform.csproj|solutionrelative:viewmodels\\homepagebviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B868CA7E-5E9D-2D3D-899A-D8F766E05E8B}|DataVisualizationPlatform.csproj|g:\\lab\\wpf\\datavisualizationplatform\\datavisualizationplatform\\views\\edit.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{B868CA7E-5E9D-2D3D-899A-D8F766E05E8B}|DataVisualizationPlatform.csproj|solutionrelative:views\\edit.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+>>>>>>> Stashed changes
     },
     {
       "AbsoluteMoniker": "D:0:0:{B868CA7E-5E9D-2D3D-899A-D8F766E05E8B}|DataVisualizationPlatform.csproj|g:\\lab\\wpf\\datavisualizationplatform\\datavisualizationplatform\\resources\\styles\\reservationliststyle.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
@@ -38,6 +55,7 @@
           "Children": [
             {
               "$type": "Document",
+<<<<<<< Updated upstream
               "DocumentIndex": 2,
               "Title": "ReservationListStyle.xaml",
               "DocumentMoniker": "G:\\Lab\\WPF\\DataVisualizationPlatform\\DataVisualizationPlatform\\Resources\\Styles\\ReservationListStyle.xaml",
@@ -46,10 +64,22 @@
               "RelativeToolTip": "Resources\\Styles\\ReservationListStyle.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
               "WhenOpened": "2025-10-30T08:36:08.401Z",
+=======
+              "DocumentIndex": 1,
+              "Title": "Json.cs",
+              "DocumentMoniker": "G:\\Lab\\WPF\\DataVisualizationPlatform\\DataVisualizationPlatform\\Services\\Json.cs",
+              "RelativeDocumentMoniker": "Services\\Json.cs",
+              "ToolTip": "G:\\Lab\\WPF\\DataVisualizationPlatform\\DataVisualizationPlatform\\Services\\Json.cs",
+              "RelativeToolTip": "Services\\Json.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAQAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-31T06:36:42.587Z",
+>>>>>>> Stashed changes
               "EditorCaption": ""
             },
             {
               "$type": "Document",
+<<<<<<< Updated upstream
               "DocumentIndex": 1,
               "Title": "EquipmentInfoStyle.xaml",
               "DocumentMoniker": "G:\\Lab\\WPF\\DataVisualizationPlatform\\DataVisualizationPlatform\\Resources\\Styles\\EquipmentInfoStyle.xaml",
@@ -71,6 +101,28 @@
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
               "WhenOpened": "2025-10-30T08:29:54.626Z",
               "EditorCaption": ""
+=======
+              "DocumentIndex": 2,
+              "Title": "HomePageB.xaml",
+              "DocumentMoniker": "G:\\Lab\\WPF\\DataVisualizationPlatform\\DataVisualizationPlatform\\Views\\HomePageB.xaml",
+              "RelativeDocumentMoniker": "Views\\HomePageB.xaml",
+              "ToolTip": "G:\\Lab\\WPF\\DataVisualizationPlatform\\DataVisualizationPlatform\\Views\\HomePageB.xaml",
+              "RelativeToolTip": "Views\\HomePageB.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-10-31T06:34:57.666Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "HomePageBViewModel.cs",
+              "DocumentMoniker": "G:\\Lab\\WPF\\DataVisualizationPlatform\\DataVisualizationPlatform\\ViewModels\\HomePageBViewModel.cs",
+              "RelativeDocumentMoniker": "ViewModels\\HomePageBViewModel.cs",
+              "ToolTip": "G:\\Lab\\WPF\\DataVisualizationPlatform\\DataVisualizationPlatform\\ViewModels\\HomePageBViewModel.cs",
+              "RelativeToolTip": "ViewModels\\HomePageBViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-31T06:34:51.928Z"
+>>>>>>> Stashed changes
             },
             {
               "$type": "Document",
@@ -93,8 +145,12 @@
               "ToolTip": "G:\\Lab\\WPF\\DataVisualizationPlatform\\DataVisualizationPlatform\\Resources\\Styles\\ComboBox.xaml",
               "RelativeToolTip": "Resources\\Styles\\ComboBox.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+<<<<<<< Updated upstream
               "WhenOpened": "2025-10-30T06:40:52.767Z",
               "EditorCaption": ""
+=======
+              "WhenOpened": "2025-10-31T05:30:48.201Z"
+>>>>>>> Stashed changes
             },
             {
               "$type": "Document",
