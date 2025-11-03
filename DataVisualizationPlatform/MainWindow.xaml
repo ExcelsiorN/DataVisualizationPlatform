@@ -162,13 +162,20 @@
                         </RadioButton>
 
                         <!-- Data 按钮 -->
-                        <RadioButton Style="{StaticResource VerticalBtnStyle}"
-                                     Command="{Binding OpenCurrentMonthDataCommand}">
+                        <RadioButton x:Name="DataBtn"
+                                     Style="{StaticResource VerticalBtnStyle}"
+                                     Command="{Binding OpenCurrentMonthDataCommand}"
+                                     MouseEnter="DataBtn_MouseEnter"
+                                     MouseLeave="DataBtn_MouseLeave">
                             <TextBlock Text="数据查看" Style="{StaticResource VerticalText_Style}"/>
                         </RadioButton>
 
                         <!-- 年份选择下拉菜单 -->
-                        <StackPanel Margin="10,5,10,5">
+                        <StackPanel x:Name="DataSubMenu"
+                                    Visibility="Collapsed"
+                                    Margin="10,5,10,5"
+                                    MouseEnter="DataSubMenu_MouseEnter"
+                                    MouseLeave="DataSubMenu_MouseLeave">
                             <TextBlock Text="选择年份"
                                        FontSize="11"
                                        Foreground="#6B6B6B"
@@ -180,13 +187,7 @@
                                       ItemContainerStyle="{StaticResource ModernComboBoxItemStyle}"
                                       SelectedValue="{Binding SelectedYear, Mode=TwoWay}"
                                       Height="36"
-                                      FontSize="13">
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding DisplayYear}"/>
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>
-                            </ComboBox>
+                                      FontSize="13"/>
                         </StackPanel>
 
                     </StackPanel>

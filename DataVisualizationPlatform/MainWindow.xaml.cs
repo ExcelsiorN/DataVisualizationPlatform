@@ -33,6 +33,68 @@ namespace DataVisualizationPlatform
             }
         }
 
+        #region 数据查看菜单事件
+
+        private void DataBtn_MouseEnter(object sender, MouseEventArgs e)
+        {
+            if (DataSubMenu != null)
+            {
+                DataSubMenu.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void DataBtn_MouseLeave(object sender, MouseEventArgs e)
+        {
+            var timer = new System.Windows.Threading.DispatcherTimer
+            {
+                Interval = TimeSpan.FromMilliseconds(200)
+            };
+            timer.Tick += (s, args) =>
+            {
+                timer.Stop();
+                if (DataSubMenu != null && !IsMouseOver(DataSubMenu) && !IsMouseOver(DataBtn))
+                {
+                    DataSubMenu.Visibility = Visibility.Collapsed;
+                }
+            };
+            timer.Start();
+        }
+
+        private void DataSubMenu_MouseEnter(object sender, MouseEventArgs e)
+        {
+            if (DataSubMenu != null)
+            {
+                DataSubMenu.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void DataSubMenu_MouseLeave(object sender, MouseEventArgs e)
+        {
+            var timer = new System.Windows.Threading.DispatcherTimer
+            {
+                Interval = TimeSpan.FromMilliseconds(200)
+            };
+            timer.Tick += (s, args) =>
+            {
+                timer.Stop();
+                if (DataSubMenu != null && !IsMouseOver(DataSubMenu) && !IsMouseOver(DataBtn))
+                {
+                    DataSubMenu.Visibility = Visibility.Collapsed;
+                }
+            };
+            timer.Start();
+        }
+
+        private bool IsMouseOver(FrameworkElement element)
+        {
+            if (element == null || !element.IsVisible) return false;
+            var pos = Mouse.GetPosition(element);
+            return pos.X >= 0 && pos.Y >= 0 &&
+                   pos.X <= element.ActualWidth && pos.Y <= element.ActualHeight;
+        }
+
+        #endregion
+
         #region 窗口控制按钮
 
         private void TitleBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
