@@ -24,116 +24,79 @@
             <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
         </ResourceDictionary>
     </Window.Resources>
-
+    
+    
 
     <Grid>
-<<<<<<< Updated upstream
-        <!--// Window Border //-->
-        <Grid>
-            <!--// Base Grid //-->
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-=======
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"/>
+            <!-- 顶部标题栏 -->
+            <RowDefinition Height="*"/>
+            <!-- 内容区 -->
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>
             <!-- 左侧导航栏 -->
             <ColumnDefinition Width="*"/>
             <!-- 右侧内容区 -->
         </Grid.ColumnDefinitions>
->>>>>>> Stashed changes
 
-            <!--// Navigation Panel //-->
+        <!-- 顶部标题栏 -->
+        <Border Grid.Row="0" Grid.ColumnSpan="2"
+                Background="Transparent"
+                MouseLeftButtonDown="TitleBar_MouseLeftButtonDown">
+            <Grid>
+                <TextBlock Text="数据可视化平台"
+                           FontSize="14"
+                           FontWeight="SemiBold"
+                           Foreground="#2C3E50"
+                           VerticalAlignment="Center"
+                           Margin="15,0,0,0"/>
 
-            <Grid x:Name="NavigationPanel"
-                  Background="Transparent">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-
-                <!-- 菜单按钮 - 左对齐 -->
+                <!-- 窗口控制按钮 -->
                 <StackPanel Orientation="Horizontal"
-                            HorizontalAlignment="Left"
-                            Grid.Column="0">
-
-                    <!--// Home //-->
-
-                    <RadioButton Style="{StaticResource BtnStyle}"
-                                 Command="{Binding NavigateCommand}" 
-                                 CommandParameter="MainMenu">
-
-                        <Grid HorizontalAlignment="Center">
-
-                            <TextBlock Text="MainMenu"
-                                       Style="{StaticResource Text_Style}" />
-
-                        </Grid>
-
-                    </RadioButton>
-
-                    <!--// EquipmentInfo //-->
-
-                    <RadioButton Style="{StaticResource BtnStyle}"
-                                 Command="{Binding NavigateCommand}" 
-                                 CommandParameter="EquipmentInfo">
-
-                        <Grid HorizontalAlignment="Center">
-
-                            <TextBlock Text="EquipmentInfo"
-                                       Style="{StaticResource Text_Style}" />
-
-                        </Grid>
-
-                    </RadioButton>
-
-                    <!-- FaultReport -->
-                    <RadioButton x:Name="FaultReportBtn"
-                                 Style="{StaticResource BtnStyle}"
-                                 Command="{Binding NavigateCommand}" 
-                                 CommandParameter="FaultReport">
-
-                        <TextBlock Text="FaultReport" Style="{StaticResource Text_Style}" />
-
-                    </RadioButton>
-
-                    <!-- Data -->
-                    <RadioButton x:Name="DataBtn"
-                                 Style="{StaticResource BtnStyle}"
-                                 Command="{Binding OpenCurrentMonthDataCommand}"
-                                 MouseEnter="ButtonOrPopup_MouseEnter"
-                                 MouseLeave="ButtonOrPopup_MouseLeave">
-                        <TextBlock Text="Data" Style="{StaticResource Text_Style}" />
-                    </RadioButton>
-
-                </StackPanel>
-
-                <!-- 窗口控制按钮 - 右对齐 -->
-                <StackPanel Orientation="Horizontal"
-                            HorizontalAlignment="Right"
-                            Grid.Column="1">
+                            HorizontalAlignment="Right">
                     <!-- 最小化按钮 -->
-                    <Button x:Name="MinimizeButton" Width="40" Height="40"
-                                Click="MinimizeButton_Click"
-                                Background="Transparent" BorderThickness="0">
-                        <Path Data="M0,0 L10,0" Stroke="White" StrokeThickness="1"
-                                  VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <Button x:Name="MinimizeButton" Width="45" Height="35"
+                            Click="MinimizeButton_Click"
+                            Background="Transparent" BorderThickness="0">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#D1D1D6"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Path Data="M0,0 L10,0" Stroke="#2C3E50" StrokeThickness="1"
+                              VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     </Button>
 
                     <!-- 最大化/还原按钮 -->
-                    <Button x:Name="MaximizeButton" Width="40" Height="40"
-                                Click="MaximizeButton_Click"
-                                Background="Transparent" BorderThickness="0">
+                    <Button x:Name="MaximizeButton" Width="45" Height="35"
+                            Click="MaximizeButton_Click"
+                            Background="Transparent" BorderThickness="0">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#D1D1D6"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
                         <Path x:Name="MaximizePath" Data="M0,0 L10,0 L10,10 L0,10 Z"
-                                  Stroke="White" StrokeThickness="1" Fill="Transparent"
-                                  VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                              Stroke="#2C3E50" StrokeThickness="1" Fill="Transparent"
+                              VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     </Button>
 
                     <!-- 关闭按钮 -->
-                    <Button x:Name="CloseButton" Width="40" Height="40"
-                                Click="CloseButton_Click"
-                                Background="Transparent" BorderThickness="0">
+                    <Button x:Name="CloseButton" Width="45" Height="35"
+                            Click="CloseButton_Click"
+                            Background="Transparent" BorderThickness="0">
                         <Button.Style>
                             <Style TargetType="Button">
                                 <Setter Property="Background" Value="Transparent"/>
@@ -144,159 +107,160 @@
                                 </Style.Triggers>
                             </Style>
                         </Button.Style>
-                        <Path Data="M0,0 L10,10 M0,10 L10,0" Stroke="White" StrokeThickness="1"
-                                  VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <Path Data="M0,0 L10,10 M0,10 L10,0" Stroke="#2C3E50" StrokeThickness="1"
+                              VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Path.Style>
+                                <Style TargetType="Path">
+                                    <Setter Property="Stroke" Value="#2C3E50"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType=Button}}" Value="True">
+                                            <Setter Property="Stroke" Value="White"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Path.Style>
+                        </Path>
                     </Button>
                 </StackPanel>
+            </Grid>
+        </Border>
 
-                <!-- 统一的弹出菜单 -->
-                <Popup x:Name="UnifiedPopup"
-                       PlacementTarget="{Binding ElementName=NavigationPanel}"
-                       Placement="Bottom"
-                       StaysOpen="True"
-                       AllowsTransparency="True"
-                       Width="{Binding ElementName=NavigationPanel, Path=ActualWidth}"
-                       MouseEnter="ButtonOrPopup_MouseEnter"
-                       MouseLeave="ButtonOrPopup_MouseLeave">
-                    <Border Background="White" Padding="10">
-                        <Grid Width="{Binding ElementName=NavigationPanel, Path=ActualWidth}">
+        <!-- 左侧导航面板 -->
+        <Border Grid.Row="1" Grid.Column="0"
+                Background="#D1D1D6">
+            <Grid>
+                <!-- 导航菜单 -->
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel x:Name="NavigationPanel" Margin="0,20,0,0">
 
-                                <!-- FaultReport 内容 -->
-                                <StackPanel x:Name="FaultReportPopupContent"
-                                            Visibility="Collapsed">
-                                    <ScrollViewer VerticalScrollBarVisibility="Hidden"
-                                                  HorizontalScrollBarVisibility="Disabled"
-                                                  HorizontalAlignment="Left"
-                                                  Margin="240,0,0,0"
-                                                  MaxHeight="300"
-                                                  Visibility="Collapsed">
-                                        <ItemsControl ItemsSource="{Binding Months}"
-                                                      VirtualizingStackPanel.IsVirtualizing="False"
-                                                      VirtualizingStackPanel.VirtualizationMode="Standard">
-                                            <ItemsControl.ItemsPanel>
-                                                <ItemsPanelTemplate>
-                                                    <StackPanel Orientation="Vertical"/>
-                                                </ItemsPanelTemplate>
-                                            </ItemsControl.ItemsPanel>
-                                            <ItemsControl.ItemTemplate>
-                                                <DataTemplate>
-                                                    <RadioButton Style="{StaticResource MonthButtonStyle}"
-                                                                 GroupName="PopupMenuItems"
-                                                                 Command="{Binding DataContext.OpenFaultReportCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-                                                                 CommandParameter="{Binding Key}">
-                                                        <Grid HorizontalAlignment="Center" Margin="5">
-                                                            <TextBlock Text="{Binding DisplayMonth}"
-                                                                       Style="{StaticResource Text_Style}" />
-                                                        </Grid>
-                                                    </RadioButton>
-                                                </DataTemplate>
-                                            </ItemsControl.ItemTemplate>
-                                        </ItemsControl>
-                                    </ScrollViewer>
-                                </StackPanel>
-
-                                <!-- Data 内容 -->
-                                <StackPanel x:Name="DataPopupContent"
-                                            Visibility="Collapsed">
-                                    <ScrollViewer VerticalScrollBarVisibility="Hidden"
-                                                  HorizontalScrollBarVisibility="Disabled"
-                                                  HorizontalAlignment="Left"
-                                                  Margin="360,0,0,0"
-                                                  Height="200">
-                                        <ItemsControl ItemsSource="{Binding Years}">
-                                            <ItemsControl.ItemsPanel>
-                                                <ItemsPanelTemplate>
-                                                    <StackPanel Orientation="Vertical"/>
-                                                </ItemsPanelTemplate>
-                                            </ItemsControl.ItemsPanel>
-
-                                            <ItemsControl.ItemTemplate>
-                                                <DataTemplate>
-                                                    <RadioButton Style="{StaticResource YearButtonStyle}"
-                                                                 GroupName="PopupMenuItems"
-                                                                 Command="{Binding DataContext.OpenYearlyDataCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-                                                                 CommandParameter="{Binding Key}">
-                                                        <Grid HorizontalAlignment="Center" Margin="5">
-                                                            <TextBlock Text="{Binding DisplayYear}"
-                                                                       Style="{StaticResource Text_Style}" />
-                                                        </Grid>
-                                                    </RadioButton>
-                                                </DataTemplate>
-                                            </ItemsControl.ItemTemplate>
-                                        </ItemsControl>
-                                    </ScrollViewer>
-                                </StackPanel>
+                        <!-- MainMenu 按钮 -->
+                        <RadioButton Style="{StaticResource VerticalBtnStyle}"
+                                     Command="{Binding NavigateCommand}"
+                                     CommandParameter="MainMenu">
+                            <Grid>
+                                <TextBlock Text="主菜单" Style="{StaticResource VerticalText_Style}"/>
                             </Grid>
-                        </Border>
-                    </Popup>
+                        </RadioButton>
 
+                        <!-- EquipmentInfo 按钮 -->
+                        <RadioButton Style="{StaticResource VerticalBtnStyle}"
+                                     Command="{Binding NavigateCommand}"
+                                     CommandParameter="EquipmentInfo">
+                            <Grid>
+                                <TextBlock Text="设备信息" Style="{StaticResource VerticalText_Style}"/>
+                            </Grid>
+                        </RadioButton>
+
+                        <!-- FaultReport 按钮 -->
+                        <RadioButton x:Name="FaultReportBtn"
+                                     Style="{StaticResource VerticalBtnStyle}"
+                                     Command="{Binding NavigateCommand}"
+                                     CommandParameter="FaultReport">
+                            <TextBlock Text="故障报告" Style="{StaticResource VerticalText_Style}"/>
+                        </RadioButton>
+
+                        <!-- Data 按钮 -->
+                        <RadioButton x:Name="DataBtn"
+                                     Style="{StaticResource VerticalBtnStyle}"
+                                     Command="{Binding OpenCurrentMonthDataCommand}"
+                                     MouseEnter="ButtonOrPopup_MouseEnter"
+                                     MouseLeave="ButtonOrPopup_MouseLeave">
+                            <TextBlock Text="数据查看" Style="{StaticResource VerticalText_Style}"/>
+                        </RadioButton>
+
+                        <!-- Data 子菜单（年份选择） -->
+                        <StackPanel x:Name="DataSubMenu"
+                                    Visibility="Collapsed"
+                                    Background="#BEBEC5"
+                                    Margin="10,0,10,10">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto"
+                                          MaxHeight="200">
+                                <ItemsControl ItemsSource="{Binding Years}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <StackPanel Orientation="Vertical"/>
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <RadioButton Style="{StaticResource SubMenuButtonStyle}"
+                                                         GroupName="DataSubMenu"
+                                                         Command="{Binding DataContext.OpenYearlyDataCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                                         CommandParameter="{Binding Key}">
+                                                <TextBlock Text="{Binding DisplayYear}"
+                                                           Foreground="#2C3E50"
+                                                           FontSize="13"
+                                                           Margin="10,5"/>
+                                            </RadioButton>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </ScrollViewer>
+                        </StackPanel>
+
+                    </StackPanel>
+                </ScrollViewer>
             </Grid>
+        </Border>
 
+        <!-- 右侧内容区域 -->
+        <Grid Grid.Row="1" Grid.Column="1" x:Name="Display">
+            <!-- Frame 层 -->
+            <Frame x:Name="MainContentFrame"
+                   Content="{Binding CurrentPage}"
+                   NavigationUIVisibility="Hidden"
+                   Margin="50,50,50,50"/>
 
-            <Grid Grid.Row="1" x:Name="Display">
+            <!-- 固定按钮层 -->
+            <Grid VerticalAlignment="Center" Margin="10,0,10,10">
+                <Button Command="{Binding PreviousPageCommand}"
+                        Visibility="{Binding IsButton1Visible, Converter={StaticResource BoolToVisibilityConverter}}"
+                        HorizontalAlignment="Left"
+                        Margin="10,0,0,0"
+                        Background="Transparent"
+                        BorderThickness="0">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <ContentPresenter />
+                        </ControlTemplate>
+                    </Button.Template>
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Opacity" Value="0"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Opacity" Value="0.5"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                    <Image Source="Resources/Images/PrePage.png" Height="60" Width="60" />
+                </Button>
 
-                <!-- Frame 层 -->
-                <Frame x:Name="MainContentFrame" 
-                       Content="{Binding CurrentPage}"
-                       NavigationUIVisibility="Hidden"
-                       Grid.ColumnSpan="2"
-                       Margin="100,50,100,50"/>
-
-                <!-- 固定按钮层 -->
-                <Grid Grid.ColumnSpan="2" VerticalAlignment="Center" Margin="10,0,0,10">
-                    <Button Command="{Binding PreviousPageCommand}"
-                                Visibility="{Binding IsButton1Visible, Converter={StaticResource BoolToVisibilityConverter}}"
-                                HorizontalAlignment="Left"
-                                Margin="10,0,0,0"
-                                Background="Transparent"
-                                BorderThickness="0">
-                        <Button.Template>
-                            <ControlTemplate TargetType="Button">
-                                <ContentPresenter />
-                            </ControlTemplate>
-                        </Button.Template>
-                        <Button.Style>
-                            <Style TargetType="Button">
-                                <Setter Property="Opacity" Value="0"/>
-                                <Style.Triggers>
-                                    <!-- 鼠标移入按钮 -->
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Opacity" Value="0.5"/>
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Button.Style>
-                        <Image Source="Resources/Images/PrePage.png" Height="60" Width="60" />
-                    </Button>
-
-                    <Button Command="{Binding NextPageCommand}"
-                                Visibility="{Binding IsButton2Visible, Converter={StaticResource BoolToVisibilityConverter}}"
-                                HorizontalAlignment="Right"
-                                Margin="0,0,10,0"
-                                Background="Transparent"
-                                BorderThickness="0">
-                        <Button.Template>
-                            <ControlTemplate TargetType="Button">
-                                <ContentPresenter />
-                            </ControlTemplate>
-                        </Button.Template>
-                        <Button.Style>
-                            <Style TargetType="Button">
-                                <Setter Property="Opacity" Value="0"/>
-                                <Style.Triggers>
-                                    <!-- 鼠标移入按钮 -->
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Opacity" Value="0.5"/>
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Button.Style>
-                        <Image Source="Resources/Images/NextPage.png" Height="60" Width="60" />
-                    </Button>
-
-                </Grid>
+                <Button Command="{Binding NextPageCommand}"
+                        Visibility="{Binding IsButton2Visible, Converter={StaticResource BoolToVisibilityConverter}}"
+                        HorizontalAlignment="Right"
+                        Margin="0,0,10,0"
+                        Background="Transparent"
+                        BorderThickness="0">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <ContentPresenter />
+                        </ControlTemplate>
+                    </Button.Template>
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Opacity" Value="0"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Opacity" Value="0.5"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                    <Image Source="Resources/Images/NextPage.png" Height="60" Width="60" />
+                </Button>
             </Grid>
-
         </Grid>
     </Grid>
 </Window>

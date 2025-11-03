@@ -76,4 +76,90 @@
 
     </Style>
 
+    <!-- 纵向导航按钮样式 -->
+    <Style x:Key="VerticalBtnStyle" TargetType="RadioButton">
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="10,5,10,5"/>
+        <Setter Property="Height" Value="45"/>
+        <Setter Property="Foreground" Value="#2C3E50"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="RadioButton">
+                    <Border x:Name="border"
+                            CornerRadius="4"
+                            BorderThickness="0"
+                            Padding="15,0"
+                            Background="Transparent">
+
+                        <Grid>
+                            <Border x:Name="Indicator"
+                                    Width="4"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Stretch"
+                                    Background="#5E8EB5"
+                                    Opacity="0"
+                                    CornerRadius="2"/>
+
+                            <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,0,0,0"/>
+                        </Grid>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <!-- 鼠标悬停：背景变成主页面颜色 -->
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="#E8E8ED"/>
+                        </Trigger>
+
+                        <!-- 选中状态：背景与主页面一致 -->
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="Indicator" Property="Opacity" Value="1"/>
+                            <Setter TargetName="border" Property="Background" Value="#D9D9E0"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- 纵向文本样式 -->
+    <Style x:Key="VerticalText_Style" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="Medium"/>
+        <Setter Property="Foreground" Value="#2C3E50"/>
+    </Style>
+
+    <!-- 子菜单按钮样式 -->
+    <Style x:Key="SubMenuButtonStyle" TargetType="RadioButton">
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="Margin" Value="5,2"/>
+        <Setter Property="Height" Value="35"/>
+        <Setter Property="Foreground" Value="#2C3E50"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="RadioButton">
+                    <Border x:Name="border"
+                            CornerRadius="3"
+                            BorderThickness="0"
+                            Padding="10,0"
+                            Background="Transparent">
+                        <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <!-- 鼠标悬停 -->
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="#E8E8ED"/>
+                        </Trigger>
+
+                        <!-- 选中状态 -->
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="#D9D9E0"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 </ResourceDictionary>
