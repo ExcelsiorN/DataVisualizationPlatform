@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Messaging;
 using DataVisualizationPlatform.Commands;
 using DataVisualizationPlatform.Controls;
+using DataVisualizationPlatform.Messages;
 using DataVisualizationPlatform.Models;
 using DataVisualizationPlatform.Services;
 using DataVisualizationPlatform.Views;
@@ -115,6 +116,13 @@ namespace DataVisualizationPlatform.ViewModels
             LoadData();
 
             RefreshCommand = new RelayCommand(ExecuteRefresh);
+
+            // 订阅故障数据更新消息
+            WeakReferenceMessenger.Default.Register<FaultDataUpdatedMessage>(this, (recipient, message) =>
+            {
+                // 重新加载故障数据
+                LoadData();
+            });
         }
 
         #region Private Methods

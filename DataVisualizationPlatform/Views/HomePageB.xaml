@@ -248,11 +248,12 @@
                 </Grid>
 
                 <!-- 功能按钮网格 -->
-                <UniformGrid Grid.Row="1" 
-                             Columns="2" 
+                <UniformGrid Grid.Row="1"
+                             Columns="2"
+                             Rows="3"
                              Margin="0,0,0,0">
 
-                    <!-- 数据编辑按钮 -->
+                    <!-- 数据导出按钮 -->
                     <Button Style="{StaticResource HPB_FunctionButtonStyle}"
                             Command="{Binding ExportDataCommand}">
                         <StackPanel Orientation="Vertical">
@@ -332,7 +333,29 @@
                                       HorizontalAlignment="Center"
                                       VerticalAlignment="Center"/>
                             </Border>
-                            <TextBlock Text="系统设置" 
+                            <TextBlock Text="系统设置"
+                                       FontSize="12"
+                                       FontWeight="Medium"
+                                       Foreground="#424242"
+                                       HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+
+                    <!-- 故障编辑按钮 -->
+                    <Button Style="{StaticResource HPB_FunctionButtonStyle}"
+                            Command="{Binding EditFaultCommand}">
+                        <StackPanel Orientation="Vertical">
+                            <Border Style="{StaticResource HPB_IconContainerStyle}"
+                                    Background="#FFEBEE">
+                                <Path Data="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z"
+                                      Fill="#F44336"
+                                      Width="16"
+                                      Height="16"
+                                      Stretch="Uniform"
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"/>
+                            </Border>
+                            <TextBlock Text="故障编辑"
                                        FontSize="12"
                                        FontWeight="Medium"
                                        Foreground="#424242"
