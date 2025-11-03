@@ -24,6 +24,9 @@ namespace DataVisualizationPlatform.ViewModels
         [ObservableProperty]
         private bool _isButton2Visible;
 
+        [ObservableProperty]
+        private System.Windows.Controls.Page? _currentPage;
+
         public ObservableCollection<MonthItem> Months { get; } = new();
         public ObservableCollection<YearItem> Years { get; } = new();
 
@@ -73,6 +76,9 @@ namespace DataVisualizationPlatform.ViewModels
 
         private void OnCurrentPageChanged(object? sender, System.Windows.Controls.Page? page)
         {
+            // 更新CurrentPage属性
+            CurrentPage = page;
+
             if (page == null) return;
 
             // 根据当前页面类型更新按钮可见性
