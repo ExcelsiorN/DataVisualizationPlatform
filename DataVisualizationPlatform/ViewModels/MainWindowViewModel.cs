@@ -27,6 +27,9 @@ namespace DataVisualizationPlatform.ViewModels
         [ObservableProperty]
         private System.Windows.Controls.Page? _currentPage;
 
+        [ObservableProperty]
+        private string? _selectedYear;
+
         public ObservableCollection<MonthItem> Months { get; } = new();
         public ObservableCollection<YearItem> Years { get; } = new();
 
@@ -50,6 +53,14 @@ namespace DataVisualizationPlatform.ViewModels
 
             // 导航到默认页面
             _navigationService.NavigateTo("HomePageB");
+        }
+
+        partial void OnSelectedYearChanged(string? value)
+        {
+            if (!string.IsNullOrEmpty(value))
+            {
+                _navigationService.NavigateTo("Data", value);
+            }
         }
 
         private void InitializeMonthsAndYears()
