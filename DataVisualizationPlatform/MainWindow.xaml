@@ -122,7 +122,7 @@
 
         <!-- 左侧导航面板 -->
         <Border Grid.RowSpan="2" Grid.Column="0"
-                Background="#D1D1D6">
+                Background="{StaticResource MainWindowNavigationMenu}">
             <Grid>
                 <!-- 导航菜单 -->
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
@@ -130,8 +130,8 @@
                         
                         <!-- Logo -->
                         <Image Source="Resources/Images/Logo.png"
-                               Height="50"
-                               Width="100"
+                               Height="100"
+                               Width="200"
                                HorizontalAlignment="Center"
                                Margin="0,0,0,20"/>
 
@@ -171,24 +171,69 @@
                         </RadioButton>
 
                         <!-- 年份选择下拉菜单 -->
-                        <StackPanel x:Name="DataSubMenu"
-                                    Visibility="Collapsed"
-                                    Margin="10,5,10,5"
-                                    MouseEnter="DataSubMenu_MouseEnter"
-                                    MouseLeave="DataSubMenu_MouseLeave">
-                            <TextBlock Text="选择年份"
-                                       FontSize="11"
-                                       Foreground="#6B6B6B"
-                                       Margin="0,0,0,5"/>
-                            <ComboBox ItemsSource="{Binding Years}"
-                                      SelectedValuePath="Key"
-                                      DisplayMemberPath="DisplayYear"
-                                      Style="{StaticResource ModernComboBoxStyle}"
-                                      ItemContainerStyle="{StaticResource ModernComboBoxItemStyle}"
-                                      SelectedValue="{Binding SelectedYear, Mode=TwoWay}"
-                                      Height="36"
-                                      FontSize="13"/>
-                        </StackPanel>
+                        <Border x:Name="DataSubMenu"
+                                Visibility="Collapsed"
+                                Margin="8,0,8,3"
+                                Background="White"
+                                BorderBrush="#E1E8ED"
+                                BorderThickness="1"
+                                CornerRadius="6"
+                                MouseEnter="DataSubMenu_MouseEnter"
+                                MouseLeave="DataSubMenu_MouseLeave">
+                            <Border.Effect>
+                                <DropShadowEffect Color="#000000" Opacity="0.15" BlurRadius="15" ShadowDepth="5" Direction="270"/>
+                            </Border.Effect>
+                            <ListBox ItemsSource="{Binding Years}"
+                                     SelectedValuePath="Key"
+                                     DisplayMemberPath="DisplayYear"
+                                     SelectedValue="{Binding SelectedYear, Mode=TwoWay}"
+                                     Background="Transparent"
+                                     BorderThickness="0"
+                                     Padding="4"
+                                     MaxHeight="200">
+                                <ListBox.ItemContainerStyle>
+                                    <Style TargetType="ListBoxItem">
+                                        <Setter Property="Height" Value="36"/>
+                                        <Setter Property="Padding" Value="12,8"/>
+                                        <Setter Property="FontSize" Value="13"/>
+                                        <Setter Property="Foreground" Value="Black"/>
+                                        <Setter Property="Background" Value="Transparent"/>
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="ListBoxItem">
+                                                    <Border x:Name="Border"
+                                                            Background="{TemplateBinding Background}"
+                                                            BorderThickness="0"
+                                                            CornerRadius="4"
+                                                            Margin="2"
+                                                            Padding="{TemplateBinding Padding}">
+                                                        <ContentPresenter VerticalAlignment="Center"/>
+                                                    </Border>
+                                                    <ControlTemplate.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter TargetName="Border" Property="Background" Value="#F5F5F5"/>
+                                                        </Trigger>
+                                                        <Trigger Property="IsSelected" Value="True">
+                                                            <Setter TargetName="Border" Property="Background" Value="#E3F2FD"/>
+                                                            <Setter Property="Foreground" Value="#4A90E2"/>
+                                                            <Setter Property="FontWeight" Value="SemiBold"/>
+                                                        </Trigger>
+                                                        <MultiTrigger>
+                                                            <MultiTrigger.Conditions>
+                                                                <Condition Property="IsSelected" Value="True"/>
+                                                                <Condition Property="IsMouseOver" Value="True"/>
+                                                            </MultiTrigger.Conditions>
+                                                            <Setter TargetName="Border" Property="Background" Value="#4A90E2"/>
+                                                            <Setter Property="Foreground" Value="White"/>
+                                                        </MultiTrigger>
+                                                    </ControlTemplate.Triggers>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </ListBox.ItemContainerStyle>
+                            </ListBox>
+                        </Border>
 
                     </StackPanel>
                 </ScrollViewer>

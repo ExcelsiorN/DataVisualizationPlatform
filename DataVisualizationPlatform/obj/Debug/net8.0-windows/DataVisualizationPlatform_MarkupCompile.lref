@@ -7,6 +7,7 @@ FG:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\Resources\Styles
 FG:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\Views\Data.xaml;;
 FG:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\Views\Edit.xaml;;
 FG:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\Views\EquipmentInfo.xaml;;
+FG:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\Views\FaultEdit.xaml;;
 FG:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\Views\FaultReport.xaml;;
 FG:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\Views\HomePageA.xaml;;
 FG:\Lab\WPF\DataVisualizationPlatform\DataVisualizationPlatform\Views\HomePageB.xaml;;

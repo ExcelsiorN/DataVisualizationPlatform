@@ -7,41 +7,16 @@
       "RelativeMoniker": "D:0:0:{B868CA7E-5E9D-2D3D-899A-D8F766E05E8B}|DataVisualizationPlatform.csproj|solutionrelative:mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-<<<<<<< Updated upstream
-      "AbsoluteMoniker": "D:0:0:{B868CA7E-5E9D-2D3D-899A-D8F766E05E8B}|DataVisualizationPlatform.csproj|g:\\lab\\wpf\\datavisualizationplatform\\datavisualizationplatform\\resources\\styles\\equipmentinfostyle.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{B868CA7E-5E9D-2D3D-899A-D8F766E05E8B}|DataVisualizationPlatform.csproj|solutionrelative:resources\\styles\\equipmentinfostyle.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-=======
-      "AbsoluteMoniker": "D:0:0:{B868CA7E-5E9D-2D3D-899A-D8F766E05E8B}|DataVisualizationPlatform.csproj|g:\\lab\\wpf\\datavisualizationplatform\\datavisualizationplatform\\services\\json.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B868CA7E-5E9D-2D3D-899A-D8F766E05E8B}|DataVisualizationPlatform.csproj|solutionrelative:services\\json.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B868CA7E-5E9D-2D3D-899A-D8F766E05E8B}|DataVisualizationPlatform.csproj|g:\\lab\\wpf\\datavisualizationplatform\\datavisualizationplatform\\resources\\styles\\mainwindowstyle.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{B868CA7E-5E9D-2D3D-899A-D8F766E05E8B}|DataVisualizationPlatform.csproj|solutionrelative:resources\\styles\\mainwindowstyle.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B868CA7E-5E9D-2D3D-899A-D8F766E05E8B}|DataVisualizationPlatform.csproj|g:\\lab\\wpf\\datavisualizationplatform\\datavisualizationplatform\\views\\homepageb.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{B868CA7E-5E9D-2D3D-899A-D8F766E05E8B}|DataVisualizationPlatform.csproj|solutionrelative:views\\homepageb.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{B868CA7E-5E9D-2D3D-899A-D8F766E05E8B}|DataVisualizationPlatform.csproj|g:\\lab\\wpf\\datavisualizationplatform\\datavisualizationplatform\\resources\\styles\\mainwindowbutton.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{B868CA7E-5E9D-2D3D-899A-D8F766E05E8B}|DataVisualizationPlatform.csproj|solutionrelative:resources\\styles\\mainwindowbutton.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B868CA7E-5E9D-2D3D-899A-D8F766E05E8B}|DataVisualizationPlatform.csproj|g:\\lab\\wpf\\datavisualizationplatform\\datavisualizationplatform\\viewmodels\\homepagebviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B868CA7E-5E9D-2D3D-899A-D8F766E05E8B}|DataVisualizationPlatform.csproj|solutionrelative:viewmodels\\homepagebviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B868CA7E-5E9D-2D3D-899A-D8F766E05E8B}|DataVisualizationPlatform.csproj|g:\\lab\\wpf\\datavisualizationplatform\\datavisualizationplatform\\views\\edit.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{B868CA7E-5E9D-2D3D-899A-D8F766E05E8B}|DataVisualizationPlatform.csproj|solutionrelative:views\\edit.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
->>>>>>> Stashed changes
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B868CA7E-5E9D-2D3D-899A-D8F766E05E8B}|DataVisualizationPlatform.csproj|g:\\lab\\wpf\\datavisualizationplatform\\datavisualizationplatform\\resources\\styles\\reservationliststyle.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{B868CA7E-5E9D-2D3D-899A-D8F766E05E8B}|DataVisualizationPlatform.csproj|solutionrelative:resources\\styles\\reservationliststyle.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B868CA7E-5E9D-2D3D-899A-D8F766E05E8B}|DataVisualizationPlatform.csproj|g:\\lab\\wpf\\datavisualizationplatform\\datavisualizationplatform\\resources\\styles\\combobox.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{B868CA7E-5E9D-2D3D-899A-D8F766E05E8B}|DataVisualizationPlatform.csproj|solutionrelative:resources\\styles\\combobox.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B868CA7E-5E9D-2D3D-899A-D8F766E05E8B}|DataVisualizationPlatform.csproj|g:\\lab\\wpf\\datavisualizationplatform\\datavisualizationplatform\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{B868CA7E-5E9D-2D3D-899A-D8F766E05E8B}|DataVisualizationPlatform.csproj|solutionrelative:app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B868CA7E-5E9D-2D3D-899A-D8F766E05E8B}|DataVisualizationPlatform.csproj|g:\\lab\\wpf\\datavisualizationplatform\\datavisualizationplatform\\resources\\styles\\datastyle.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{B868CA7E-5E9D-2D3D-899A-D8F766E05E8B}|DataVisualizationPlatform.csproj|solutionrelative:resources\\styles\\datastyle.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{B868CA7E-5E9D-2D3D-899A-D8F766E05E8B}|DataVisualizationPlatform.csproj|g:\\lab\\wpf\\datavisualizationplatform\\datavisualizationplatform\\views\\faultedit.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{B868CA7E-5E9D-2D3D-899A-D8F766E05E8B}|DataVisualizationPlatform.csproj|solutionrelative:views\\faultedit.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     }
   ],
   "DocumentGroupContainers": [
@@ -55,74 +30,39 @@
           "Children": [
             {
               "$type": "Document",
-<<<<<<< Updated upstream
-              "DocumentIndex": 2,
-              "Title": "ReservationListStyle.xaml",
-              "DocumentMoniker": "G:\\Lab\\WPF\\DataVisualizationPlatform\\DataVisualizationPlatform\\Resources\\Styles\\ReservationListStyle.xaml",
-              "RelativeDocumentMoniker": "Resources\\Styles\\ReservationListStyle.xaml",
-              "ToolTip": "G:\\Lab\\WPF\\DataVisualizationPlatform\\DataVisualizationPlatform\\Resources\\Styles\\ReservationListStyle.xaml",
-              "RelativeToolTip": "Resources\\Styles\\ReservationListStyle.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-10-30T08:36:08.401Z",
-=======
               "DocumentIndex": 1,
-              "Title": "Json.cs",
-              "DocumentMoniker": "G:\\Lab\\WPF\\DataVisualizationPlatform\\DataVisualizationPlatform\\Services\\Json.cs",
-              "RelativeDocumentMoniker": "Services\\Json.cs",
-              "ToolTip": "G:\\Lab\\WPF\\DataVisualizationPlatform\\DataVisualizationPlatform\\Services\\Json.cs",
-              "RelativeToolTip": "Services\\Json.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAQAAAKAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-31T06:36:42.587Z",
->>>>>>> Stashed changes
+              "Title": "MainWindowStyle.xaml",
+              "DocumentMoniker": "G:\\Lab\\WPF\\DataVisualizationPlatform\\DataVisualizationPlatform\\Resources\\Styles\\MainWindowStyle.xaml",
+              "RelativeDocumentMoniker": "Resources\\Styles\\MainWindowStyle.xaml",
+              "ToolTip": "G:\\Lab\\WPF\\DataVisualizationPlatform\\DataVisualizationPlatform\\Resources\\Styles\\MainWindowStyle.xaml",
+              "RelativeToolTip": "Resources\\Styles\\MainWindowStyle.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-11-03T08:00:59.993Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-<<<<<<< Updated upstream
-              "DocumentIndex": 1,
-              "Title": "EquipmentInfoStyle.xaml",
-              "DocumentMoniker": "G:\\Lab\\WPF\\DataVisualizationPlatform\\DataVisualizationPlatform\\Resources\\Styles\\EquipmentInfoStyle.xaml",
-              "RelativeDocumentMoniker": "Resources\\Styles\\EquipmentInfoStyle.xaml",
-              "ToolTip": "G:\\Lab\\WPF\\DataVisualizationPlatform\\DataVisualizationPlatform\\Resources\\Styles\\EquipmentInfoStyle.xaml",
-              "RelativeToolTip": "Resources\\Styles\\EquipmentInfoStyle.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-10-30T08:36:07.301Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "App.xaml",
-              "DocumentMoniker": "G:\\Lab\\WPF\\DataVisualizationPlatform\\DataVisualizationPlatform\\App.xaml",
-              "RelativeDocumentMoniker": "App.xaml",
-              "ToolTip": "G:\\Lab\\WPF\\DataVisualizationPlatform\\DataVisualizationPlatform\\App.xaml",
-              "RelativeToolTip": "App.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-10-30T08:29:54.626Z",
-              "EditorCaption": ""
-=======
               "DocumentIndex": 2,
-              "Title": "HomePageB.xaml",
-              "DocumentMoniker": "G:\\Lab\\WPF\\DataVisualizationPlatform\\DataVisualizationPlatform\\Views\\HomePageB.xaml",
-              "RelativeDocumentMoniker": "Views\\HomePageB.xaml",
-              "ToolTip": "G:\\Lab\\WPF\\DataVisualizationPlatform\\DataVisualizationPlatform\\Views\\HomePageB.xaml",
-              "RelativeToolTip": "Views\\HomePageB.xaml",
+              "Title": "MainWindowButton.xaml",
+              "DocumentMoniker": "G:\\Lab\\WPF\\DataVisualizationPlatform\\DataVisualizationPlatform\\Resources\\Styles\\MainWindowButton.xaml",
+              "RelativeDocumentMoniker": "Resources\\Styles\\MainWindowButton.xaml",
+              "ToolTip": "G:\\Lab\\WPF\\DataVisualizationPlatform\\DataVisualizationPlatform\\Resources\\Styles\\MainWindowButton.xaml",
+              "RelativeToolTip": "Resources\\Styles\\MainWindowButton.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-10-31T06:34:57.666Z"
+              "WhenOpened": "2025-11-03T07:34:53.34Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "HomePageBViewModel.cs",
-              "DocumentMoniker": "G:\\Lab\\WPF\\DataVisualizationPlatform\\DataVisualizationPlatform\\ViewModels\\HomePageBViewModel.cs",
-              "RelativeDocumentMoniker": "ViewModels\\HomePageBViewModel.cs",
-              "ToolTip": "G:\\Lab\\WPF\\DataVisualizationPlatform\\DataVisualizationPlatform\\ViewModels\\HomePageBViewModel.cs",
-              "RelativeToolTip": "ViewModels\\HomePageBViewModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-31T06:34:51.928Z"
->>>>>>> Stashed changes
+              "Title": "FaultEdit.xaml",
+              "DocumentMoniker": "G:\\Lab\\WPF\\DataVisualizationPlatform\\DataVisualizationPlatform\\Views\\FaultEdit.xaml",
+              "RelativeDocumentMoniker": "Views\\FaultEdit.xaml",
+              "ToolTip": "G:\\Lab\\WPF\\DataVisualizationPlatform\\DataVisualizationPlatform\\Views\\FaultEdit.xaml",
+              "RelativeToolTip": "Views\\FaultEdit.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-11-03T06:34:53.471Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -134,34 +74,6 @@
               "RelativeToolTip": "MainWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
               "WhenOpened": "2025-10-30T08:18:59.239Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "ComboBox.xaml",
-              "DocumentMoniker": "G:\\Lab\\WPF\\DataVisualizationPlatform\\DataVisualizationPlatform\\Resources\\Styles\\ComboBox.xaml",
-              "RelativeDocumentMoniker": "Resources\\Styles\\ComboBox.xaml",
-              "ToolTip": "G:\\Lab\\WPF\\DataVisualizationPlatform\\DataVisualizationPlatform\\Resources\\Styles\\ComboBox.xaml",
-              "RelativeToolTip": "Resources\\Styles\\ComboBox.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-<<<<<<< Updated upstream
-              "WhenOpened": "2025-10-30T06:40:52.767Z",
-              "EditorCaption": ""
-=======
-              "WhenOpened": "2025-10-31T05:30:48.201Z"
->>>>>>> Stashed changes
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "DataStyle.xaml",
-              "DocumentMoniker": "G:\\Lab\\WPF\\DataVisualizationPlatform\\DataVisualizationPlatform\\Resources\\Styles\\DataStyle.xaml",
-              "RelativeDocumentMoniker": "Resources\\Styles\\DataStyle.xaml",
-              "ToolTip": "G:\\Lab\\WPF\\DataVisualizationPlatform\\DataVisualizationPlatform\\Resources\\Styles\\DataStyle.xaml",
-              "RelativeToolTip": "Resources\\Styles\\DataStyle.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-10-30T08:35:59.448Z",
               "EditorCaption": ""
             }
           ]

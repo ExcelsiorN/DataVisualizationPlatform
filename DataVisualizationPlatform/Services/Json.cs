@@ -11,7 +11,7 @@ namespace DataVisualizationPlatform.Services
             ""Equ_Name"": ""A320-NEO-FNPT"",
             ""Equ_OnlineStatus"": ""在线"",
             ""Equ_AvailableBookingPeriod"": ""预约时段配置2"",
-            ""Equ_TotalOperationTime"": ""0年4月6天"",
+            ""Equ_TotalOperationTime"": ""100年4月6天"",
             ""Equ_FixedDurationThisYear"": ""2920.0小时"",
             ""Equ_UsedFixedDurationThisYear"": ""0.0小时"",
             ""Equ_UsageRateThisYear"": ""0.0%"",

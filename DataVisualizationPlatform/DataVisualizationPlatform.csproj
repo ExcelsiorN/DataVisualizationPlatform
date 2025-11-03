@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Images\Logo.png" />
     <None Remove="Resources\Images\NextPage.png" />
     <None Remove="Resources\Images\PrePage.png" />
     <None Remove="Resources\Images\XYLogo.png" />
@@ -31,6 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Images\Logo.png" />
     <Resource Include="Resources\Images\NextPage.png" />
     <Resource Include="Resources\Images\PrePage.png" />
     <Resource Include="Resources\Images\XYLogo.png" />

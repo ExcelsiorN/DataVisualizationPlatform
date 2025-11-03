@@ -8,7 +8,14 @@
       "Bash(git commit:*)",
       "Bash(git push:*)",
       "Bash(dotnet clean:*)",
-      "Bash(dotnet build:*)"
+      "Bash(dotnet build:*)",
+      "Bash(git log:*)",
+      "Bash(git ls-tree:*)",
+      "Bash(dir:*)",
+      "Bash(cat:*)",
+      "Bash(git checkout:*)",
+      "Bash(git merge:*)",
+      "Bash(git cherry-pick:*)"
     ],
     "deny": [],
     "ask": []

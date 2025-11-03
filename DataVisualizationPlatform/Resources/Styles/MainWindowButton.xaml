@@ -80,14 +80,14 @@
     <Style x:Key="VerticalBtnStyle" TargetType="RadioButton">
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
-        <Setter Property="Margin" Value="8,3,8,3"/>
+        <Setter Property="Margin" Value="8,3,0,3"/>
         <Setter Property="Height" Value="42"/>
         <Setter Property="Foreground" Value="#4A4A4A"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="RadioButton">
                     <Border x:Name="border"
-                            CornerRadius="6"
+                            CornerRadius="6,0,0,6"
                             BorderThickness="0"
                             Padding="12,0"
                             Background="Transparent">
@@ -97,7 +97,7 @@
                                     Width="3"
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Stretch"
-                                    Background="#007AFF"
+                                    Background="Transparent"
                                     Opacity="0"
                                     CornerRadius="1.5"/>
 
@@ -112,8 +112,8 @@
 
                         <Trigger Property="IsChecked" Value="True">
                             <Setter TargetName="Indicator" Property="Opacity" Value="1"/>
-                            <Setter TargetName="border" Property="Background" Value="#E5E5EA"/>
-                            <Setter Property="Foreground" Value="#007AFF"/>
+                            <Setter TargetName="border" Property="Background" Value="#D1D1D6"/>
+                            <!--<Setter Property="Foreground" Value="#007AFF"/>-->
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
