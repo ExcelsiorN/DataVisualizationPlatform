@@ -46,12 +46,7 @@
                 Background="Transparent"
                 MouseLeftButtonDown="TitleBar_MouseLeftButtonDown">
             <Grid>
-                <TextBlock Text="数据可视化平台"
-                           FontSize="14"
-                           FontWeight="SemiBold"
-                           Foreground="#2C3E50"
-                           VerticalAlignment="Center"
-                           Margin="15,0,0,0"/>
+
 
                 <!-- 窗口控制按钮 -->
                 <StackPanel Orientation="Horizontal"
@@ -126,12 +121,19 @@
         </Border>
 
         <!-- 左侧导航面板 -->
-        <Border Grid.Row="1" Grid.Column="0"
+        <Border Grid.RowSpan="2" Grid.Column="0"
                 Background="#D1D1D6">
             <Grid>
                 <!-- 导航菜单 -->
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <StackPanel x:Name="NavigationPanel" Margin="0,20,0,0">
+                        
+                        <!-- Logo -->
+                        <Image Source="Resources/Images/Logo.png"
+                               Height="50"
+                               Width="100"
+                               HorizontalAlignment="Center"
+                               Margin="0,0,0,20"/>
 
                         <!-- MainMenu 按钮 -->
                         <RadioButton Style="{StaticResource VerticalBtnStyle}"
@@ -171,8 +173,9 @@
                         <!-- Data 子菜单（年份选择） -->
                         <StackPanel x:Name="DataSubMenu"
                                     Visibility="Collapsed"
-                                    Background="#BEBEC5"
-                                    Margin="10,0,10,10">
+                                    Background="#F5F5F7"
+                                    Margin="10,5,10,5"
+                                    Opacity="0.95">
                             <ScrollViewer VerticalScrollBarVisibility="Auto"
                                           MaxHeight="200">
                                 <ItemsControl ItemsSource="{Binding Years}">
@@ -188,8 +191,8 @@
                                                          Command="{Binding DataContext.OpenYearlyDataCommand, RelativeSource={RelativeSource AncestorType=Window}}"
                                                          CommandParameter="{Binding Key}">
                                                 <TextBlock Text="{Binding DisplayYear}"
-                                                           Foreground="#2C3E50"
-                                                           FontSize="13"
+                                                           Foreground="#6B6B6B"
+                                                           FontSize="12"
                                                            Margin="10,5"/>
                                             </RadioButton>
                                         </DataTemplate>
