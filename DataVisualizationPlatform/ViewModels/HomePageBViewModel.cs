@@ -35,6 +35,7 @@ namespace DataVisualizationPlatform.ViewModels
         public ICommand ExportDataCommand { get; }
         public ICommand ViewReportCommand { get; }
         public ICommand EditDataCommand { get; }
+        public ICommand EditFaultCommand { get; }
 
         public HomePageBViewModel()
         {
@@ -56,6 +57,7 @@ namespace DataVisualizationPlatform.ViewModels
             ExportDataCommand = new RelayCommand<object>(ExportData);
             ViewReportCommand = new RelayCommand<object>(ViewReport);
             EditDataCommand = new RelayCommand<object>(EditData);
+            EditFaultCommand = new RelayCommand<object>(EditFault);
 
             // 订阅设备数据更新消息
             WeakReferenceMessenger.Default.Register<EquipmentDataUpdatedMessage>(this, (recipient, message) =>
@@ -63,6 +65,13 @@ namespace DataVisualizationPlatform.ViewModels
                 // 重新加载设备数据
                 LoadData();
                 CalculateEquipmentStatistics();
+            });
+
+            // 订阅故障数据更新消息
+            WeakReferenceMessenger.Default.Register<FaultDataUpdatedMessage>(this, (recipient, message) =>
+            {
+                // 重新加载故障数据
+                LoadData();
             });
         }
 
@@ -255,6 +264,15 @@ namespace DataVisualizationPlatform.ViewModels
             WeakReferenceMessenger.Default.Send(new ChangePageMessage
             {
                 PageKey = "Edit"
+            });
+        }
+
+        private void EditFault(object parameter)
+        {
+            // 导航到FaultEdit页面
+            WeakReferenceMessenger.Default.Send(new ChangePageMessage
+            {
+                PageKey = "FaultEdit"
             });
         }
 

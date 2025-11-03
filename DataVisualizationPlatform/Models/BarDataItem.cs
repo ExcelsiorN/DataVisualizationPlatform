@@ -14,8 +14,7 @@ namespace DataVisualizationPlatform.Models
         public String Fal_Type { get; set; } = string.Empty; // 故障类型
         public String Fal_Info { get; set; } = string.Empty; // 故障描述
         public String Fal_Detail { get; set; } = string.Empty; // 故障详情
-
-
+        public String Fal_Remark { get; set; } = string.Empty; // 批注信息
 
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName)

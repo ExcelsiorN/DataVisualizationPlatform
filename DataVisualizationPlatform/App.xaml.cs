@@ -35,9 +35,10 @@ using DataVisualizationPlatform.Services.Navigation;
              services.AddTransient<HomePageCViewModel>();                                                             
              services.AddTransient<DataViewModel>();                                                                  
              services.AddTransient<EquipmentInfoViewModel>();                                                         
-             services.AddTransient<FaultReportViewModel>();                                                           
+             services.AddTransient<FaultReportViewModel>();
              services.AddTransient<ReservationListViewModel>();
-            services.AddTransient<EditViewModel>();                                                       
+            services.AddTransient<EditViewModel>();
+            services.AddTransient<FaultEditViewModel>();                                                       
                                                                                                                       
              // 注册Views                                                                                             
              services.AddTransient<MainWindow>();                                                                     
@@ -47,9 +48,10 @@ using DataVisualizationPlatform.Services.Navigation;
              services.AddTransient<HomePageC>();                                                                      
              services.AddTransient<Data>();                                                                           
              services.AddTransient<EquipmentInfo>();                                                                  
-             services.AddTransient<FaultReport>();                                                                    
-             services.AddTransient<ReservationList>();                                                                
-             services.AddTransient<Edit>();                                                                           
+             services.AddTransient<FaultReport>();
+             services.AddTransient<ReservationList>();
+             services.AddTransient<Edit>();
+             services.AddTransient<FaultEdit>();                                                                           
                                                                                                                                                                       
          }                                                                                                            
                                                                                                                       

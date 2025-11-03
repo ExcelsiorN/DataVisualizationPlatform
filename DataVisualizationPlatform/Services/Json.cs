@@ -3061,7 +3061,9 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""硬件故障"",
                 ""Fal_Info"": ""待处理"",
                 ""Fal_Data"": ""2023-01"",
-                ""Fal_Detail"": ""运动系统作动筒内泄漏：液压作动筒密封失效导致压力不稳，使座舱产生非指令性抖动。""
+                ""Fal_Detail"": ""运动系统作动筒内泄漏：液压作动筒密封失效导致压力不稳，使座舱产生非指令性抖动。"",
+                ""Fal_Remark"": """",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-3"",
@@ -3069,7 +3071,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""软件故障"",
                 ""Fal_Info"": ""已处理"",
                 ""Fal_Data"": ""2023-03"",
-                ""Fal_Detail"": ""运动系统作动筒内泄漏：液压作动筒密封失效导致压力不稳，使座舱产生非指令性抖动。""
+                ""Fal_Detail"": ""运动系统作动筒内泄漏：液压作动筒密封失效导致压力不稳，使座舱产生非指令性抖动。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-1"",
@@ -3077,7 +3080,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""硬件故障"",
                 ""Fal_Info"": ""处理中"",
                 ""Fal_Data"": ""2023-02"",
-                ""Fal_Detail"": ""运动系统作动筒内泄漏：液压作动筒密封失效导致压力不稳，使座舱产生非指令性抖动。""
+                ""Fal_Detail"": ""运动系统作动筒内泄漏：液压作动筒密封失效导致压力不稳，使座舱产生非指令性抖动。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-2"",
@@ -3085,7 +3089,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""软件故障"",
                 ""Fal_Info"": ""待处理"",
                 ""Fal_Data"": ""2023-05"",
-                ""Fal_Detail"": ""运动系统作动筒内泄漏：液压作动筒密封失效导致压力不稳，使座舱产生非指令性抖动。""
+                ""Fal_Detail"": ""运动系统作动筒内泄漏：液压作动筒密封失效导致压力不稳，使座舱产生非指令性抖动。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-2"",
@@ -3093,7 +3098,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""硬件故障"",
                 ""Fal_Info"": ""已处理"",
                 ""Fal_Data"": ""2023-04"",
-                ""Fal_Detail"": ""视景系统投影仪故障：主投影仪灯泡烧毁，导致部分或全部视景显示失效或颜色失真。""
+                ""Fal_Detail"": ""视景系统投影仪故障：主投影仪灯泡烧毁，导致部分或全部视景显示失效或颜色失真。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-4"",
@@ -3101,7 +3107,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""软件故障"",
                 ""Fal_Info"": ""处理中"",
                 ""Fal_Data"": ""2023-01"",
-                ""Fal_Detail"": ""视景系统投影仪故障：主投影仪灯泡烧毁，导致部分或全部视景显示失效或颜色失真。""
+                ""Fal_Detail"": ""视景系统投影仪故障：主投影仪灯泡烧毁，导致部分或全部视景显示失效或颜色失真。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-0"",
@@ -3109,7 +3116,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""硬件故障"",
                 ""Fal_Info"": ""待处理"",
                 ""Fal_Data"": ""2023-06"",
-                ""Fal_Detail"": ""视景系统投影仪故障：主投影仪灯泡烧毁，导致部分或全部视景显示失效或颜色失真。""
+                ""Fal_Detail"": ""视景系统投影仪故障：主投影仪灯泡烧毁，导致部分或全部视景显示失效或颜色失真。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-3"",
@@ -3117,7 +3125,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""软件故障"",
                 ""Fal_Info"": ""已处理"",
                 ""Fal_Data"": ""2023-07"",
-                ""Fal_Detail"": ""视景系统投影仪故障：主投影仪灯泡烧毁，导致部分或全部视景显示失效或颜色失真。""
+                ""Fal_Detail"": ""视景系统投影仪故障：主投影仪灯泡烧毁，导致部分或全部视景显示失效或颜色失真。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-1"",
@@ -3125,7 +3134,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""硬件故障"",
                 ""Fal_Info"": ""处理中"",
                 ""Fal_Data"": ""2023-08"",
-                ""Fal_Detail"": ""主飞行计算机内存错误：计算机内存条发生位翻转，引发飞行数据计算错误或系统崩溃。""
+                ""Fal_Detail"": ""主飞行计算机内存错误：计算机内存条发生位翻转，引发飞行数据计算错误或系统崩溃。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-5"",
@@ -3133,7 +3143,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""软件故障"",
                 ""Fal_Info"": ""待处理"",
                 ""Fal_Data"": ""2023-09"",
-                ""Fal_Detail"": ""主飞行计算机内存错误：计算机内存条发生位翻转，引发飞行数据计算错误或系统崩溃。""
+                ""Fal_Detail"": ""主飞行计算机内存错误：计算机内存条发生位翻转，引发飞行数据计算错误或系统崩溃。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-2"",
@@ -3141,7 +3152,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""硬件故障"",
                 ""Fal_Info"": ""已处理"",
                 ""Fal_Data"": ""2023-10"",
-                ""Fal_Detail"": ""主飞行计算机内存错误：计算机内存条发生位翻转，引发飞行数据计算错误或系统崩溃。""
+                ""Fal_Detail"": ""主飞行计算机内存错误：计算机内存条发生位翻转，引发飞行数据计算错误或系统崩溃。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-4"",
@@ -3149,7 +3161,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""软件故障"",
                 ""Fal_Info"": ""处理中"",
                 ""Fal_Data"": ""2023-11"",
-                ""Fal_Detail"": ""主飞行计算机内存错误：计算机内存条发生位翻转，引发飞行数据计算错误或系统崩溃。""
+                ""Fal_Detail"": ""主飞行计算机内存错误：计算机内存条发生位翻转，引发飞行数据计算错误或系统崩溃。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-3"",
@@ -3157,7 +3170,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""硬件故障"",
                 ""Fal_Info"": ""待处理"",
                 ""Fal_Data"": ""2023-12"",
-                ""Fal_Detail"": ""教员台触控屏失灵：触摸屏局部或全部无响应，导致教员无法正常设置训练科目或干预模拟。""
+                ""Fal_Detail"": ""教员台触控屏失灵：触摸屏局部或全部无响应，导致教员无法正常设置训练科目或干预模拟。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-3"",
@@ -3165,7 +3179,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""软件故障"",
                 ""Fal_Info"": ""已处理"",
                 ""Fal_Data"": ""2024-01"",
-                ""Fal_Detail"": ""教员台触控屏失灵：触摸屏局部或全部无响应，导致教员无法正常设置训练科目或干预模拟。""
+                ""Fal_Detail"": ""教员台触控屏失灵：触摸屏局部或全部无响应，导致教员无法正常设置训练科目或干预模拟。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-1"",
@@ -3173,7 +3188,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""硬件故障"",
                 ""Fal_Info"": ""处理中"",
                 ""Fal_Data"": ""2024-02"",
-                ""Fal_Detail"": ""教员台触控屏失灵：触摸屏局部或全部无响应，导致教员无法正常设置训练科目或干预模拟。""
+                ""Fal_Detail"": ""教员台触控屏失灵：触摸屏局部或全部无响应，导致教员无法正常设置训练科目或干预模拟。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-3"",
@@ -3181,7 +3197,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""软件故障"",
                 ""Fal_Info"": ""待处理"",
                 ""Fal_Data"": ""2024-03"",
-                ""Fal_Detail"": ""教员台触控屏失灵：触摸屏局部或全部无响应，导致教员无法正常设置训练科目或干预模拟。""
+                ""Fal_Detail"": ""教员台触控屏失灵：触摸屏局部或全部无响应，导致教员无法正常设置训练科目或干预模拟。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-2"",
@@ -3189,7 +3206,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""硬件故障"",
                 ""Fal_Info"": ""已处理"",
                 ""Fal_Data"": ""2024-04"",
-                ""Fal_Detail"": ""力感配平马达卡滞：驾驶盘上的力感模拟电机卡死，导致操纵力反馈异常或完全消失。""
+                ""Fal_Detail"": ""力感配平马达卡滞：驾驶盘上的力感模拟电机卡死，导致操纵力反馈异常或完全消失。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-4"",
@@ -3197,7 +3215,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""软件故障"",
                 ""Fal_Info"": ""处理中"",
                 ""Fal_Data"": ""2024-05"",
-                ""Fal_Detail"": ""力感配平马达卡滞：驾驶盘上的力感模拟电机卡死，导致操纵力反馈异常或完全消失。""
+                ""Fal_Detail"": ""力感配平马达卡滞：驾驶盘上的力感模拟电机卡死，导致操纵力反馈异常或完全消失。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-3"",
@@ -3205,7 +3224,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""硬件故障"",
                 ""Fal_Info"": ""待处理"",
                 ""Fal_Data"": ""2024-06"",
-                ""Fal_Detail"": ""力感配平马达卡滞：驾驶盘上的力感模拟电机卡死，导致操纵力反馈异常或完全消失。""
+                ""Fal_Detail"": ""力感配平马达卡滞：驾驶盘上的力感模拟电机卡死，导致操纵力反馈异常或完全消失。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-3"",
@@ -3213,7 +3233,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""软件故障"",
                 ""Fal_Info"": ""已处理"",
                 ""Fal_Data"": ""2024-07"",
-                ""Fal_Detail"": ""力感配平马达卡滞：驾驶盘上的力感模拟电机卡死，导致操纵力反馈异常或完全消失。""
+                ""Fal_Detail"": ""力感配平马达卡滞：驾驶盘上的力感模拟电机卡死，导致操纵力反馈异常或完全消失。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-1"",
@@ -3221,7 +3242,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""硬件故障"",
                 ""Fal_Info"": ""处理中"",
                 ""Fal_Data"": ""2024-08"",
-                ""Fal_Detail"": ""音响系统功率放大器过载：功放模块过热损坏，造成发动机及环境声音失真或完全静音。""
+                ""Fal_Detail"": ""音响系统功率放大器过载：功放模块过热损坏，造成发动机及环境声音失真或完全静音。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-2"",
@@ -3229,7 +3251,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""软件故障"",
                 ""Fal_Info"": ""待处理"",
                 ""Fal_Data"": ""2024-09"",
-                ""Fal_Detail"": ""音响系统功率放大器过载：功放模块过热损坏，造成发动机及环境声音失真或完全静音。""
+                ""Fal_Detail"": ""音响系统功率放大器过载：功放模块过热损坏，造成发动机及环境声音失真或完全静音。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-2"",
@@ -3237,7 +3260,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""硬件故障"",
                 ""Fal_Info"": ""已处理"",
                 ""Fal_Data"": ""2024-10"",
-                ""Fal_Detail"": ""音响系统功率放大器过载：功放模块过热损坏，造成发动机及环境声音失真或完全静音。""
+                ""Fal_Detail"": ""音响系统功率放大器过载：功放模块过热损坏，造成发动机及环境声音失真或完全静音。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-4"",
@@ -3245,7 +3269,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""软件故障"",
                 ""Fal_Info"": ""处理中"",
                 ""Fal_Data"": ""2024-11"",
-                ""Fal_Detail"": ""音响系统功率放大器过载：功放模块过热损坏，造成发动机及环境声音失真或完全静音。""
+                ""Fal_Detail"": ""音响系统功率放大器过载：功放模块过热损坏，造成发动机及环境声音失真或完全静音。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-1"",
@@ -3253,7 +3278,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""硬件故障"",
                 ""Fal_Info"": ""待处理"",
                 ""Fal_Data"": ""2024-12"",
-                ""Fal_Detail"": ""网络同步数据包丢失：各子系统间数据传输出现丢包，导致运动、视景与仪表显示不同步。""
+                ""Fal_Detail"": ""网络同步数据包丢失：各子系统间数据传输出现丢包，导致运动、视景与仪表显示不同步。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-3"",
@@ -3261,7 +3287,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""软件故障"",
                 ""Fal_Info"": ""已处理"",
                 ""Fal_Data"": ""2025-01"",
-                ""Fal_Detail"": ""网络同步数据包丢失：各子系统间数据传输出现丢包，导致运动、视景与仪表显示不同步。""
+                ""Fal_Detail"": ""网络同步数据包丢失：各子系统间数据传输出现丢包，导致运动、视景与仪表显示不同步。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-1"",
@@ -3269,7 +3296,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""硬件故障"",
                 ""Fal_Info"": ""处理中"",
                 ""Fal_Data"": ""2025-02"",
-                ""Fal_Detail"": ""网络同步数据包丢失：各子系统间数据传输出现丢包，导致运动、视景与仪表显示不同步。""
+                ""Fal_Detail"": ""网络同步数据包丢失：各子系统间数据传输出现丢包，导致运动、视景与仪表显示不同步。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-4"",
@@ -3277,7 +3305,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""软件故障"",
                 ""Fal_Info"": ""待处理"",
                 ""Fal_Data"": ""2025-03"",
-                ""Fal_Detail"": ""网络同步数据包丢失：各子系统间数据传输出现丢包，导致运动、视景与仪表显示不同步。""
+                ""Fal_Detail"": ""网络同步数据包丢失：各子系统间数据传输出现丢包，导致运动、视景与仪表显示不同步。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-2"",
@@ -3285,7 +3314,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""硬件故障"",
                 ""Fal_Info"": ""已处理"",
                 ""Fal_Data"": ""2025-04"",
-                ""Fal_Detail"": ""中央数据库读写错误：气动模型等核心数据读取失败，导致飞行动力学计算异常。""
+                ""Fal_Detail"": ""中央数据库读写错误：气动模型等核心数据读取失败，导致飞行动力学计算异常。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-4"",
@@ -3293,7 +3323,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""软件故障"",
                 ""Fal_Info"": ""处理中"",
                 ""Fal_Data"": ""2025-05"",
-                ""Fal_Detail"": ""中央数据库读写错误：气动模型等核心数据读取失败，导致飞行动力学计算异常。""
+                ""Fal_Detail"": ""中央数据库读写错误：气动模型等核心数据读取失败，导致飞行动力学计算异常。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-1"",
@@ -3301,7 +3332,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""硬件故障"",
                 ""Fal_Info"": ""待处理"",
                 ""Fal_Data"": ""2023-02"",
-                ""Fal_Detail"": ""中央数据库读写错误：气动模型等核心数据读取失败，导致飞行动力学计算异常。""
+                ""Fal_Detail"": ""中央数据库读写错误：气动模型等核心数据读取失败，导致飞行动力学计算异常。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-3"",
@@ -3309,7 +3341,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""软件故障"",
                 ""Fal_Info"": ""已处理"",
                 ""Fal_Data"": ""2023-04"",
-                ""Fal_Detail"": ""中央数据库读写错误：气动模型等核心数据读取失败，导致飞行动力学计算异常。""
+                ""Fal_Detail"": ""中央数据库读写错误：气动模型等核心数据读取失败，导致飞行动力学计算异常。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-1"",
@@ -3317,7 +3350,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""硬件故障"",
                 ""Fal_Info"": ""处理中"",
                 ""Fal_Data"": ""2023-06"",
-                ""Fal_Detail"": ""座舱仪表显示驱动故障：某个液晶仪表因驱动板问题黑屏或显示杂乱数据，无法读取。""
+                ""Fal_Detail"": ""座舱仪表显示驱动故障：某个液晶仪表因驱动板问题黑屏或显示杂乱数据，无法读取。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-5"",
@@ -3325,7 +3359,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""软件故障"",
                 ""Fal_Info"": ""待处理"",
                 ""Fal_Data"": ""2023-08"",
-                ""Fal_Detail"": ""座舱仪表显示驱动故障：某个液晶仪表因驱动板问题黑屏或显示杂乱数据，无法读取。""
+                ""Fal_Detail"": ""座舱仪表显示驱动故障：某个液晶仪表因驱动板问题黑屏或显示杂乱数据，无法读取。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-2"",
@@ -3333,7 +3368,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""硬件故障"",
                 ""Fal_Info"": ""已处理"",
                 ""Fal_Data"": ""2023-10"",
-                ""Fal_Detail"": ""座舱仪表显示驱动故障：某个液晶仪表因驱动板问题黑屏或显示杂乱数据，无法读取。""
+                ""Fal_Detail"": ""座舱仪表显示驱动故障：某个液晶仪表因驱动板问题黑屏或显示杂乱数据，无法读取。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-4"",
@@ -3341,7 +3377,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""软件故障"",
                 ""Fal_Info"": ""处理中"",
                 ""Fal_Data"": ""2023-12"",
-                ""Fal_Detail"": ""座舱仪表显示驱动故障：某个液晶仪表因驱动板问题黑屏或显示杂乱数据，无法读取。""
+                ""Fal_Detail"": ""座舱仪表显示驱动故障：某个液晶仪表因驱动板问题黑屏或显示杂乱数据，无法读取。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-0"",
@@ -3349,7 +3386,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""硬件故障"",
                 ""Fal_Info"": ""待处理"",
                 ""Fal_Data"": ""2024-02"",
-                ""Fal_Detail"": ""IO接口卡通信中断：输入输出接口卡与传感器通信中断，导致部分操纵输入信号无效。""
+                ""Fal_Detail"": ""IO接口卡通信中断：输入输出接口卡与传感器通信中断，导致部分操纵输入信号无效。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-3"",
@@ -3357,7 +3395,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""软件故障"",
                 ""Fal_Info"": ""已处理"",
                 ""Fal_Data"": ""2024-04"",
-                ""Fal_Detail"": ""IO接口卡通信中断：输入输出接口卡与传感器通信中断，导致部分操纵输入信号无效。""
+                ""Fal_Detail"": ""IO接口卡通信中断：输入输出接口卡与传感器通信中断，导致部分操纵输入信号无效。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-1"",
@@ -3365,7 +3404,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""硬件故障"",
                 ""Fal_Info"": ""处理中"",
                 ""Fal_Data"": ""2024-06"",
-                ""Fal_Detail"": ""IO接口卡通信中断：输入输出接口卡与传感器通信中断，导致部分操纵输入信号无效。""
+                ""Fal_Detail"": ""IO接口卡通信中断：输入输出接口卡与传感器通信中断，导致部分操纵输入信号无效。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-5"",
@@ -3373,7 +3413,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""软件故障"",
                 ""Fal_Info"": ""待处理"",
                 ""Fal_Data"": ""2024-08"",
-                ""Fal_Detail"": ""IO接口卡通信中断：输入输出接口卡与传感器通信中断，导致部分操纵输入信号无效。""
+                ""Fal_Detail"": ""IO接口卡通信中断：输入输出接口卡与传感器通信中断，导致部分操纵输入信号无效。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-2"",
@@ -3381,7 +3422,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""硬件故障"",
                 ""Fal_Info"": ""已处理"",
                 ""Fal_Data"": ""2024-10"",
-                ""Fal_Detail"": ""电源模块输出电压不稳：模拟机内部供电单元异常，引发各子系统频繁重启或运行不稳定。""
+                ""Fal_Detail"": ""电源模块输出电压不稳：模拟机内部供电单元异常，引发各子系统频繁重启或运行不稳定。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-4"",
@@ -3389,7 +3431,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""软件故障"",
                 ""Fal_Info"": ""处理中"",
                 ""Fal_Data"": ""2024-12"",
-                ""Fal_Detail"": ""电源模块输出电压不稳：模拟机内部供电单元异常，引发各子系统频繁重启或运行不稳定。""
+                ""Fal_Detail"": ""电源模块输出电压不稳：模拟机内部供电单元异常，引发各子系统频繁重启或运行不稳定。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-0"",
@@ -3397,7 +3440,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""硬件故障"",
                 ""Fal_Info"": ""待处理"",
                 ""Fal_Data"": ""2025-02"",
-                ""Fal_Detail"": ""电源模块输出电压不稳：模拟机内部供电单元异常，引发各子系统频繁重启或运行不稳定。""
+                ""Fal_Detail"": ""电源模块输出电压不稳：模拟机内部供电单元异常，引发各子系统频繁重启或运行不稳定。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-3"",
@@ -3405,7 +3449,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""软件故障"",
                 ""Fal_Info"": ""已处理"",
                 ""Fal_Data"": ""2025-04"",
-                ""Fal_Detail"": ""电源模块输出电压不稳：模拟机内部供电单元异常，引发各子系统频繁重启或运行不稳定。""
+                ""Fal_Detail"": ""电源模块输出电压不稳：模拟机内部供电单元异常，引发各子系统频繁重启或运行不稳定。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-1"",
@@ -3413,7 +3458,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""硬件故障"",
                 ""Fal_Info"": ""处理中"",
                 ""Fal_Data"": ""2025-06"",
-                ""Fal_Detail"": ""冷却系统风扇停转：计算机柜散热风扇故障，导致核心设备过热并触发系统保护性关机。""
+                ""Fal_Detail"": ""冷却系统风扇停转：计算机柜散热风扇故障，导致核心设备过热并触发系统保护性关机。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-5"",
@@ -3421,7 +3467,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""软件故障"",
                 ""Fal_Info"": ""待处理"",
                 ""Fal_Data"": ""2023-03"",
-                ""Fal_Detail"": ""冷却系统风扇停转：计算机柜散热风扇故障，导致核心设备过热并触发系统保护性关机。""
+                ""Fal_Detail"": ""冷却系统风扇停转：计算机柜散热风扇故障，导致核心设备过热并触发系统保护性关机。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-2"",
@@ -3429,7 +3476,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""硬件故障"",
                 ""Fal_Info"": ""已处理"",
                 ""Fal_Data"": ""2023-05"",
-                ""Fal_Detail"": ""冷却系统风扇停转：计算机柜散热风扇故障，导致核心设备过热并触发系统保护性关机。""
+                ""Fal_Detail"": ""冷却系统风扇停转：计算机柜散热风扇故障，导致核心设备过热并触发系统保护性关机。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-4"",
@@ -3437,7 +3485,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""软件故障"",
                 ""Fal_Info"": ""处理中"",
                 ""Fal_Data"": ""2023-07"",
-                ""Fal_Detail"": ""冷却系统风扇停转：计算机柜散热风扇故障，导致核心设备过热并触发系统保护性关机。""
+                ""Fal_Detail"": ""冷却系统风扇停转：计算机柜散热风扇故障，导致核心设备过热并触发系统保护性关机。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-0"",
@@ -3445,7 +3494,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""硬件故障"",
                 ""Fal_Info"": ""待处理"",
                 ""Fal_Data"": ""2023-09"",
-                ""Fal_Detail"": ""教员台软件界面崩溃：操作站软件发生致命错误，界面无响应，需强制结束进程重启。""
+                ""Fal_Detail"": ""教员台软件界面崩溃：操作站软件发生致命错误，界面无响应，需强制结束进程重启。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-3"",
@@ -3453,7 +3503,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""软件故障"",
                 ""Fal_Info"": ""已处理"",
                 ""Fal_Data"": ""2023-11"",
-                ""Fal_Detail"": ""教员台软件界面崩溃：操作站软件发生致命错误，界面无响应，需强制结束进程重启。""
+                ""Fal_Detail"": ""教员台软件界面崩溃：操作站软件发生致命错误，界面无响应，需强制结束进程重启。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-1"",
@@ -3461,7 +3512,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""硬件故障"",
                 ""Fal_Info"": ""处理中"",
                 ""Fal_Data"": ""2024-01"",
-                ""Fal_Detail"": ""教员台软件界面崩溃：操作站软件发生致命错误，界面无响应，需强制结束进程重启。""
+                ""Fal_Detail"": ""教员台软件界面崩溃：操作站软件发生致命错误，界面无响应，需强制结束进程重启。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-5"",
@@ -3469,7 +3521,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""软件故障"",
                 ""Fal_Info"": ""待处理"",
                 ""Fal_Data"": ""2024-03"",
-                ""Fal_Detail"": ""教员台软件界面崩溃：操作站软件发生致命错误，界面无响应，需强制结束进程重启。""
+                ""Fal_Detail"": ""教员台软件界面崩溃：操作站软件发生致命错误，界面无响应，需强制结束进程重启。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-2"",
@@ -3477,7 +3530,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""硬件故障"",
                 ""Fal_Info"": ""已处理"",
                 ""Fal_Data"": ""2024-05"",
-                ""Fal_Detail"": ""眼点跟踪系统校准失效：用于视角跟踪的摄像头定位失准，导致视景透视关系错误。""
+                ""Fal_Detail"": ""眼点跟踪系统校准失效：用于视角跟踪的摄像头定位失准，导致视景透视关系错误。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-4"",
@@ -3485,7 +3539,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""软件故障"",
                 ""Fal_Info"": ""处理中"",
                 ""Fal_Data"": ""2024-07"",
-                ""Fal_Detail"": ""眼点跟踪系统校准失效：用于视角跟踪的摄像头定位失准，导致视景透视关系错误。""
+                ""Fal_Detail"": ""眼点跟踪系统校准失效：用于视角跟踪的摄像头定位失准，导致视景透视关系错误。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-0"",
@@ -3493,7 +3548,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""硬件故障"",
                 ""Fal_Info"": ""待处理"",
                 ""Fal_Data"": ""2024-09"",
-                ""Fal_Detail"": ""眼点跟踪系统校准失效：用于视角跟踪的摄像头定位失准，导致视景透视关系错误。""
+                ""Fal_Detail"": ""眼点跟踪系统校准失效：用于视角跟踪的摄像头定位失准，导致视景透视关系错误。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-3"",
@@ -3501,7 +3557,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""软件故障"",
                 ""Fal_Info"": ""已处理"",
                 ""Fal_Data"": ""2024-11"",
-                ""Fal_Detail"": ""眼点跟踪系统校准失效：用于视角跟踪的摄像头定位失准，导致视景透视关系错误。""
+                ""Fal_Detail"": ""眼点跟踪系统校准失效：用于视角跟踪的摄像头定位失准，导致视景透视关系错误。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-1"",
@@ -3509,7 +3566,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""硬件故障"",
                 ""Fal_Info"": ""处理中"",
                 ""Fal_Data"": ""2025-01"",
-                ""Fal_Detail"": ""运动平台限位传感器误报：传感器错误触发平台超限信号，导致系统紧急停止并重置。""
+                ""Fal_Detail"": ""运动平台限位传感器误报：传感器错误触发平台超限信号，导致系统紧急停止并重置。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-5"",
@@ -3517,7 +3575,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""软件故障"",
                 ""Fal_Info"": ""待处理"",
                 ""Fal_Data"": ""2025-03"",
-                ""Fal_Detail"": ""运动平台限位传感器误报：传感器错误触发平台超限信号，导致系统紧急停止并重置。""
+                ""Fal_Detail"": ""运动平台限位传感器误报：传感器错误触发平台超限信号，导致系统紧急停止并重置。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-2"",
@@ -3525,7 +3584,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""硬件故障"",
                 ""Fal_Info"": ""已处理"",
                 ""Fal_Data"": ""2025-05"",
-                ""Fal_Detail"": ""运动平台限位传感器误报：传感器错误触发平台超限信号，导致系统紧急停止并重置。""
+                ""Fal_Detail"": ""运动平台限位传感器误报：传感器错误触发平台超限信号，导致系统紧急停止并重置。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-4"",
@@ -3533,7 +3593,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""软件故障"",
                 ""Fal_Info"": ""处理中"",
                 ""Fal_Data"": ""2023-04"",
-                ""Fal_Detail"": ""运动平台限位传感器误报：传感器错误触发平台超限信号，导致系统紧急停止并重置。""
+                ""Fal_Detail"": ""运动平台限位传感器误报：传感器错误触发平台超限信号，导致系统紧急停止并重置。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-0"",
@@ -3541,7 +3602,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""硬件故障"",
                 ""Fal_Info"": ""待处理"",
                 ""Fal_Data"": ""2023-07"",
-                ""Fal_Detail"": ""气动模型解算器超时：实时解算飞行参数的进程响应超时，造成模拟飞行短暂“卡顿”。""
+                ""Fal_Detail"": ""气动模型解算器超时：实时解算飞行参数的进程响应超时，造成模拟飞行短暂“卡顿”。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-3"",
@@ -3549,7 +3611,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""软件故障"",
                 ""Fal_Info"": ""已处理"",
                 ""Fal_Data"": ""2023-10"",
-                ""Fal_Detail"": ""气动模型解算器超时：实时解算飞行参数的进程响应超时，造成模拟飞行短暂“卡顿”。""
+                ""Fal_Detail"": ""气动模型解算器超时：实时解算飞行参数的进程响应超时，造成模拟飞行短暂“卡顿”。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-1"",
@@ -3557,7 +3620,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""硬件故障"",
                 ""Fal_Info"": ""处理中"",
                 ""Fal_Data"": ""2024-01"",
-                ""Fal_Detail"": ""气动模型解算器超时：实时解算飞行参数的进程响应超时，造成模拟飞行短暂“卡顿”。""
+                ""Fal_Detail"": ""气动模型解算器超时：实时解算飞行参数的进程响应超时，造成模拟飞行短暂“卡顿”。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-5"",
@@ -3565,7 +3629,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""软件故障"",
                 ""Fal_Info"": ""待处理"",
                 ""Fal_Data"": ""2024-04"",
-                ""Fal_Detail"": ""气动模型解算器超时：实时解算飞行参数的进程响应超时，造成模拟飞行短暂“卡顿”。""
+                ""Fal_Detail"": ""气动模型解算器超时：实时解算飞行参数的进程响应超时，造成模拟飞行短暂“卡顿”。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-2"",
@@ -3573,7 +3638,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""硬件故障"",
                 ""Fal_Info"": ""已处理"",
                 ""Fal_Data"": ""2024-07"",
-                ""Fal_Detail"": ""数据记录单元存储空间满：用于记录训练数据的硬盘写满，无法继续记录本次训练过程。""
+                ""Fal_Detail"": ""数据记录单元存储空间满：用于记录训练数据的硬盘写满，无法继续记录本次训练过程。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-4"",
@@ -3581,7 +3647,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""软件故障"",
                 ""Fal_Info"": ""处理中"",
                 ""Fal_Data"": ""2024-10"",
-                ""Fal_Detail"": ""数据记录单元存储空间满：用于记录训练数据的硬盘写满，无法继续记录本次训练过程。""
+                ""Fal_Detail"": ""数据记录单元存储空间满：用于记录训练数据的硬盘写满，无法继续记录本次训练过程。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-0"",
@@ -3589,7 +3656,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""硬件故障"",
                 ""Fal_Info"": ""待处理"",
                 ""Fal_Data"": ""2025-01"",
-                ""Fal_Detail"": ""数据记录单元存储空间满：用于记录训练数据的硬盘写满，无法继续记录本次训练过程。""
+                ""Fal_Detail"": ""数据记录单元存储空间满：用于记录训练数据的硬盘写满，无法继续记录本次训练过程。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-3"",
@@ -3597,7 +3665,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""软件故障"",
                 ""Fal_Info"": ""已处理"",
                 ""Fal_Data"": ""2025-04"",
-                ""Fal_Detail"": ""数据记录单元存储空间满：用于记录训练数据的硬盘写满，无法继续记录本次训练过程。""
+                ""Fal_Detail"": ""数据记录单元存储空间满：用于记录训练数据的硬盘写满，无法继续记录本次训练过程。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-1"",
@@ -3605,7 +3674,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""硬件故障"",
                 ""Fal_Info"": ""处理中"",
                 ""Fal_Data"": ""2023-05"",
-                ""Fal_Detail"": ""备用电源切换失败：主电源中断时，不间断电源未能正常切换，导致整个系统意外断电。""
+                ""Fal_Detail"": ""备用电源切换失败：主电源中断时，不间断电源未能正常切换，导致整个系统意外断电。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-5"",
@@ -3613,7 +3683,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""软件故障"",
                 ""Fal_Info"": ""待处理"",
                 ""Fal_Data"": ""2023-08"",
-                ""Fal_Detail"": ""备用电源切换失败：主电源中断时，不间断电源未能正常切换，导致整个系统意外断电。""
+                ""Fal_Detail"": ""备用电源切换失败：主电源中断时，不间断电源未能正常切换，导致整个系统意外断电。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-2"",
@@ -3621,7 +3692,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""硬件故障"",
                 ""Fal_Info"": ""已处理"",
                 ""Fal_Data"": ""2023-11"",
-                ""Fal_Detail"": ""备用电源切换失败：主电源中断时，不间断电源未能正常切换，导致整个系统意外断电。""
+                ""Fal_Detail"": ""备用电源切换失败：主电源中断时，不间断电源未能正常切换，导致整个系统意外断电。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-4"",
@@ -3629,7 +3701,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""软件故障"",
                 ""Fal_Info"": ""处理中"",
                 ""Fal_Data"": ""2024-02"",
-                ""Fal_Detail"": ""备用电源切换失败：主电源中断时，不间断电源未能正常切换，导致整个系统意外断电。""
+                ""Fal_Detail"": ""备用电源切换失败：主电源中断时，不间断电源未能正常切换，导致整个系统意外断电。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-0"",
@@ -3637,7 +3710,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""硬件故障"",
                 ""Fal_Info"": ""待处理"",
                 ""Fal_Data"": ""2024-05"",
-                ""Fal_Detail"": ""操纵负荷系统校准偏移：驾驶杆和脚舵的力反馈参数发生漂移，操纵感觉得过轻或过重。""
+                ""Fal_Detail"": ""操纵负荷系统校准偏移：驾驶杆和脚舵的力反馈参数发生漂移，操纵感觉得过轻或过重。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-3"",
@@ -3645,7 +3719,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""软件故障"",
                 ""Fal_Info"": ""已处理"",
                 ""Fal_Data"": ""2024-08"",
-                ""Fal_Detail"": ""操纵负荷系统校准偏移：驾驶杆和脚舵的力反馈参数发生漂移，操纵感觉得过轻或过重。""
+                ""Fal_Detail"": ""操纵负荷系统校准偏移：驾驶杆和脚舵的力反馈参数发生漂移，操纵感觉得过轻或过重。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-1"",
@@ -3653,7 +3728,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""硬件故障"",
                 ""Fal_Info"": ""处理中"",
                 ""Fal_Data"": ""2024-11"",
-                ""Fal_Detail"": ""操纵负荷系统校准偏移：驾驶杆和脚舵的力反馈参数发生漂移，操纵感觉得过轻或过重。""
+                ""Fal_Detail"": ""操纵负荷系统校准偏移：驾驶杆和脚舵的力反馈参数发生漂移，操纵感觉得过轻或过重。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-5"",
@@ -3661,7 +3737,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""软件故障"",
                 ""Fal_Info"": ""待处理"",
                 ""Fal_Data"": ""2025-02"",
-                ""Fal_Detail"": ""操纵负荷系统校准偏移：驾驶杆和脚舵的力反馈参数发生漂移，操纵感觉得过轻或过重。""
+                ""Fal_Detail"": ""操纵负荷系统校准偏移：驾驶杆和脚舵的力反馈参数发生漂移，操纵感觉得过轻或过重。"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-2"",
@@ -3669,7 +3746,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""硬件故障"",
                 ""Fal_Info"": ""已处理"",
                 ""Fal_Data"": ""2025-05"",
-                ""Fal_Detail"": ""核心软件服务意外退出：某个关键后台服务进程异常终止，导致相关联的模拟功能全部失效""
+                ""Fal_Detail"": ""核心软件服务意外退出：某个关键后台服务进程异常终止，导致相关联的模拟功能全部失效"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-4"",
@@ -3677,7 +3755,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""软件故障"",
                 ""Fal_Info"": ""处理中"",
                 ""Fal_Data"": ""2023-06"",
-                ""Fal_Detail"": ""核心软件服务意外退出：某个关键后台服务进程异常终止，导致相关联的模拟功能全部失效""
+                ""Fal_Detail"": ""核心软件服务意外退出：某个关键后台服务进程异常终止，导致相关联的模拟功能全部失效"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-0"",
@@ -3685,7 +3764,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""硬件故障"",
                 ""Fal_Info"": ""待处理"",
                 ""Fal_Data"": ""2023-09"",
-                ""Fal_Detail"": ""核心软件服务意外退出：某个关键后台服务进程异常终止，导致相关联的模拟功能全部失效""
+                ""Fal_Detail"": ""核心软件服务意外退出：某个关键后台服务进程异常终止，导致相关联的模拟功能全部失效"",
+                ""Fal_Remark"": """"
             },
             {
                 ""Fal_Eqid"": ""fntp-3"",
@@ -3693,7 +3773,8 @@ namespace DataVisualizationPlatform.Services
                 ""Fal_Type"": ""软件故障"",
                 ""Fal_Info"": ""已处理"",
                 ""Fal_Data"": ""2023-12"",
-                ""Fal_Detail"": ""核心软件服务意外退出：某个关键后台服务进程异常终止，导致相关联的模拟功能全部失效""
+                ""Fal_Detail"": ""核心软件服务意外退出：某个关键后台服务进程异常终止，导致相关联的模拟功能全部失效"",
+                ""Fal_Remark"": """"
             }
         ]";
 
