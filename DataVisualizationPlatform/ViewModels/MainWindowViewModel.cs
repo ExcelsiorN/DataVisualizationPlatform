@@ -30,6 +30,9 @@ namespace DataVisualizationPlatform.ViewModels
         [ObservableProperty]
         private string? _selectedYear;
 
+        [ObservableProperty]
+        private bool _isBlurred;
+
         public ObservableCollection<MonthItem> Months { get; } = new();
         public ObservableCollection<YearItem> Years { get; } = new();
 

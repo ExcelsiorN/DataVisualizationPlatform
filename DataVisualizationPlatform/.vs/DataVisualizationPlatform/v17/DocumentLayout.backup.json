@@ -7,16 +7,15 @@
       "RelativeMoniker": "D:0:0:{B868CA7E-5E9D-2D3D-899A-D8F766E05E8B}|DataVisualizationPlatform.csproj|solutionrelative:mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B868CA7E-5E9D-2D3D-899A-D8F766E05E8B}|DataVisualizationPlatform.csproj|g:\\lab\\wpf\\datavisualizationplatform\\datavisualizationplatform\\resources\\styles\\mainwindowstyle.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{B868CA7E-5E9D-2D3D-899A-D8F766E05E8B}|DataVisualizationPlatform.csproj|solutionrelative:resources\\styles\\mainwindowstyle.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{B868CA7E-5E9D-2D3D-899A-D8F766E05E8B}|DataVisualizationPlatform.csproj|g:\\lab\\wpf\\datavisualizationplatform\\datavisualizationplatform\\viewmodels\\mainwindowviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B868CA7E-5E9D-2D3D-899A-D8F766E05E8B}|DataVisualizationPlatform.csproj|solutionrelative:viewmodels\\mainwindowviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B868CA7E-5E9D-2D3D-899A-D8F766E05E8B}|DataVisualizationPlatform.csproj|g:\\lab\\wpf\\datavisualizationplatform\\datavisualizationplatform\\resources\\styles\\mainwindowbutton.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{B868CA7E-5E9D-2D3D-899A-D8F766E05E8B}|DataVisualizationPlatform.csproj|solutionrelative:resources\\styles\\mainwindowbutton.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{37CC6327-AEEF-41B2-B5EE-4DD27C7F85AE}|..\\NavigationBar\\NavigationBar.csproj|g:\\lab\\wpf\\datavisualizationplatform\\navigationbar\\themes\\generic.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B868CA7E-5E9D-2D3D-899A-D8F766E05E8B}|DataVisualizationPlatform.csproj|g:\\lab\\wpf\\datavisualizationplatform\\datavisualizationplatform\\views\\faultedit.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{B868CA7E-5E9D-2D3D-899A-D8F766E05E8B}|DataVisualizationPlatform.csproj|solutionrelative:views\\faultedit.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{B868CA7E-5E9D-2D3D-899A-D8F766E05E8B}|DataVisualizationPlatform.csproj|g:\\lab\\wpf\\datavisualizationplatform\\datavisualizationplatform\\views\\login.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{B868CA7E-5E9D-2D3D-899A-D8F766E05E8B}|DataVisualizationPlatform.csproj|solutionrelative:views\\login.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,42 +25,19 @@
       "DocumentGroups": [
         {
           "DockedWidth": 216,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "MainWindowStyle.xaml",
-              "DocumentMoniker": "G:\\Lab\\WPF\\DataVisualizationPlatform\\DataVisualizationPlatform\\Resources\\Styles\\MainWindowStyle.xaml",
-              "RelativeDocumentMoniker": "Resources\\Styles\\MainWindowStyle.xaml",
-              "ToolTip": "G:\\Lab\\WPF\\DataVisualizationPlatform\\DataVisualizationPlatform\\Resources\\Styles\\MainWindowStyle.xaml",
-              "RelativeToolTip": "Resources\\Styles\\MainWindowStyle.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-11-03T08:00:59.993Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "MainWindowButton.xaml",
-              "DocumentMoniker": "G:\\Lab\\WPF\\DataVisualizationPlatform\\DataVisualizationPlatform\\Resources\\Styles\\MainWindowButton.xaml",
-              "RelativeDocumentMoniker": "Resources\\Styles\\MainWindowButton.xaml",
-              "ToolTip": "G:\\Lab\\WPF\\DataVisualizationPlatform\\DataVisualizationPlatform\\Resources\\Styles\\MainWindowButton.xaml",
-              "RelativeToolTip": "Resources\\Styles\\MainWindowButton.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-11-03T07:34:53.34Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "FaultEdit.xaml",
-              "DocumentMoniker": "G:\\Lab\\WPF\\DataVisualizationPlatform\\DataVisualizationPlatform\\Views\\FaultEdit.xaml",
-              "RelativeDocumentMoniker": "Views\\FaultEdit.xaml",
-              "ToolTip": "G:\\Lab\\WPF\\DataVisualizationPlatform\\DataVisualizationPlatform\\Views\\FaultEdit.xaml",
-              "RelativeToolTip": "Views\\FaultEdit.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-11-03T06:34:53.471Z",
+              "Title": "MainWindowViewModel.cs",
+              "DocumentMoniker": "G:\\Lab\\WPF\\DataVisualizationPlatform\\DataVisualizationPlatform\\ViewModels\\MainWindowViewModel.cs",
+              "RelativeDocumentMoniker": "ViewModels\\MainWindowViewModel.cs",
+              "ToolTip": "G:\\Lab\\WPF\\DataVisualizationPlatform\\DataVisualizationPlatform\\ViewModels\\MainWindowViewModel.cs",
+              "RelativeToolTip": "ViewModels\\MainWindowViewModel.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAD4vxgAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-04T07:07:16.071Z",
               "EditorCaption": ""
             },
             {
@@ -73,7 +49,31 @@
               "ToolTip": "G:\\Lab\\WPF\\DataVisualizationPlatform\\DataVisualizationPlatform\\MainWindow.xaml",
               "RelativeToolTip": "MainWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-10-30T08:18:59.239Z",
+              "WhenOpened": "2025-11-04T06:35:28.51Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Generic.xaml",
+              "DocumentMoniker": "G:\\Lab\\WPF\\DataVisualizationPlatform\\NavigationBar\\Themes\\Generic.xaml",
+              "RelativeDocumentMoniker": "..\\NavigationBar\\Themes\\Generic.xaml",
+              "ToolTip": "G:\\Lab\\WPF\\DataVisualizationPlatform\\NavigationBar\\Themes\\Generic.xaml",
+              "RelativeToolTip": "..\\NavigationBar\\Themes\\Generic.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-11-04T06:46:19.462Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Login.xaml",
+              "DocumentMoniker": "G:\\Lab\\WPF\\DataVisualizationPlatform\\DataVisualizationPlatform\\Views\\Login.xaml",
+              "RelativeDocumentMoniker": "Views\\Login.xaml",
+              "ToolTip": "G:\\Lab\\WPF\\DataVisualizationPlatform\\DataVisualizationPlatform\\Views\\Login.xaml",
+              "RelativeToolTip": "Views\\Login.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-11-04T02:59:22.16Z",
               "EditorCaption": ""
             }
           ]

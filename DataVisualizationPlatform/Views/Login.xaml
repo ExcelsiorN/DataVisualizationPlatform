@@ -4,9 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:DataVisualizationPlatform.ViewModels"
+        xmlns:nav="clr-namespace:NavigationBar;assembly=NavigationBar"
+        xmlns:james="https://jamesnet.dev/xaml/presentation"
         mc:Ignorable="d"
-        Height="700" 
-        Width="500"
+        Height="800" 
+        Width="600"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         AllowsTransparency="True"
@@ -83,7 +85,7 @@
                                 </Button.Style>
 
                             </Button>
-                            
+
                             <Button x:Name="CloseButton" 
                                 Width="46" 
                                 Height="46" 
@@ -123,10 +125,10 @@
                                   Width="16" 
                                   Height="16"/>
                             </Button>
-                            
+
                         </StackPanel>
                     </ScrollViewer>
-                    
+
                 </Grid>
 
                 <!-- 内容区域 -->
@@ -253,7 +255,7 @@
                                             </Trigger>
                                         </Style.Triggers>
                                     </Style>
-                                </TextBlock.Style>
+                                </TextBlock.Style> 
                             </TextBlock>
                         </Grid>
 
@@ -323,7 +325,19 @@
                                 </TextBlock>
                             </StackPanel>
                         </Border>
-                        
+
+
+                        <!--<Grid Height="100" Width="100" Background="Silver">
+                            <Path Fill="Blue" Margin="0,50,0,10" Stretch="Fill">
+                                <Path.Data>
+                                    <PathGeometry Figures="M0,0 L100,0 C95.167503,0 91.135628,3.4278221 90.203163,7.9846535 L90.200424,8 90.164383,8 90.152328,8.0613937 C86.330635,26.288719 69.805969,40 50,40 30.194035,40 13.669367,26.288719 9.8476696,8.0613937 L9.8356171,8 9.7995758,8 9.7968359,7.9846535 C8.8643732,3.4278221 4.8324914,0 0,0 z"/>
+                                </Path.Data>
+                            </Path>
+
+                        </Grid>-->
+
+                         
+
                     </StackPanel>
                 </ScrollViewer>
             </Grid>

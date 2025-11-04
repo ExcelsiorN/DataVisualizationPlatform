@@ -7,11 +7,15 @@
         xmlns:Local="clr-namespace:DataVisualizationPlatform"
         xmlns:views="clr-namespace:DataVisualizationPlatform.Views"
         xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:nav="clr-namespace:NavigationBar;assembly=NavigationBar"
+        xmlns:james="https://jamesnet.dev/xaml/presentation"
         mc:Ignorable="d"
         WindowStyle="None"
         Height="800" Width="1200"
         WindowStartupLocation="CenterScreen"
-        Background="{StaticResource MainWindowBackground}">
+        Background="{StaticResource MainWindowBackground}"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:behaviors="clr-namespace:DataVisualizationPlatform.Behaviors">
 
     <Window.Resources>
         <ResourceDictionary>
@@ -297,6 +301,20 @@
                     </Button.Style>
                     <Image Source="Resources/Images/NextPage.png" Height="60" Width="60" />
                 </Button>
+            </Grid>
+
+            <Grid VerticalAlignment="Bottom" HorizontalAlignment="Center">
+                
+                <nav:MagicBar x:Name="bar">
+                    <i:Interaction.Behaviors>
+                        <behaviors:BlurEffectBehavior 
+                            IsBlurEnabled="{Binding IsBlurred}" 
+                            BlurRadius="20"/>
+                    </i:Interaction.Behaviors>
+                    <ListBoxItem Content="设备编辑" Tag="{x:Static james:IconType.Microsoft}"/>
+                    <ListBoxItem Content="时段编辑" Tag="{x:Static james:IconType.Microsoft}"/>
+                    <ListBoxItem Content="故障编辑" Tag="{x:Static james:IconType.Microsoft}"/>
+                </nav:MagicBar>
             </Grid>
         </Grid>
     </Grid>

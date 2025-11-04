@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:DataVisualizationPlatform.Views"
       xmlns:vm="clr-namespace:DataVisualizationPlatform.ViewModels"
+      xmlns:nav="clr-namespace:DataVisualizationPlatform.Services.Navigation"
       mc:Ignorable="d"
       d:DesignHeight="600" d:DesignWidth="1000"
       Title="设备信息编辑"
@@ -239,7 +240,7 @@
                         </Grid>
 
                         <!-- 提示信息 -->
-                        <Border Background="#E3F2FD"
+                        <!--<Border Background="#E3F2FD"
                                 CornerRadius="4"
                                 Padding="15"
                                 Margin="0,20,0,0">
@@ -262,7 +263,7 @@
                                     <Run Text="4. 修改将直接写入到 Json.cs 文件中"/>
                                 </TextBlock>
                             </StackPanel>
-                        </Border>
+                        </Border>-->
                     </StackPanel>
                 </ScrollViewer>
             </Border>

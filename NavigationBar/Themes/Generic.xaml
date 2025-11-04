@@ -1,0 +1,130 @@
+ <ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:james="https://jamesnet.dev/xaml/presentation"
+    xmlns:local="clr-namespace:NavigationBar">
+
+    <LinearGradientBrush x:Key="MainWindowNavigationMenu" StartPoint="0,0" EndPoint="1,1" Opacity="0.85">
+        <GradientStop Color="#FFFFFFFF" Offset="0"/>
+        <GradientStop Color="#F7F7FA" Offset="0.5"/>
+        <GradientStop Color="#F2F2F7" Offset="1"/>
+    </LinearGradientBrush>
+
+
+
+    <Storyboard x:Key="Selected">
+        <james:ThickItem Mode="CubicEaseInOut" TargetName="icon" Duration="0:0:0.5" Property="Margin" To="0 -80 0 0"/>
+        <james:ThickItem Mode="CubicEaseInOut" TargetName="name" Duration="0:0:0.5" Property="Margin" To="0 45 0 0"/>
+        <james:ColorItem Mode="CubicEaseInOut" TargetName="icon" Duration="0:0:0.5" Property="Fill.Color" To="#333333"/>
+        <james:ColorItem Mode="CubicEaseInOut" TargetName="name" Duration="0:0:0.5" Property="Foreground.Color" To="#333333"/>
+    </Storyboard>
+
+    <Storyboard x:Key="UnSelected">
+        <james:ThickItem Mode="CubicEaseInOut" TargetName="icon" Duration="0:0:0.5" Property="Margin" To="0 0 0 0"/>
+        <james:ThickItem Mode="CubicEaseInOut" TargetName="name" Duration="0:0:0.5" Property="Margin" To="0 60 0 0"/> 
+        <james:ColorItem Mode="CubicEaseInOut" TargetName="icon" Duration="0:0:0.5" Property="Fill.Color" To="#44333333"/>
+        <james:ColorItem Mode="CubicEaseInOut" TargetName="name" Duration="0:0:0.5" Property="Foreground.Color" To="#00000000"/>
+    </Storyboard>
+
+
+    <Style TargetType="{x:Type james:JamesIcon}" x:Key="Icon">
+        <Setter Property="Icon" Value="{Binding RelativeSource={RelativeSource AncestorType=ListBoxItem},Path=Tag}"/>
+        <Setter Property="Width" Value="40"/>
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="Fill" Value="#44333333"/>   
+    </Style>
+
+    <Style TargetType="{x:Type TextBlock}" x:Key="Name">
+        <Setter Property="Text" Value="{Binding RelativeSource={RelativeSource AncestorType=ListBoxItem},Path=Content}"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Margin" Value="0, 60, 0, 0"/>
+        <Setter Property="Foreground" Value="#00000000"/>
+    </Style>
+
+    <Style TargetType="{x:Type ListBoxItem}" x:Key="MagicBarItem">
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                    <Grid>
+                        <james:JamesIcon x:Name="icon" Style="{StaticResource Icon}"/>
+                        <TextBlock x:Name="name" Style="{StaticResource Name}"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard Storyboard="{StaticResource Selected}"/>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard Storyboard="{StaticResource UnSelected}"/>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Geometry x:Key="ArcData">
+        M0,0 L100,0 C95.167503,0 91.135628,3.4278221 90.203163,7.9846535 L90.200424,8 90.164383,8 90.152328,8.0613937 C86.330635,26.288719 69.805969,40 50,40 30.194035,40 13.669367,26.288719 9.8476696,8.0613937 L9.8356171,8 9.7995758,8 9.7968359,7.9846535 C8.8643732,3.4278221 4.8324914,0 0,0 z
+    </Geometry>
+
+    <Style TargetType="{x:Type Path}" x:Key="Arc">
+        <Setter Property="Data" Value="{StaticResource ArcData}"/>
+        <Setter Property="Width" Value="100"/>
+        <Setter Property="Height" Value="100"/>
+        <Setter Property="Fill" Value="#222222"/>
+        <Setter Property="Margin" Value="-10, 39.7, -10, 0"/>
+    </Style>
+
+    <Style TargetType="{x:Type Border}" x:Key="Bar">
+        <Setter Property="Background" Value="{StaticResource MainWindowNavigationMenu}"/>
+        <Setter Property="Margin" Value="0,40,0,0"/>
+        <Setter Property="CornerRadius" Value="20"/>
+    </Style>
+
+    <Style TargetType="{x:Type Grid}" x:Key="Circle">
+        <Setter Property="Width" Value="80"/>
+        <Setter Property="Height" Value="80"/>
+        <Setter Property="Canvas.Left" Value="-100"/>
+    </Style>
+        
+    <Style TargetType="{x:Type local:MagicBar}">
+        <Setter Property="ItemContainerStyle" Value="{StaticResource MagicBarItem}"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="UseLayoutRounding" Value="True"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Width" Value="300"/>
+        <Setter Property="Height" Value="120"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:MagicBar}">
+                    <Grid Background="{TemplateBinding Background}">
+                        <Grid.Clip>
+                            <RectangleGeometry Rect="0 0 300 120"/>
+                        </Grid.Clip>
+                        <Border Style="{StaticResource Bar}"/>
+                        <Canvas Margin="9, 0, 20, 0">
+                            <Grid x:Name="PART_Circle" Style="{StaticResource Circle}">
+                                <Path Style="{StaticResource Arc}"/>
+                                <Ellipse Fill="#222222"/>
+                                <Ellipse Fill="CadetBlue" Margin="6"/>
+                            </Grid>
+                        </Canvas>
+                        <ItemsPresenter Margin="0, 40, 0, 0"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <UniformGrid Columns="3"/>
+                </ItemsPanelTemplate>
+            </Setter.Value>            
+        </Setter>
+    </Style>
+</ResourceDictionary> 
