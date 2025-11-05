@@ -3778,9 +3778,21 @@ namespace DataVisualizationPlatform.Services
             }
         ]";
 
+        public readonly string _TimeSet = @"[
+     {
+         ""Set_Id"": ""预约时段配置1"",
+         ""TimeSlots"": [""8:00-10:00"", ""14:00-20:00""]
+     },
+     {
+         ""Set_Id"": ""预约时段配置2"",
+         ""TimeSlots"": [""9:00-12:00"", ""13:00-17:00""]
+     }
+ ]";
+
         public string GetEquipmentInfoJson() => _EquipmentInfo;
         public string GetReservationListJson() => _ReservationList;
         public string GetFaultReportJson() => _FaultReport;
+        public string GetTimeSetJson() => _TimeSet;
 
     }
 }

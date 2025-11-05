@@ -1,0 +1,360 @@
+﻿<Page x:Class="DataVisualizationPlatform.Views.TimeSlotEdit"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:DataVisualizationPlatform.Views"
+      xmlns:vm="clr-namespace:DataVisualizationPlatform.ViewModels"
+      mc:Ignorable="d"
+      d:DesignHeight="600" d:DesignWidth="1000"
+      Title="时段编辑"
+      Background="Transparent"
+      Style="{StaticResource Page_Style}">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/Styles/EditStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- 工具栏 -->
+        <Border Grid.Row="0"
+                Background="White"
+                CornerRadius="12"
+                Padding="15"
+                Margin="0,0,0,15">
+            <Border.Effect>
+                <DropShadowEffect ShadowDepth="4"
+                            Direction="315"
+                            Color="#40000000"
+                            Opacity="0.3"
+                            BlurRadius="8"/>
+            </Border.Effect>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- 标题 -->
+                <TextBlock Grid.Column="0"
+                           Text="预约时段配置管理"
+                           FontSize="16"
+                           FontWeight="Bold"
+                           Foreground="#263238"
+                           VerticalAlignment="Center"/>
+
+                <!-- 操作按钮 -->
+                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                    <Button Content="➕ 添加配置"
+                            Command="{Binding AddConfigCommand}"
+                            Style="{StaticResource ToolbarButtonStyle}"/>
+                    <Button Content="🗑️ 删除配置"
+                            Command="{Binding DeleteConfigCommand}"
+                            Style="{StaticResource DeleteButtonStyle}"/>
+                    <Button Content="💾 保存数据"
+                            Command="{Binding SaveCommand}"
+                            Style="{StaticResource SaveButtonStyle}"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- 主内容区域 -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- 左侧：配置列表 -->
+            <Border Grid.Column="0"
+                    Background="White"
+                    CornerRadius="12"
+                    Margin="0,0,15,0"
+                    ClipToBounds="True">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth="4"
+                                Direction="315"
+                                Color="#40000000"
+                                Opacity="0.3"
+                                BlurRadius="8"/>
+                </Border.Effect>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- 列表标题 -->
+                    <Border Grid.Row="0"
+                            Background="#2196F3"
+                            CornerRadius="12,12,0,0"
+                            Padding="15,10">
+                        <TextBlock Text="配置列表"
+                                   FontSize="16"
+                                   FontWeight="Bold"
+                                   Foreground="White"/>
+                    </Border>
+
+                    <!-- 配置列表 -->
+                    <ListBox Grid.Row="1"
+                             ItemsSource="{Binding TimeSetConfigs}"
+                             SelectedItem="{Binding SelectedConfig}"
+                             BorderThickness="0"
+                             ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="#E0E0E0"
+                                        BorderThickness="0,0,0,1"
+                                        Padding="10"
+                                        Background="Transparent">
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding Set_Id}"
+                                                   FontWeight="Bold"
+                                                   FontSize="14"
+                                                   Foreground="#263238"/>
+                                        <TextBlock FontSize="12"
+                                                   Foreground="#757575"
+                                                   Margin="0,2,0,0">
+                                            <Run Text="时段数量："/>
+                                            <Run Text="{Binding TimeSlots.Count, Mode=OneWay}"/>
+                                        </TextBlock>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </Border>
+
+            <!-- 右侧：编辑区域 -->
+            <Border Grid.Column="1"
+                    Background="White"
+                    CornerRadius="12"
+                    ClipToBounds="True">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth="4"
+                                Direction="315"
+                                Color="#40000000"
+                                Opacity="0.3"
+                                BlurRadius="8"/>
+                </Border.Effect>
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="20" DataContext="{Binding SelectedConfig}">
+                        <TextBlock Text="时段配置详情"
+                                   FontSize="20"
+                                   FontWeight="Bold"
+                                   Foreground="#263238"
+                                   Margin="0,0,0,20"/>
+
+                        <!-- 配置ID编辑 -->
+                        <StackPanel Margin="0,0,0,20">
+                            <TextBlock Text="配置名称" Style="{StaticResource LabelStyle}"/>
+                            <TextBox Text="{Binding Set_Id, UpdateSourceTrigger=PropertyChanged}"
+                                     Style="{StaticResource TextBoxStyle}"/>
+                        </StackPanel>
+
+                        <!-- 时段列表 -->
+                        <Grid Margin="0,0,0,20">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Grid.Row="0"
+                                       Text="时段列表"
+                                       Style="{StaticResource LabelStyle}"
+                                       Margin="0,0,0,10"/>
+
+                            <Border Grid.Row="1"
+                                    BorderBrush="#E0E0E0"
+                                    BorderThickness="1"
+                                    CornerRadius="4"
+                                    MinHeight="200"
+                                    MaxHeight="300">
+                                <ListBox ItemsSource="{Binding TimeSlots}"
+                                         SelectedItem="{Binding DataContext.SelectedTimeSlot, RelativeSource={RelativeSource AncestorType=Page}}"
+                                         BorderThickness="0"
+                                         Background="Transparent"
+                                         Padding="5">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <Border BorderBrush="#E0E0E0"
+                                                    BorderThickness="0,0,0,1"
+                                                    Padding="8,5"
+                                                    Background="Transparent">
+                                                <TextBlock Text="{Binding}"
+                                                           FontSize="14"
+                                                           Foreground="#263238"/>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                            </Border>
+                        </Grid>
+
+                        <!-- 编辑时段区域 -->
+                        <Border Background="#F5F5F5"
+                                CornerRadius="8"
+                                Padding="15"
+                                Margin="0,0,0,20">
+                            <StackPanel>
+                                <TextBlock Text="编辑时段"
+                                           FontWeight="Bold"
+                                           FontSize="14"
+                                           Foreground="#263238"
+                                           Margin="0,0,0,10"/>
+
+                                <!-- 时间输入区域 -->
+                                <Grid Margin="0,0,0,10">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="60"/>
+                                        <ColumnDefinition Width="10"/>
+                                        <ColumnDefinition Width="60"/>
+                                        <ColumnDefinition Width="20"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="60"/>
+                                        <ColumnDefinition Width="10"/>
+                                        <ColumnDefinition Width="60"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <!-- 开始时间 -->
+                                    <TextBlock Grid.Column="0"
+                                               Text="开始时间"
+                                               VerticalAlignment="Center"
+                                               FontSize="13"
+                                               Margin="0,0,10,0"/>
+
+                                    <ComboBox Grid.Column="1"
+                                              Style="{StaticResource ModernComboBoxStyle}"
+                                              ItemContainerStyle="{StaticResource ModernComboBoxItemStyle}"
+                                              ItemsSource="{Binding DataContext.HourOptions, RelativeSource={RelativeSource AncestorType=Page}}"
+                                              SelectedItem="{Binding DataContext.StartHour, RelativeSource={RelativeSource AncestorType=Page}}"
+                                              HorizontalContentAlignment="Center"/>
+
+                                    <TextBlock Grid.Column="2"
+                                               Text=":"
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Center"
+                                               FontSize="16"
+                                               FontWeight="Bold"/>
+
+                                    <ComboBox Grid.Column="3"
+                                              Style="{StaticResource ModernComboBoxStyle}"
+                                              ItemContainerStyle="{StaticResource ModernComboBoxItemStyle}"
+                                              ItemsSource="{Binding DataContext.MinuteOptions, RelativeSource={RelativeSource AncestorType=Page}}"
+                                              SelectedItem="{Binding DataContext.StartMinute, RelativeSource={RelativeSource AncestorType=Page}}"
+                                              HorizontalContentAlignment="Center"/>
+
+                                    <!-- 分隔符 -->
+                                    <TextBlock Grid.Column="4"
+                                               Text="-"
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Center"
+                                               FontSize="16"
+                                               FontWeight="Bold"/>
+
+                                    <!-- 结束时间 -->
+                                    <TextBlock Grid.Column="5"
+                                               Text="结束时间"
+                                               VerticalAlignment="Center"
+                                               FontSize="13"
+                                               Margin="0,0,10,0"/>
+
+                                    <ComboBox Grid.Column="6"
+                                              Style="{StaticResource ModernComboBoxStyle}"
+                                              ItemContainerStyle="{StaticResource ModernComboBoxItemStyle}"
+                                              ItemsSource="{Binding DataContext.HourOptions, RelativeSource={RelativeSource AncestorType=Page}}"
+                                              SelectedItem="{Binding DataContext.EndHour, RelativeSource={RelativeSource AncestorType=Page}}"
+                                              HorizontalContentAlignment="Center"/>
+
+                                    <TextBlock Grid.Column="7"
+                                               Text=":"
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Center"
+                                               FontSize="16"
+                                               FontWeight="Bold"/>
+
+                                    <ComboBox Grid.Column="8"
+                                              Style="{StaticResource ModernComboBoxStyle}"
+                                              ItemContainerStyle="{StaticResource ModernComboBoxItemStyle}"
+                                              ItemsSource="{Binding DataContext.MinuteOptions, RelativeSource={RelativeSource AncestorType=Page}}"
+                                              SelectedItem="{Binding DataContext.EndMinute, RelativeSource={RelativeSource AncestorType=Page}}"
+                                              HorizontalContentAlignment="Center"/>
+                                </Grid>
+
+                                <!-- 操作按钮 -->
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Button Grid.Column="1"
+                                            Content="✓ 确定"
+                                            Command="{Binding DataContext.AddOrUpdateTimeSlotCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                                            Style="{StaticResource ToolbarButtonStyle}"
+                                            Margin="0,0,10,0"/>
+
+                                    <Button Grid.Column="2"
+                                            Content="✗ 清空"
+                                            Command="{Binding DataContext.ClearInputsCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                                            Style="{StaticResource ToolbarButtonStyle}"
+                                            Margin="0,0,10,0"/>
+
+                                    <Button Grid.Column="3"
+                                            Content="🗑️ 删除"
+                                            Command="{Binding DataContext.DeleteTimeSlotCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                                            Style="{StaticResource DeleteButtonStyle}"/>
+                                </Grid>
+
+                                <TextBlock Text="点击上方时段列表可编辑，或通过下拉菜单选择新时段"
+                                           FontSize="11"
+                                           Foreground="#757575"
+                                           Margin="0,10,0,0"/>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- 提示信息 -->
+                        <Border Background="#E3F2FD"
+                                CornerRadius="4"
+                                Padding="15">
+                            <StackPanel>
+                                <TextBlock Text="💡 使用说明"
+                                           FontWeight="Bold"
+                                           FontSize="14"
+                                           Foreground="#1976D2"
+                                           Margin="0,0,0,10"/>
+                                <TextBlock TextWrapping="Wrap"
+                                           FontSize="12"
+                                           Foreground="#424242"
+                                           LineHeight="20">
+                                    <Run Text="1. 从左侧列表选择或添加新的预约时段配置"/>
+                                    <LineBreak/>
+                                    <Run Text="2. 点击时段列表中的时段可进行编辑"/>
+                                    <LineBreak/>
+                                    <Run Text="3. 通过下拉菜单选择时间（小时：0-23，分钟：0/10/20/30/40/50）"/>
+                                    <LineBreak/>
+                                    <Run Text="4. 点击'确定'保存时段，点击'删除'移除选中时段"/>
+                                    <LineBreak/>
+                                    <Run Text="5. 点击顶部'保存数据'按钮保存所有修改"/>
+                                </TextBlock>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </ScrollViewer>
+            </Border>
+        </Grid>
+    </Grid>
+</Page>

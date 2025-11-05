@@ -45,6 +45,7 @@ namespace DataVisualizationPlatform.Services.Navigation
             _pageTypes.Add("FaultReport", typeof(Views.FaultReport));
             _pageTypes.Add("Data", typeof(Views.Data));
             _pageTypes.Add("Edit", typeof(Views.Edit));
+            _pageTypes.Add("TimeSlotEdit", typeof(Views.TimeSlotEdit));
             _pageTypes.Add("FaultEdit", typeof(Views.FaultEdit));
         }
 

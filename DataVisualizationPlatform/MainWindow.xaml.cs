@@ -124,6 +124,24 @@ namespace DataVisualizationPlatform
 
         #endregion
 
+        #region MagicBar 事件
+
+        private void Bar_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // 只有当选择是由用户点击触发时才导航
+            // 避免在ViewModel更新SelectedIndex时重复导航
+            if (e.AddedItems.Count > 0 && DataContext is MainWindowViewModel viewModel)
+            {
+                // 获取选中的索引
+                var selectedIndex = bar.SelectedIndex;
+
+                // 通过ViewModel的命令导航
+                viewModel.NavigateFromMagicBarCommand.Execute(selectedIndex);
+            }
+        }
+
+        #endregion
+
         protected override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);

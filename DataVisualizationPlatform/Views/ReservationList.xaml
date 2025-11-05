@@ -32,9 +32,21 @@
 
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Border Style="{StaticResource CardStyle}">
+                    <Border Background="White"
+                            CornerRadius="12"
+                            Padding="20"
+                            Margin="10"
+                            Width="250"
+                            Height="300">
+                        <Border.Effect>
+                            <DropShadowEffect ShadowDepth="4"
+                                        Direction="315"
+                                        Color="#40000000"
+                                        Opacity="0.3"
+                                        BlurRadius="8"/>
+                        </Border.Effect>
                         <Border.InputBindings>
-                            <MouseBinding MouseAction="LeftClick" 
+                            <MouseBinding MouseAction="LeftClick"
                                     Command="{Binding DataContext.FlipCardCommand, RelativeSource={RelativeSource AncestorType=Page}}"
                                     CommandParameter="{Binding}" />
                         </Border.InputBindings>

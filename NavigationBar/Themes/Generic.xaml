@@ -11,35 +11,37 @@
     </LinearGradientBrush>
 
 
-
+    <!-- 原始值: To="0 -80 0 0" -->
     <Storyboard x:Key="Selected">
-        <james:ThickItem Mode="CubicEaseInOut" TargetName="icon" Duration="0:0:0.5" Property="Margin" To="0 -80 0 0"/>
-        <james:ThickItem Mode="CubicEaseInOut" TargetName="name" Duration="0:0:0.5" Property="Margin" To="0 45 0 0"/>
+        <james:ThickItem Mode="CubicEaseInOut" TargetName="icon" Duration="0:0:0.5" Property="Margin" To="0 -48 0 0"/>
+        <james:ThickItem Mode="CubicEaseInOut" TargetName="name" Duration="0:0:0.5" Property="Margin" To="0 27 0 0"/>
         <james:ColorItem Mode="CubicEaseInOut" TargetName="icon" Duration="0:0:0.5" Property="Fill.Color" To="#333333"/>
         <james:ColorItem Mode="CubicEaseInOut" TargetName="name" Duration="0:0:0.5" Property="Foreground.Color" To="#333333"/>
     </Storyboard>
 
+    <!-- 原始值: To="0 60 0 0" -->
     <Storyboard x:Key="UnSelected">
         <james:ThickItem Mode="CubicEaseInOut" TargetName="icon" Duration="0:0:0.5" Property="Margin" To="0 0 0 0"/>
-        <james:ThickItem Mode="CubicEaseInOut" TargetName="name" Duration="0:0:0.5" Property="Margin" To="0 60 0 0"/> 
+        <james:ThickItem Mode="CubicEaseInOut" TargetName="name" Duration="0:0:0.5" Property="Margin" To="0 36 0 0"/>
         <james:ColorItem Mode="CubicEaseInOut" TargetName="icon" Duration="0:0:0.5" Property="Fill.Color" To="#44333333"/>
         <james:ColorItem Mode="CubicEaseInOut" TargetName="name" Duration="0:0:0.5" Property="Foreground.Color" To="#00000000"/>
     </Storyboard>
 
-
+    <!-- 原始值: Width="40" Height="40" -->
     <Style TargetType="{x:Type james:JamesIcon}" x:Key="Icon">
         <Setter Property="Icon" Value="{Binding RelativeSource={RelativeSource AncestorType=ListBoxItem},Path=Tag}"/>
-        <Setter Property="Width" Value="40"/>
-        <Setter Property="Height" Value="40"/>
-        <Setter Property="Fill" Value="#44333333"/>   
+        <Setter Property="Width" Value="24"/>
+        <Setter Property="Height" Value="24"/>
+        <Setter Property="Fill" Value="#44333333"/>
     </Style>
 
+    <!-- 原始值: FontSize="14" Margin="0, 60, 0, 0" -->
     <Style TargetType="{x:Type TextBlock}" x:Key="Name">
         <Setter Property="Text" Value="{Binding RelativeSource={RelativeSource AncestorType=ListBoxItem},Path=Content}"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
         <Setter Property="FontWeight" Value="Bold"/>
-        <Setter Property="FontSize" Value="14"/>
-        <Setter Property="Margin" Value="0, 60, 0, 0"/>
+        <Setter Property="FontSize" Value="10"/>
+        <Setter Property="Margin" Value="0, 36, 0, 0"/>
         <Setter Property="Foreground" Value="#00000000"/>
     </Style>
 
@@ -68,53 +70,59 @@
         </Setter>
     </Style>
 
+    <!-- 原始值: M0,0 L100,0 ... (所有数值按0.6比例缩放) -->
     <Geometry x:Key="ArcData">
-        M0,0 L100,0 C95.167503,0 91.135628,3.4278221 90.203163,7.9846535 L90.200424,8 90.164383,8 90.152328,8.0613937 C86.330635,26.288719 69.805969,40 50,40 30.194035,40 13.669367,26.288719 9.8476696,8.0613937 L9.8356171,8 9.7995758,8 9.7968359,7.9846535 C8.8643732,3.4278221 4.8324914,0 0,0 z
+        M0,0 L60,0 C57.100502,0 54.681377,2.0566933 54.121898,4.7907921 L54.120254,4.8 54.098630,4.8 54.091397,4.8368362 C51.798381,15.773231 41.883581,24 30,24 18.116421,24 8.201620,15.773231 5.908602,4.8368362 L5.901370,4.8 5.879746,4.8 5.878102,4.7907921 C5.318624,2.0566933 2.899495,0 0,0 z
     </Geometry>
 
+    <!-- 原始值: Width="100" Height="100" Margin="-10, 39.7, -10, 0" -->
     <Style TargetType="{x:Type Path}" x:Key="Arc">
         <Setter Property="Data" Value="{StaticResource ArcData}"/>
-        <Setter Property="Width" Value="100"/>
-        <Setter Property="Height" Value="100"/>
-        <Setter Property="Fill" Value="#222222"/>
-        <Setter Property="Margin" Value="-10, 39.7, -10, 0"/>
+        <Setter Property="Width" Value="60"/>
+        <Setter Property="Height" Value="60"/>
+        <Setter Property="Fill" Value="#BEBEC5"/>
+        <Setter Property="Margin" Value="-6, 23.82, -6, 0"/>
     </Style>
 
+    <!-- 原始值: Margin="0,40,0,0" CornerRadius="20" -->
     <Style TargetType="{x:Type Border}" x:Key="Bar">
         <Setter Property="Background" Value="{StaticResource MainWindowNavigationMenu}"/>
-        <Setter Property="Margin" Value="0,40,0,0"/>
-        <Setter Property="CornerRadius" Value="20"/>
+        <Setter Property="Margin" Value="0,24,0,0"/>
+        <Setter Property="CornerRadius" Value="12"/>
     </Style>
 
+    <!-- 原始值: Width="80" Height="80" Canvas.Left="-100" -->
     <Style TargetType="{x:Type Grid}" x:Key="Circle">
-        <Setter Property="Width" Value="80"/>
-        <Setter Property="Height" Value="80"/>
+        <Setter Property="Width" Value="48"/>
+        <Setter Property="Height" Value="48"/>
         <Setter Property="Canvas.Left" Value="-100"/>
     </Style>
-        
+
+    <!-- 原始值: Width="300" Height="120" Rect="0 0 300 120" Margin="9, 0, 20, 0" Margin="0, 40, 0, 0" Margin="6" -->
+    <!-- 长度调整: Width 180 -> 270 (1.5倍), Rect宽度 180 -> 270 -->
     <Style TargetType="{x:Type local:MagicBar}">
         <Setter Property="ItemContainerStyle" Value="{StaticResource MagicBarItem}"/>
         <Setter Property="SnapsToDevicePixels" Value="True"/>
         <Setter Property="UseLayoutRounding" Value="True"/>
         <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="Width" Value="300"/>
-        <Setter Property="Height" Value="120"/>
+        <Setter Property="Width" Value="270"/>
+        <Setter Property="Height" Value="72"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:MagicBar}">
                     <Grid Background="{TemplateBinding Background}">
                         <Grid.Clip>
-                            <RectangleGeometry Rect="0 0 300 120"/>
+                            <RectangleGeometry Rect="0 0 270 72"/>
                         </Grid.Clip>
                         <Border Style="{StaticResource Bar}"/>
-                        <Canvas Margin="9, 0, 20, 0">
+                        <Canvas Margin="20, 0, 12, 0">
                             <Grid x:Name="PART_Circle" Style="{StaticResource Circle}">
                                 <Path Style="{StaticResource Arc}"/>
-                                <Ellipse Fill="#222222"/>
-                                <Ellipse Fill="CadetBlue" Margin="6"/>
+                                <Ellipse Fill="Transparent"/>
+                                <Ellipse Fill="#F2F2F7" Margin="3.6"/>
                             </Grid>
                         </Canvas>
-                        <ItemsPresenter Margin="0, 40, 0, 0"/>
+                        <ItemsPresenter Margin="0, 24, 0, 0"/>
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
@@ -124,7 +132,7 @@
                 <ItemsPanelTemplate>
                     <UniformGrid Columns="3"/>
                 </ItemsPanelTemplate>
-            </Setter.Value>            
+            </Setter.Value>
         </Setter>
     </Style>
-</ResourceDictionary> 
+</ResourceDictionary>

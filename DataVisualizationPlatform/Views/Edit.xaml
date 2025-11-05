@@ -9,7 +9,7 @@
       mc:Ignorable="d"
       d:DesignHeight="600" d:DesignWidth="1000"
       Title="设备信息编辑"
-      Background="#F5F5F5"
+      Background="Transparent"
       Style="{StaticResource Page_Style}">
 
     <Page.Resources>
@@ -30,11 +30,15 @@
         <!-- 工具栏 -->
         <Border Grid.Row="0"
                 Background="White"
-                CornerRadius="8"
+                CornerRadius="12"
                 Padding="15"
                 Margin="0,0,0,15">
             <Border.Effect>
-                <DropShadowEffect ShadowDepth="2" BlurRadius="8" Opacity="0.2"/>
+                <DropShadowEffect ShadowDepth="4"
+                            Direction="315"
+                            Color="#40000000"
+                            Opacity="0.3"
+                            BlurRadius="8"/>
             </Border.Effect>
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -79,10 +83,15 @@
             <!-- 左侧：设备列表 -->
             <Border Grid.Column="0"
                     Background="White"
-                    CornerRadius="8"
-                    Margin="0,0,15,0">
+                    CornerRadius="12"
+                    Margin="0,0,15,0"
+                    ClipToBounds="True">
                 <Border.Effect>
-                    <DropShadowEffect ShadowDepth="2" BlurRadius="8" Opacity="0.2"/>
+                    <DropShadowEffect ShadowDepth="4"
+                                Direction="315"
+                                Color="#40000000"
+                                Opacity="0.3"
+                                BlurRadius="8"/>
                 </Border.Effect>
                 <Grid>
                     <Grid.RowDefinitions>
@@ -93,7 +102,7 @@
                     <!-- 列表标题 -->
                     <Border Grid.Row="0"
                             Background="#2196F3"
-                            CornerRadius="8,8,0,0"
+                            CornerRadius="12,12,0,0"
                             Padding="15,10">
                         <TextBlock Text="设备列表"
                                    FontSize="16"
@@ -142,9 +151,14 @@
             <!-- 右侧：编辑表单 -->
             <Border Grid.Column="1"
                     Background="White"
-                    CornerRadius="8">
+                    CornerRadius="12"
+                    ClipToBounds="True">
                 <Border.Effect>
-                    <DropShadowEffect ShadowDepth="2" BlurRadius="8" Opacity="0.2"/>
+                    <DropShadowEffect ShadowDepth="4"
+                                Direction="315"
+                                Color="#40000000"
+                                Opacity="0.3"
+                                BlurRadius="8"/>
                 </Border.Effect>
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <StackPanel Margin="20" DataContext="{Binding SelectedEquipment}">
@@ -199,8 +213,10 @@
                             <!-- 预约时段配置 -->
                             <StackPanel Grid.Row="1" Grid.Column="2" Margin="0,0,0,15">
                                 <TextBlock Text="预约时段配置" Style="{StaticResource LabelStyle}"/>
-                                <TextBox Text="{Binding Equ_AvailableBookingPeriod, UpdateSourceTrigger=PropertyChanged}"
-                                         Style="{StaticResource TextBoxStyle}"/>
+                                <ComboBox ItemsSource="{Binding DataContext.TimeSetConfigOptions, RelativeSource={RelativeSource AncestorType=Page}}"
+                                          SelectedItem="{Binding Equ_AvailableBookingPeriod, UpdateSourceTrigger=PropertyChanged}"
+                                          Style="{StaticResource ModernComboBoxStyle}"
+                                          ItemContainerStyle="{StaticResource ModernComboBoxItemStyle}"/>
                             </StackPanel>
 
                             <!-- 总运行时间 -->

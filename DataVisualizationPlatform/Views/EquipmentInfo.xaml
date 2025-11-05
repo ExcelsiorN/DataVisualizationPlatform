@@ -39,7 +39,19 @@
                                 <ContentPresenter />
                             </ControlTemplate>
                         </Button.Template>
-                        <Border Style="{StaticResource CardStyle}">
+                        <Border Background="White"
+                                CornerRadius="12"
+                                Padding="20"
+                                Margin="10"
+                                Width="250"
+                                Height="300">
+                            <Border.Effect>
+                                <DropShadowEffect ShadowDepth="4"
+                                            Direction="315"
+                                            Color="#40000000"
+                                            Opacity="0.3"
+                                            BlurRadius="8"/>
+                            </Border.Effect>
                             <Grid Style="{StaticResource FlipContainerStyle}">
                                 <StackPanel Margin="10" >
                                     <TextBlock Text="{Binding Equ_Name}" 

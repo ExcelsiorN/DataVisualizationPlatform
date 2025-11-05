@@ -24,6 +24,7 @@ namespace DataVisualizationPlatform.ViewModels
 
         public ObservableCollection<EquipmentInfoModel> EquipmentList { get; } = new();
         public ObservableCollection<EquipmentInfoModel> FilteredEquipmentList { get; } = new();
+        public ObservableCollection<string> TimeSetConfigOptions { get; } = new();
 
         public ICommand AddCommand { get; }
         public ICommand DeleteCommand { get; }
@@ -33,6 +34,7 @@ namespace DataVisualizationPlatform.ViewModels
         public EditViewModel()
         {
             LoadEquipmentData();
+            LoadTimeSetConfigs();
 
             AddCommand = new RelayCommand<object>(AddEquipment);
             DeleteCommand = new RelayCommand<object>(DeleteEquipment, CanDeleteEquipment);
@@ -90,6 +92,29 @@ namespace DataVisualizationPlatform.ViewModels
             catch (Exception ex)
             {
                 MessageBox.Show($"加载设备数据失败: {ex.Message}", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void LoadTimeSetConfigs()
+        {
+            try
+            {
+                var timeSetJson = _jsonData.GetTimeSetJson();
+                var timeSetData = JsonConvert.DeserializeObject<ObservableCollection<TimeSetConfigModel>>(timeSetJson);
+
+                TimeSetConfigOptions.Clear();
+
+                if (timeSetData != null)
+                {
+                    foreach (var config in timeSetData)
+                    {
+                        TimeSetConfigOptions.Add(config.Set_Id);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"加载时段配置失败: {ex.Message}", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

@@ -6,6 +6,7 @@ using DataVisualizationPlatform.Models;
 using DataVisualizationPlatform.Services.Navigation;
 using System;
 using System.Collections.ObjectModel;
+using System.Windows;
 
 namespace DataVisualizationPlatform.ViewModels
 {
@@ -32,6 +33,15 @@ namespace DataVisualizationPlatform.ViewModels
 
         [ObservableProperty]
         private bool _isBlurred;
+
+        [ObservableProperty]
+        private bool _isMagicBarVisible;
+
+        [ObservableProperty]
+        private Thickness _frameMargin = new Thickness(60, 40, 60, 50);
+
+        [ObservableProperty]
+        private int _magicBarSelectedIndex = -1;
 
         public ObservableCollection<MonthItem> Months { get; } = new();
         public ObservableCollection<YearItem> Years { get; } = new();
@@ -101,6 +111,24 @@ namespace DataVisualizationPlatform.ViewModels
 
             IsButton1Visible = shouldShowButtons;
             IsButton2Visible = shouldShowButtons;
+
+            // 根据当前页面类型更新MagicBar可见性
+            bool shouldShowMagicBar = pageType.Name is "Edit" or "TimeSlotEdit" or "FaultEdit";
+            IsMagicBarVisible = shouldShowMagicBar;
+
+            // 根据MagicBar可见性调整Frame的Margin
+            FrameMargin = shouldShowMagicBar
+                ? new Thickness(60, 40, 60, 90)
+                : new Thickness(60, 40, 60, 50);
+
+            // 根据当前页面更新MagicBar选中索引
+            MagicBarSelectedIndex = pageType.Name switch
+            {
+                "Edit" => 0,           // 设备编辑
+                "TimeSlotEdit" => 1,   // 时段编辑
+                "FaultEdit" => 2,      // 故障编辑
+                _ => -1                // 其他页面不选中
+            };
         }
 
         // 使用[RelayCommand]特性自动生成命令
@@ -161,6 +189,25 @@ namespace DataVisualizationPlatform.ViewModels
             };
 
             _navigationService.NavigateTo(nextPage);
+        }
+
+        [RelayCommand]
+        private void NavigateFromMagicBar(int? index)
+        {
+            if (index == null) return;
+
+            var targetPage = index switch
+            {
+                0 => "Edit",           // 设备编辑
+                1 => "TimeSlotEdit",   // 时段编辑
+                2 => "FaultEdit",      // 故障编辑
+                _ => null
+            };
+
+            if (!string.IsNullOrEmpty(targetPage))
+            {
+                _navigationService.NavigateTo(targetPage);
+            }
         }
 
         public record MonthItem(string Key, string DisplayMonth);

@@ -21,8 +21,9 @@ namespace NavigationBar
  
     public class MagicBar : ListBox
     {
-        private ValueItem _vi;
-        private Storyboard _sb;
+        private ValueItem? _vi;
+        private Storyboard? _sb;
+        private Grid? _circle;
 
         static MagicBar()
         {
@@ -33,9 +34,15 @@ namespace NavigationBar
         {
             base.OnApplyTemplate();
 
-            Grid circle = (Grid)GetTemplateChild("PART_Circle");
+            _circle = (Grid)GetTemplateChild("PART_Circle");
 
-            InitStoryBoard(circle);
+            InitStoryBoard(_circle);
+
+            // 设置初始位置到当前选中的索引
+            if (SelectedIndex >= 0 && _circle != null)
+            {
+                Canvas.SetLeft(_circle, SelectedIndex * 90);
+            }
         }
 
         private void InitStoryBoard(Grid circle)
@@ -57,8 +64,11 @@ namespace NavigationBar
         {
             base.OnSelectionChanged(e);
 
-            _vi.To = SelectedIndex * 100;
-            _sb.Begin();
+            if (_vi != null && _sb != null && SelectedIndex >= 0)
+            {
+                _vi.To = SelectedIndex * 90;
+                _sb.Begin();
+            }
         }
 
         //private void Login_Loaded(object sender, RoutedEventArgs e)
