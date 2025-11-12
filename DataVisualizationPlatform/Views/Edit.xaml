@@ -186,7 +186,9 @@
                             <StackPanel Grid.Row="0" Grid.Column="0" Margin="0,0,0,15">
                                 <TextBlock Text="设备ID" Style="{StaticResource LabelStyle}"/>
                                 <TextBox Text="{Binding Equ_Id, UpdateSourceTrigger=PropertyChanged}"
-                                         Style="{StaticResource TextBoxStyle}"/>
+                                         Style="{StaticResource TextBoxStyle}"
+                                         IsReadOnly="True"
+                                         Background="#F5F5F5"/>
                             </StackPanel>
 
                             <!-- 设备名称 -->
@@ -229,29 +231,164 @@
                             <!-- 固定时长（本年） -->
                             <StackPanel Grid.Row="2" Grid.Column="2" Margin="0,0,0,15">
                                 <TextBlock Text="固定时长（本年）" Style="{StaticResource LabelStyle}"/>
-                                <TextBox Text="{Binding Equ_FixedDurationThisYear, UpdateSourceTrigger=PropertyChanged}"
-                                         Style="{StaticResource TextBoxStyle}"/>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBox Grid.Column="0"
+                                             Text="{Binding Equ_FixedDurationThisYear, UpdateSourceTrigger=PropertyChanged}"
+                                             Style="{StaticResource TextBoxStyle}"
+                                             PreviewTextInput="NumberValidationTextBox"
+                                             Margin="0,0,5,0"/>
+                                    <TextBlock Grid.Column="1"
+                                               Text="小时"
+                                               VerticalAlignment="Center"
+                                               FontSize="14"
+                                               Foreground="#757575"
+                                               Margin="5,0,0,0"/>
+                                </Grid>
                             </StackPanel>
 
                             <!-- 已用固定时长（本年） -->
                             <StackPanel Grid.Row="3" Grid.Column="0" Margin="0,0,0,15">
                                 <TextBlock Text="已用固定时长（本年）" Style="{StaticResource LabelStyle}"/>
-                                <TextBox Text="{Binding Equ_UsedFixedDurationThisYear, UpdateSourceTrigger=PropertyChanged}"
-                                         Style="{StaticResource TextBoxStyle}"/>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBox Grid.Column="0"
+                                             Text="{Binding Equ_UsedFixedDurationThisYear, UpdateSourceTrigger=PropertyChanged}"
+                                             Style="{StaticResource TextBoxStyle}"
+                                             PreviewTextInput="NumberValidationTextBox"
+                                             Margin="0,0,5,0"/>
+                                    <TextBlock Grid.Column="1"
+                                               Text="小时"
+                                               VerticalAlignment="Center"
+                                               FontSize="14"
+                                               Foreground="#757575"
+                                               Margin="5,0,0,0"/>
+                                </Grid>
                             </StackPanel>
 
                             <!-- 使用率（本年） -->
                             <StackPanel Grid.Row="3" Grid.Column="2" Margin="0,0,0,15">
                                 <TextBlock Text="使用率（本年）" Style="{StaticResource LabelStyle}"/>
                                 <TextBox Text="{Binding Equ_UsageRateThisYear, UpdateSourceTrigger=PropertyChanged}"
-                                         Style="{StaticResource TextBoxStyle}"/>
+                                         Style="{StaticResource TextBoxStyle}"
+                                         IsReadOnly="True"
+                                         Background="#F5F5F5"/>
                             </StackPanel>
 
                             <!-- 部署地址 -->
                             <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,0,0,15">
-                                <TextBlock Text="部署地址（经度, 纬度）" Style="{StaticResource LabelStyle}"/>
-                                <TextBox Text="{Binding Equ_DeploymentAddress, UpdateSourceTrigger=PropertyChanged}"
-                                         Style="{StaticResource TextBoxStyle}"/>
+                                <TextBlock Text="部署地址" Style="{StaticResource LabelStyle}"/>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="20"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <!-- 经度输入 -->
+                                    <TextBox Grid.Column="0"
+                                             x:Name="LongitudeTextBox"
+                                             Style="{StaticResource TextBoxStyle}"
+                                             PreviewTextInput="DecimalValidationTextBox"/>
+
+                                    <!-- 东/西切换按钮 -->
+                                    <ToggleButton Grid.Column="1"
+                                                  x:Name="LongitudeDirectionToggle"
+                                                  Width="60"
+                                                  Height="36"
+                                                  Margin="5,0,0,0"
+                                                  BorderThickness="0"
+                                                  Foreground="White"
+                                                  FontSize="14"
+                                                  FontWeight="Bold"
+                                                  Cursor="Hand">
+                                        <ToggleButton.Style>
+                                            <Style TargetType="ToggleButton">
+                                                <Setter Property="Background" Value="#2196F3"/>
+                                                <Setter Property="Content" Value="东"/>
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="ToggleButton">
+                                                            <Border x:Name="border"
+                                                                    Background="{TemplateBinding Background}"
+                                                                    CornerRadius="4"
+                                                                    BorderThickness="0">
+                                                                <ContentPresenter HorizontalAlignment="Center"
+                                                                                VerticalAlignment="Center"
+                                                                                TextElement.Foreground="{TemplateBinding Foreground}"/>
+                                                            </Border>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsChecked" Value="True">
+                                                        <Setter Property="Content" Value="西"/>
+                                                        <Setter Property="Background" Value="#FF9800"/>
+                                                    </Trigger>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Opacity" Value="0.8"/>
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </ToggleButton.Style>
+                                    </ToggleButton>
+
+                                    <!-- 纬度输入 -->
+                                    <TextBox Grid.Column="3"
+                                             x:Name="LatitudeTextBox"
+                                             Style="{StaticResource TextBoxStyle}"
+                                             PreviewTextInput="DecimalValidationTextBox"/>
+
+                                    <!-- 南/北切换按钮 -->
+                                    <ToggleButton Grid.Column="4"
+                                                  x:Name="LatitudeDirectionToggle"
+                                                  Width="60"
+                                                  Height="36"
+                                                  Margin="5,0,0,0"
+                                                  BorderThickness="0"
+                                                  Foreground="White"
+                                                  FontSize="14"
+                                                  FontWeight="Bold"
+                                                  Cursor="Hand">
+                                        <ToggleButton.Style>
+                                            <Style TargetType="ToggleButton">
+                                                <Setter Property="Background" Value="#2196F3"/>
+                                                <Setter Property="Content" Value="北"/>
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="ToggleButton">
+                                                            <Border x:Name="border"
+                                                                    Background="{TemplateBinding Background}"
+                                                                    CornerRadius="4"
+                                                                    BorderThickness="0">
+                                                                <ContentPresenter HorizontalAlignment="Center"
+                                                                                VerticalAlignment="Center"
+                                                                                TextElement.Foreground="{TemplateBinding Foreground}"/>
+                                                            </Border>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsChecked" Value="True">
+                                                        <Setter Property="Content" Value="南"/>
+                                                        <Setter Property="Background" Value="#FF9800"/>
+                                                    </Trigger>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Opacity" Value="0.8"/>
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </ToggleButton.Style>
+                                    </ToggleButton>
+                                </Grid>
                             </StackPanel>
                         </Grid>
 

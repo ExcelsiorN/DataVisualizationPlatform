@@ -70,10 +70,5 @@ namespace NavigationBar
                 _sb.Begin();
             }
         }
-
-        //private void Login_Loaded(object sender, RoutedEventArgs e)
-        //{
-        //    bar.SelectedIndex = 0;
-        //}
     }
 }

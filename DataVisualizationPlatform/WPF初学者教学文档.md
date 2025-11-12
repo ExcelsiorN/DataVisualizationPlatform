@@ -2334,6 +2334,649 @@ public string Equ_Name
 
 ---
 
+### 7.4 案例4：输入验证与自定义控件样式
+
+#### 场景说明
+在设备编辑页面中，我们需要实现以下功能：
+1. **整数验证** - 固定时长字段只能输入整数
+2. **小数验证** - 部署地址的经纬度可以输入小数（包括负数）
+3. **ToggleButton样式** - 可点击切换东/西、南/北方向，并有颜色指示
+4. **双向数据转换** - 部署地址字符串与经纬度组件互相转换
+5. **只读字段** - 设备ID和使用率不可编辑
+
+这个案例展示了：
+- ✅ 输入验证的实现方法
+- ✅ ToggleButton的高级样式定制
+- ✅ 复杂数据的双向转换
+- ✅ 事件订阅顺序的重要性
+- ✅ 循环更新的防止
+
+---
+
+#### 第1步：实现输入验证
+
+**作用**：限制用户只能输入特定格式的数据。
+
+##### 整数验证
+```csharp
+// Views/Edit.xaml.cs
+// 整数验证 - 只允许输入整数
+private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+{
+    Regex regex = new Regex("[^0-9]+");
+    e.Handled = regex.IsMatch(e.Text);
+}
+```
+
+**XAML使用**：
+```xaml
+<TextBox Text="{Binding Equ_FixedDurationThisYear, UpdateSourceTrigger=PropertyChanged}"
+         PreviewTextInput="NumberValidationTextBox" />
+```
+
+**关键点**：
+- `PreviewTextInput` - 在输入生效前验证
+- `e.Handled = true` - 阻止不符合条件的输入
+- `[^0-9]+` - 正则表达式，匹配非数字字符
+
+---
+
+##### 小数验证（含负数）
+```csharp
+// 小数验证 - 允许输入小数（包括负数）
+private void DecimalValidationTextBox(object sender, TextCompositionEventArgs e)
+{
+    var textBox = sender as TextBox;
+    if (textBox == null) return;
+
+    // 允许数字、小数点、负号
+    Regex regex = new Regex("[^0-9.-]+");
+    e.Handled = regex.IsMatch(e.Text);
+
+    // 防止多个小数点
+    if (e.Text == "." && textBox.Text.Contains("."))
+    {
+        e.Handled = true;
+    }
+
+    // 防止多个负号，负号只能在开头
+    if (e.Text == "-" && (textBox.Text.Contains("-") || textBox.SelectionStart != 0))
+    {
+        e.Handled = true;
+    }
+}
+```
+
+**XAML使用**：
+```xaml
+<TextBox x:Name="LongitudeTextBox"
+         PreviewTextInput="DecimalValidationTextBox" />
+```
+
+**关键点**：
+- 多重验证：正则表达式 + 额外逻辑
+- `textBox.SelectionStart` - 获取光标位置
+- 防止多个小数点和负号
+
+---
+
+#### 第2步：ToggleButton样式与颜色切换
+
+**问题**：直接在ToggleButton上设置Background属性会导致Trigger无法改变颜色。
+
+##### 错误示例
+```xaml
+<!-- ❌ 错误：Background在控件上直接设置，Trigger无法覆盖 -->
+<ToggleButton Background="#2196F3">
+    <ToggleButton.Style>
+        <Style TargetType="ToggleButton">
+            <Style.Triggers>
+                <Trigger Property="IsChecked" Value="True">
+                    <!-- 这个Setter不会生效！ -->
+                    <Setter Property="Background" Value="#FF9800"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </ToggleButton.Style>
+</ToggleButton>
+```
+
+##### 正确实现
+```xaml
+<!-- ✅ 正确：Background在Style的Setter中设置 -->
+<ToggleButton x:Name="LongitudeDirectionToggle" Width="60" Height="36">
+    <ToggleButton.Style>
+        <Style TargetType="ToggleButton">
+            <!-- 在Setter中设置默认背景 -->
+            <Setter Property="Background" Value="#2196F3"/>
+            <Setter Property="Content" Value="东"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Margin" Value="5,0,0,0"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="4"
+                                BorderBrush="#E0E0E0"
+                                BorderThickness="1">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            TextElement.Foreground="{TemplateBinding Foreground}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <!-- Trigger可以正常覆盖Background -->
+            <Style.Triggers>
+                <Trigger Property="IsChecked" Value="True">
+                    <Setter Property="Content" Value="西"/>
+                    <Setter Property="Background" Value="#FF9800"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </ToggleButton.Style>
+</ToggleButton>
+```
+
+**关键点**：
+1. **TemplateBinding** - 在ControlTemplate中使用`{TemplateBinding Background}`绑定背景
+2. **Setter优先级** - Style中的Setter优先级低于Trigger
+3. **直接属性优先级最高** - 控件上直接设置的属性会覆盖Style和Trigger
+
+**CSS优先级类比**：
+```
+直接属性 > Style.Triggers > Style.Setters
+类似于：
+inline style > #id > .class
+```
+
+---
+
+#### 第3步：部署地址的双向转换
+
+**需求**：部署地址存储格式为 `"经度, 纬度"`（如 `"120.5, 30.2"`），但UI上需要分别显示为两个输入框，且有方向切换按钮。
+
+##### 解析部署地址（字符串 → UI组件）
+```csharp
+// Views/Edit.xaml.cs
+private void ParseDeploymentAddress(string address)
+{
+    if (string.IsNullOrWhiteSpace(address))
+    {
+        LongitudeTextBox.Text = "";
+        LatitudeTextBox.Text = "";
+        LongitudeDirectionToggle.IsChecked = false; // 东
+        LatitudeDirectionToggle.IsChecked = false;  // 北
+        return;
+    }
+
+    // 移除所有空格
+    address = address.Replace(" ", "");
+
+    // 尝试解析格式: "经度,纬度" 或 "经度, 纬度"
+    var parts = address.Split(',');
+    if (parts.Length == 2)
+    {
+        if (double.TryParse(parts[0], out double longitude))
+        {
+            LongitudeTextBox.Text = System.Math.Abs(longitude).ToString();
+            LongitudeDirectionToggle.IsChecked = longitude < 0; // 西经为负
+        }
+
+        if (double.TryParse(parts[1], out double latitude))
+        {
+            LatitudeTextBox.Text = System.Math.Abs(latitude).ToString();
+            LatitudeDirectionToggle.IsChecked = latitude < 0; // 南纬为负
+        }
+    }
+}
+```
+
+**关键点**：
+- 负数表示西经/南纬
+- 正数表示东经/北纬
+- 显示时总是显示绝对值
+
+---
+
+##### 构建部署地址（UI组件 → 字符串）
+```csharp
+private string BuildDeploymentAddress()
+{
+    if (string.IsNullOrWhiteSpace(LongitudeTextBox.Text) ||
+        string.IsNullOrWhiteSpace(LatitudeTextBox.Text))
+    {
+        return "";
+    }
+
+    if (!double.TryParse(LongitudeTextBox.Text, out double longitude) ||
+        !double.TryParse(LatitudeTextBox.Text, out double latitude))
+    {
+        return "";
+    }
+
+    // 根据方向调整符号
+    if (LongitudeDirectionToggle.IsChecked == true) // 西经
+    {
+        longitude = -System.Math.Abs(longitude);
+    }
+    else // 东经
+    {
+        longitude = System.Math.Abs(longitude);
+    }
+
+    if (LatitudeDirectionToggle.IsChecked == true) // 南纬
+    {
+        latitude = -System.Math.Abs(latitude);
+    }
+    else // 北纬
+    {
+        latitude = System.Math.Abs(latitude);
+    }
+
+    return $"{longitude}, {latitude}";
+}
+```
+
+**关键点**：
+- 西经/南纬：取绝对值后加负号
+- 东经/北纬：取绝对值（确保是正数）
+- 格式化为 `"经度, 纬度"`
+
+---
+
+##### UI组件变化时自动更新模型
+```csharp
+private bool _isUpdatingAddress = false;
+
+private void DeploymentAddress_Changed(object sender, System.Windows.RoutedEventArgs e)
+{
+    // 防止循环更新
+    if (_isUpdatingAddress) return;
+
+    if (DataContext is EditViewModel viewModel && viewModel.SelectedEquipment != null)
+    {
+        // 构建新的部署地址字符串
+        string newAddress = BuildDeploymentAddress();
+        viewModel.SelectedEquipment.Equ_DeploymentAddress = newAddress;
+    }
+}
+```
+
+**XAML订阅事件**：
+```csharp
+// 在构造函数中订阅
+LongitudeTextBox.TextChanged += DeploymentAddress_Changed;
+LatitudeTextBox.TextChanged += DeploymentAddress_Changed;
+LongitudeDirectionToggle.Checked += DeploymentAddress_Changed;
+LongitudeDirectionToggle.Unchecked += DeploymentAddress_Changed;
+LatitudeDirectionToggle.Checked += DeploymentAddress_Changed;
+LatitudeDirectionToggle.Unchecked += DeploymentAddress_Changed;
+```
+
+---
+
+#### 第4步：事件订阅顺序与DataContext生命周期
+
+**问题**：如果在设置DataContext之前没有订阅DataContextChanged事件，初始数据不会正确显示。
+
+##### 错误示例
+```csharp
+// ❌ 错误：先设置DataContext，再订阅事件
+public Edit(EditViewModel viewModel)
+{
+    InitializeComponent();
+
+    // DataContext设置后，DataContextChanged事件已经错过了
+    DataContext = viewModel;
+
+    // 这个订阅太晚了！
+    DataContextChanged += Edit_DataContextChanged;
+}
+```
+
+##### 正确实现
+```csharp
+// ✅ 正确：事件订阅顺序
+public Edit(EditViewModel viewModel)
+{
+    InitializeComponent();
+
+    // 1. 订阅数据上下文变化事件（在设置 DataContext 之前）
+    DataContextChanged += Edit_DataContextChanged;
+
+    // 2. 订阅部署地址控件的事件
+    LongitudeTextBox.TextChanged += DeploymentAddress_Changed;
+    LatitudeTextBox.TextChanged += DeploymentAddress_Changed;
+    LongitudeDirectionToggle.Checked += DeploymentAddress_Changed;
+    LongitudeDirectionToggle.Unchecked += DeploymentAddress_Changed;
+    LatitudeDirectionToggle.Checked += DeploymentAddress_Changed;
+    LatitudeDirectionToggle.Unchecked += DeploymentAddress_Changed;
+
+    // 3. 设置 DataContext（这会触发 DataContextChanged 事件）
+    DataContext = viewModel;
+
+    // 4. 订阅 ViewModel 的属性变化事件
+    if (viewModel != null)
+    {
+        viewModel.PropertyChanged += ViewModel_PropertyChanged;
+
+        // 如果已经有选中的设备，初始化部署地址
+        if (viewModel.SelectedEquipment != null)
+        {
+            _isUpdatingAddress = true;
+            ParseDeploymentAddress(viewModel.SelectedEquipment.Equ_DeploymentAddress);
+            _isUpdatingAddress = false;
+        }
+    }
+}
+```
+
+**事件处理实现**：
+```csharp
+private void Edit_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+{
+    // 取消订阅旧的 ViewModel
+    if (e.OldValue is EditViewModel oldViewModel)
+    {
+        oldViewModel.PropertyChanged -= ViewModel_PropertyChanged;
+    }
+
+    // 订阅新的 ViewModel
+    if (e.NewValue is EditViewModel newViewModel)
+    {
+        newViewModel.PropertyChanged += ViewModel_PropertyChanged;
+
+        // 初始化部署地址
+        if (newViewModel.SelectedEquipment != null)
+        {
+            _isUpdatingAddress = true;
+            ParseDeploymentAddress(newViewModel.SelectedEquipment.Equ_DeploymentAddress);
+            _isUpdatingAddress = false;
+        }
+    }
+}
+
+private void ViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+{
+    if (e.PropertyName == nameof(EditViewModel.SelectedEquipment))
+    {
+        if (DataContext is EditViewModel viewModel && viewModel.SelectedEquipment != null)
+        {
+            _isUpdatingAddress = true;
+            ParseDeploymentAddress(viewModel.SelectedEquipment.Equ_DeploymentAddress);
+            _isUpdatingAddress = false;
+        }
+    }
+}
+```
+
+**关键点**：
+1. **订阅在设置之前** - DataContextChanged必须在设置DataContext之前订阅
+2. **取消旧订阅** - 避免内存泄漏
+3. **使用标志位** - `_isUpdatingAddress`防止循环更新
+
+---
+
+#### 第5步：防止循环更新
+
+**问题**：UI更新导致模型变化，模型变化又导致UI更新，形成死循环。
+
+**解决方案：使用标志位**
+```csharp
+private bool _isUpdatingAddress = false;
+
+// UI组件变化时
+private void DeploymentAddress_Changed(object sender, RoutedEventArgs e)
+{
+    if (_isUpdatingAddress) return;  // 防止循环
+
+    // 更新模型
+    if (DataContext is EditViewModel viewModel && viewModel.SelectedEquipment != null)
+    {
+        string newAddress = BuildDeploymentAddress();
+        viewModel.SelectedEquipment.Equ_DeploymentAddress = newAddress;
+    }
+}
+
+// 模型变化时
+private void ViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+{
+    if (e.PropertyName == nameof(EditViewModel.SelectedEquipment))
+    {
+        if (DataContext is EditViewModel viewModel && viewModel.SelectedEquipment != null)
+        {
+            _isUpdatingAddress = true;  // 设置标志
+            ParseDeploymentAddress(viewModel.SelectedEquipment.Equ_DeploymentAddress);
+            _isUpdatingAddress = false; // 重置标志
+        }
+    }
+}
+```
+
+**循环示意图**：
+```
+没有标志位时：
+UI改变 → 更新模型 → 触发PropertyChanged → 更新UI → UI改变 → ...（死循环）
+
+有标志位时：
+UI改变 → 更新模型 ✓
+模型改变 → 检查标志 → 更新UI → UI改变 → 检查标志 → 跳过 ✓
+```
+
+---
+
+#### 第6步：只读字段的实现
+
+**XAML实现**：
+```xaml
+<!-- 设备ID - 只读，灰色背景 -->
+<TextBox Text="{Binding SelectedEquipment.Equ_Id, UpdateSourceTrigger=PropertyChanged}"
+         Style="{StaticResource TextBoxStyle}"
+         IsReadOnly="True"
+         Background="#F5F5F5"
+         Foreground="#757575"/>
+
+<!-- 使用率 - 只读，灰色背景 -->
+<TextBox Text="{Binding SelectedEquipment.Equ_UsageRateThisYear, UpdateSourceTrigger=PropertyChanged}"
+         Style="{StaticResource TextBoxStyle}"
+         IsReadOnly="True"
+         Background="#F5F5F5"
+         Foreground="#757575"/>
+```
+
+**关键点**：
+- `IsReadOnly="True"` - 只读模式
+- `Background="#F5F5F5"` - 浅灰色背景，视觉上表示不可编辑
+- `Foreground="#757575"` - 深灰色文字
+
+---
+
+#### 第7步：带单位的输入框
+
+**需求**：用户只能输入数字，单位"小时"固定显示。
+
+**XAML实现**：
+```xaml
+<Grid>
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="Auto"/>
+    </Grid.ColumnDefinitions>
+
+    <!-- 输入框 -->
+    <TextBox Grid.Column="0"
+             Text="{Binding SelectedEquipment.Equ_FixedDurationThisYear, UpdateSourceTrigger=PropertyChanged}"
+             Style="{StaticResource TextBoxStyle}"
+             PreviewTextInput="NumberValidationTextBox"
+             Margin="0,0,5,0"/>
+
+    <!-- 单位标签 -->
+    <TextBlock Grid.Column="1"
+               Text="小时"
+               VerticalAlignment="Center"
+               FontSize="14"
+               Foreground="#757575"
+               Margin="5,0,0,0"/>
+</Grid>
+```
+
+**效果**：
+```
+┌──────────┬──────┐
+│ 100      │ 小时 │
+└──────────┴──────┘
+  输入框     标签
+```
+
+---
+
+#### 完整数据流程
+
+```
+用户操作流程：
+
+1. 用户点击不同设备
+   ↓
+2. EditViewModel.SelectedEquipment改变
+   ↓
+3. 触发PropertyChanged事件
+   ↓
+4. ViewModel_PropertyChanged被调用
+   ↓
+5. 设置_isUpdatingAddress = true
+   ↓
+6. ParseDeploymentAddress()解析地址字符串
+   ↓
+7. 更新LongitudeTextBox, LatitudeTextBox, ToggleButton
+   ↓
+8. TextBox.TextChanged和ToggleButton.Checked事件触发
+   ↓
+9. DeploymentAddress_Changed检测到_isUpdatingAddress=true，跳过
+   ↓
+10. 设置_isUpdatingAddress = false
+   ↓
+11. UI显示完成
+
+用户修改经纬度：
+
+1. 用户在TextBox中输入 "120.5"
+   ↓
+2. PreviewTextInput事件，DecimalValidationTextBox验证
+   ↓
+3. 验证通过，输入生效
+   ↓
+4. TextChanged事件触发
+   ↓
+5. DeploymentAddress_Changed被调用
+   ↓
+6. _isUpdatingAddress = false，继续执行
+   ↓
+7. BuildDeploymentAddress()构建地址字符串
+   ↓
+8. 更新SelectedEquipment.Equ_DeploymentAddress
+   ↓
+9. 模型已更新，但_isUpdatingAddress=false所以不会反向更新UI
+```
+
+---
+
+#### 核心技术总结
+
+##### 1. PreviewTextInput验证
+```csharp
+// 优势：在输入生效前拦截
+private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+{
+    Regex regex = new Regex("[^0-9]+");
+    e.Handled = regex.IsMatch(e.Text);  // 阻止不合法输入
+}
+
+// 对比：TextChanged在输入生效后才触发，需要手动回退
+```
+
+##### 2. ToggleButton样式优先级
+```
+优先级从高到低：
+1. 控件直接设置的属性（如 <ToggleButton Background="Red"/>）
+2. Style.Triggers
+3. Style.Setters
+4. 默认样式
+
+正确做法：将Background放在Style.Setters中，让Trigger可以覆盖
+```
+
+##### 3. 双向转换模式
+```csharp
+// 模式1：使用IValueConverter（适合简单转换）
+public class StringToComponentsConverter : IValueConverter
+{
+    public object Convert(object value, ...) { }
+    public object ConvertBack(object value, ...) { }
+}
+
+// 模式2：在CodeBehind中手动转换（适合复杂逻辑）
+// 本项目使用的方式，因为涉及多个控件的协同
+private void ParseDeploymentAddress(string address) { }
+private string BuildDeploymentAddress() { }
+```
+
+##### 4. 事件生命周期管理
+```csharp
+// 重要原则：
+// 1. 先订阅，后设置DataContext
+// 2. 取消订阅旧ViewModel，避免内存泄漏
+// 3. 使用标志位防止循环更新
+
+public Edit(EditViewModel viewModel)
+{
+    InitializeComponent();
+    DataContextChanged += Edit_DataContextChanged;  // 先订阅
+    // 订阅其他事件...
+    DataContext = viewModel;  // 后设置
+}
+```
+
+---
+
+#### 学到的经验
+
+##### 经验1：输入验证要在输入前拦截
+使用`PreviewTextInput`而不是`TextChanged`，可以避免用户看到不合法的输入闪烁。
+
+##### 经验2：ToggleButton样式不生效的常见原因
+直接在控件上设置的属性优先级最高，会覆盖Style中的所有设置，包括Trigger。
+
+##### 经验3：复杂数据转换不一定要用Converter
+当转换涉及多个UI元素时，在CodeBehind中手动转换可能更清晰。
+
+##### 经验4：防止循环更新的标准模式
+```csharp
+private bool _isUpdating = false;
+
+private void UpdateFromUI()
+{
+    if (_isUpdating) return;
+    // 更新模型...
+}
+
+private void UpdateFromModel()
+{
+    _isUpdating = true;
+    // 更新UI...
+    _isUpdating = false;
+}
+```
+
+##### 经验5：事件订阅顺序很重要
+DataContextChanged事件必须在设置DataContext之前订阅，否则会错过初始化时的事件。
+
+---
+
 ## 第八章：学习路径
 
 ### 8.1 初学者学习路线
@@ -2605,10 +3248,11 @@ System.Diagnostics.Debug.WriteLine($"当前值: {value}");
 
 **祝你学习愉快！**
 
-**文档版本**: v1.1
-**最后更新**: 2025-10-30
-**适用项目**: DataVisualizationPlatform 1.1.0
+**文档版本**: v1.2
+**最后更新**: 2025-11-12
+**适用项目**: DataVisualizationPlatform 1.2.0
 
 **更新记录**:
+- v1.2 (2025-11-12): 新增案例4 - 输入验证与自定义控件样式，涵盖PreviewTextInput验证、ToggleButton样式定制、双向数据转换、事件订阅顺序管理和循环更新防止
 - v1.1 (2025-10-30): 新增案例3 - 数据编辑系统与跨页面数据同步
 - v1.0 (2025-10-29): 初始版本
