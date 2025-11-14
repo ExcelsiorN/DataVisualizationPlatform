@@ -178,13 +178,13 @@
                                     BorderBrush="#E0E0E0"
                                     BorderThickness="1"
                                     CornerRadius="4"
-                                    MinHeight="200"
+                                    MinHeight="100"
                                     MaxHeight="300">
                                 <ListBox ItemsSource="{Binding TimeSlots}"
                                          SelectedItem="{Binding DataContext.SelectedTimeSlot, RelativeSource={RelativeSource AncestorType=Page}}"
                                          BorderThickness="0"
                                          Background="Transparent"
-                                         Padding="5">
+                                         Padding="5">1
                                     <ListBox.ItemTemplate>
                                         <DataTemplate>
                                             <Border BorderBrush="#E0E0E0"

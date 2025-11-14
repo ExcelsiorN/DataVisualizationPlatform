@@ -225,7 +225,8 @@
                             <StackPanel Grid.Row="2" Grid.Column="0" Margin="0,0,0,15">
                                 <TextBlock Text="总运行时间" Style="{StaticResource LabelStyle}"/>
                                 <TextBox Text="{Binding Equ_TotalOperationTime, UpdateSourceTrigger=PropertyChanged}"
-                                         Style="{StaticResource TextBoxStyle}"/>
+                                         Style="{StaticResource TextBoxStyle}"
+                                         IsReadOnly="True"/>
                             </StackPanel>
 
                             <!-- 固定时长（本年） -->

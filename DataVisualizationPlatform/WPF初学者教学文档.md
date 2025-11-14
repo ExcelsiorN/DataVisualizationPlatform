@@ -11,7 +11,8 @@
 - [第五章：依赖注入](#第五章依赖注入)
 - [第六章：导航系统](#第六章导航系统)
 - [第七章：实战案例](#第七章实战案例)
-- [第八章：学习路径](#第八章学习路径)
+- [第八章：C#面试必备](#第八章c面试必备)
+- [第九章：学习路径](#第九章学习路径)
 
 ---
 
@@ -2977,9 +2978,1794 @@ DataContextChanged事件必须在设置DataContext之前订阅，否则会错过
 
 ---
 
-## 第八章：学习路径
+## 第八章：C#面试必备
 
-### 8.1 初学者学习路线
+### 8.1 面向对象编程（OOP）
+
+#### 8.1.1 四大特性
+
+##### 1. 封装（Encapsulation）
+
+**概念**：将数据和操作数据的方法封装在一起，隐藏内部实现细节。
+
+**本项目示例**：
+```csharp
+// Models/EquipmentInfoModel.cs
+public class EquipmentInfoModel : INotifyPropertyChanged
+{
+    // 私有字段 - 隐藏实现
+    private string _equ_Name = string.Empty;
+
+    // 公共属性 - 提供访问接口
+    public string Equ_Name
+    {
+        get => _equ_Name;
+        set
+        {
+            if (_equ_Name != value)
+            {
+                _equ_Name = value;
+                OnPropertyChanged(nameof(Equ_Name));  // 封装了通知逻辑
+            }
+        }
+    }
+
+    // 私有方法 - 内部实现
+    private void OnPropertyChanged(string propertyName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+
+    // 公共事件 - 对外接口
+    public event PropertyChangedEventHandler? PropertyChanged;
+}
+```
+
+**面试问题**：
+- Q: 为什么要使用属性而不是公共字段？
+- A:
+  1. 可以在get/set中添加验证逻辑
+  2. 可以控制读写权限（只读/只写）
+  3. 可以触发事件通知
+  4. 符合面向对象封装原则
+
+---
+
+##### 2. 继承（Inheritance）
+
+**概念**：子类继承父类的属性和方法，实现代码复用。
+
+**本项目示例**：
+```csharp
+// ViewModels/ViewModelBase.cs - 基类
+public abstract partial class ViewModelBase : ObservableObject
+{
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(IsNotBusy))]
+    private bool _isBusy;
+
+    public bool IsNotBusy => !IsBusy;
+
+    public virtual void OnLoaded() { }
+    public virtual void OnUnloaded() { }
+}
+
+// ViewModels/LoginViewModel.cs - 子类
+public partial class LoginViewModel : ViewModelBase
+{
+    // 继承了IsBusy, IsNotBusy等属性
+
+    [RelayCommand(CanExecute = nameof(CanLogin))]
+    private async Task LoginAsync()
+    {
+        IsBusy = true;  // 使用继承的属性
+        try
+        {
+            await Task.Delay(1500);
+            // 登录逻辑...
+        }
+        finally
+        {
+            IsBusy = false;
+        }
+    }
+
+    // 重写基类方法
+    public override void OnLoaded()
+    {
+        base.OnLoaded();  // 调用父类实现
+        // 子类特有逻辑...
+    }
+}
+```
+
+**继承层次**：
+```
+Object (所有类的基类)
+  ↓
+ObservableObject (CommunityToolkit.Mvvm提供)
+  ↓
+ViewModelBase (项目基类)
+  ↓
+LoginViewModel, HomePageAViewModel, DataViewModel... (具体ViewModel)
+```
+
+**面试问题**：
+- Q: C#支持多重继承吗？
+- A: 不支持类的多重继承，但支持接口的多重继承。一个类只能继承一个基类，但可以实现多个接口。
+
+```csharp
+// ❌ 错误：不能继承多个类
+public class MyClass : ClassA, ClassB { }
+
+// ✅ 正确：可以实现多个接口
+public class MyClass : INotifyPropertyChanged, IDisposable { }
+
+// ✅ 正确：继承一个类，实现多个接口
+public class MyClass : ViewModelBase, INavigationAware, IDisposable { }
+```
+
+---
+
+##### 3. 多态（Polymorphism）
+
+**概念**：同一操作作用于不同对象，产生不同的执行结果。
+
+**方法重写（Override）**：
+```csharp
+// 基类
+public abstract class ViewModelBase
+{
+    // virtual关键字表示可被重写
+    public virtual void OnLoaded()
+    {
+        Console.WriteLine("ViewModelBase.OnLoaded");
+    }
+}
+
+// 子类1
+public class HomePageAViewModel : ViewModelBase
+{
+    // override关键字重写父类方法
+    public override void OnLoaded()
+    {
+        base.OnLoaded();  // 可选：调用父类实现
+        Console.WriteLine("HomePageAViewModel.OnLoaded");
+        StartAnimation();
+    }
+}
+
+// 子类2
+public class DataViewModel : ViewModelBase
+{
+    public override void OnLoaded()
+    {
+        base.OnLoaded();
+        Console.WriteLine("DataViewModel.OnLoaded");
+        LoadData();
+    }
+}
+
+// 使用多态
+ViewModelBase vm1 = new HomePageAViewModel();
+ViewModelBase vm2 = new DataViewModel();
+
+vm1.OnLoaded();  // 输出: ViewModelBase.OnLoaded
+                 //       HomePageAViewModel.OnLoaded
+
+vm2.OnLoaded();  // 输出: ViewModelBase.OnLoaded
+                 //       DataViewModel.OnLoaded
+```
+
+**接口实现**：
+```csharp
+// 定义接口
+public interface INavigationAware
+{
+    void OnNavigatedTo(object? parameter);
+    void OnNavigatedFrom();
+}
+
+// 不同类实现同一接口，提供不同实现
+public class DataViewModel : INavigationAware
+{
+    public void OnNavigatedTo(object? parameter)
+    {
+        if (parameter is string year)
+            LoadDataByYear(year);
+    }
+
+    public void OnNavigatedFrom()
+    {
+        StopAnimations();
+    }
+}
+
+public class EditViewModel : INavigationAware
+{
+    public void OnNavigatedTo(object? parameter)
+    {
+        LoadEquipmentData();
+    }
+
+    public void OnNavigatedFrom()
+    {
+        SaveChanges();
+    }
+}
+```
+
+**面试问题**：
+- Q: virtual、override、abstract的区别？
+- A:
+  - `virtual`: 可被重写的方法，必须有实现
+  - `override`: 重写父类的virtual或abstract方法
+  - `abstract`: 抽象方法，没有实现，子类必须重写
+
+```csharp
+public abstract class Animal
+{
+    // 抽象方法 - 必须被重写
+    public abstract void MakeSound();
+
+    // 虚方法 - 可被重写
+    public virtual void Sleep()
+    {
+        Console.WriteLine("Sleeping...");
+    }
+}
+
+public class Dog : Animal
+{
+    // 必须重写抽象方法
+    public override void MakeSound()
+    {
+        Console.WriteLine("Woof!");
+    }
+
+    // 可选重写虚方法
+    public override void Sleep()
+    {
+        Console.WriteLine("Dog sleeping...");
+    }
+}
+```
+
+---
+
+##### 4. 抽象（Abstraction）
+
+**概念**：隐藏复杂的实现细节，只暴露必要的接口。
+
+**抽象类示例**：
+```csharp
+// ViewModelBase.cs - 抽象基类
+public abstract partial class ViewModelBase : ObservableObject
+{
+    // 具体实现
+    [ObservableProperty]
+    private bool _isBusy;
+
+    // 抽象接口（虚方法）
+    public virtual void OnLoaded() { }
+    public virtual void OnUnloaded() { }
+}
+```
+
+**接口示例**：
+```csharp
+// Services/Navigation/INavigationService.cs
+public interface INavigationService
+{
+    void NavigateTo(string pageKey, object? parameter = null);
+    bool GoBack();
+    void ClearHistory();
+    Page? CurrentPage { get; }
+    event EventHandler<Page?>? CurrentPageChanged;
+}
+
+// 具体实现由NavigationService类提供
+// 使用者只需要知道接口，不需要知道具体实现
+```
+
+**面试问题**：
+- Q: 抽象类和接口的区别？
+- A:
+
+| 特性 | 抽象类 | 接口 |
+|------|--------|------|
+| 继承 | 单继承 | 多继承 |
+| 成员 | 可以有字段、属性、方法 | 只能有方法、属性、事件、索引器 |
+| 实现 | 可以有具体实现 | 不能有实现（C# 8.0+支持默认实现） |
+| 访问修饰符 | 可以有任意修饰符 | 成员默认public |
+| 构造函数 | 可以有 | 不能有 |
+| 使用场景 | "是一个"关系 | "能做什么"关系 |
+
+**本项目示例**：
+```csharp
+// 抽象类：表示"是一个"关系
+// LoginViewModel "是一个" ViewModelBase
+public class LoginViewModel : ViewModelBase { }
+
+// 接口：表示"能做什么"
+// DataViewModel "能做" 导航感知的事情
+public class DataViewModel : INavigationAware { }
+```
+
+---
+
+### 8.2 C#核心语法
+
+#### 8.2.1 属性（Property）
+
+**自动属性**：
+```csharp
+// 简单的自动属性
+public string Name { get; set; }
+
+// 只读自动属性
+public string Id { get; }
+
+// 带初始值的自动属性
+public DateTime CreatedDate { get; set; } = DateTime.Now;
+
+// 不同访问级别
+public string Name { get; private set; }  // 外部只读，内部可写
+```
+
+**完整属性（带通知）**：
+```csharp
+// 本项目的Model必须用完整属性
+private string _equ_Name = string.Empty;
+public string Equ_Name
+{
+    get => _equ_Name;
+    set
+    {
+        if (_equ_Name != value)
+        {
+            _equ_Name = value;
+            OnPropertyChanged(nameof(Equ_Name));
+        }
+    }
+}
+```
+
+**使用Source Generator的属性**：
+```csharp
+// 使用CommunityToolkit.Mvvm
+public partial class LoginViewModel : ViewModelBase
+{
+    [ObservableProperty]
+    private string _username = string.Empty;
+
+    // 自动生成:
+    // public string Username { get; set; }
+    // 包含PropertyChanged通知
+}
+```
+
+**面试问题**：
+- Q: 属性和字段的区别？
+- A:
+  - 字段是变量，属性是方法（get/set访问器）
+  - 属性可以添加验证逻辑
+  - 属性可以是只读或只写
+  - 属性支持数据绑定
+
+---
+
+#### 8.2.2 委托和事件（Delegate & Event）
+
+**委托定义**：
+```csharp
+// 委托是类型安全的函数指针
+public delegate void MyDelegate(string message);
+
+// 使用委托
+public class Example
+{
+    public void Method1(string msg)
+    {
+        Console.WriteLine($"Method1: {msg}");
+    }
+
+    public void Method2(string msg)
+    {
+        Console.WriteLine($"Method2: {msg}");
+    }
+
+    public void Test()
+    {
+        MyDelegate del = Method1;
+        del += Method2;  // 多播委托
+
+        del("Hello");
+        // 输出:
+        // Method1: Hello
+        // Method2: Hello
+    }
+}
+```
+
+**内置委托**：
+```csharp
+// Action - 无返回值
+Action action = () => Console.WriteLine("Action");
+Action<string> actionWithParam = (s) => Console.WriteLine(s);
+Action<int, string> actionWith2Params = (i, s) => Console.WriteLine($"{i}: {s}");
+
+// Func - 有返回值（最后一个类型参数是返回类型）
+Func<int> func = () => 42;
+Func<string, int> funcWithParam = (s) => s.Length;
+Func<int, int, int> add = (a, b) => a + b;
+
+// Predicate - 返回bool
+Predicate<int> isPositive = (n) => n > 0;
+```
+
+**本项目中的委托使用**：
+```csharp
+// RelayCommand内部使用委托
+public class RelayCommand : ICommand
+{
+    private readonly Action _execute;
+    private readonly Func<bool>? _canExecute;
+
+    public RelayCommand(Action execute, Func<bool>? canExecute = null)
+    {
+        _execute = execute;
+        _canExecute = canExecute;
+    }
+
+    public void Execute(object? parameter)
+    {
+        _execute();  // 调用委托
+    }
+
+    public bool CanExecute(object? parameter)
+    {
+        return _canExecute == null || _canExecute();  // 调用委托
+    }
+}
+```
+
+**事件（Event）**：
+```csharp
+// 定义事件
+public class Publisher
+{
+    // 事件定义
+    public event EventHandler<string>? MessageReceived;
+
+    public void SendMessage(string message)
+    {
+        // 触发事件
+        MessageReceived?.Invoke(this, message);
+    }
+}
+
+// 订阅事件
+public class Subscriber
+{
+    public void Subscribe(Publisher publisher)
+    {
+        publisher.MessageReceived += OnMessageReceived;
+    }
+
+    private void OnMessageReceived(object? sender, string message)
+    {
+        Console.WriteLine($"Received: {message}");
+    }
+}
+```
+
+**本项目中的事件**：
+```csharp
+// INotifyPropertyChanged接口
+public event PropertyChangedEventHandler? PropertyChanged;
+
+protected void OnPropertyChanged(string propertyName)
+{
+    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+}
+
+// NavigationService中的事件
+public event EventHandler<Page?>? CurrentPageChanged;
+
+private void NotifyCurrentPageChanged()
+{
+    CurrentPageChanged?.Invoke(this, CurrentPage);
+}
+```
+
+**面试问题**：
+- Q: 委托和事件的区别？
+- A:
+  - 事件是基于委托的封装
+  - 事件只能在类内部触发（Invoke），外部只能订阅（+=）和取消订阅（-=）
+  - 委托可以在外部调用
+  - 事件更安全，防止外部随意触发
+
+```csharp
+public class Example
+{
+    // 委托字段 - 外部可以调用
+    public Action MyDelegate;
+
+    // 事件 - 外部只能订阅
+    public event Action MyEvent;
+
+    public void Test()
+    {
+        MyDelegate?.Invoke();  // OK
+        MyEvent?.Invoke();     // OK
+    }
+}
+
+// 使用
+var example = new Example();
+example.MyDelegate += () => { };
+example.MyDelegate?.Invoke();  // OK - 外部可以调用委托
+
+example.MyEvent += () => { };
+example.MyEvent?.Invoke();     // ❌ 编译错误 - 外部不能触发事件
+```
+
+---
+
+#### 8.2.3 Lambda表达式
+
+**基本语法**：
+```csharp
+// 无参数
+() => Console.WriteLine("Hello")
+
+// 一个参数（可省略括号）
+x => x * 2
+(x) => x * 2
+
+// 多个参数
+(x, y) => x + y
+
+// 代码块
+(x, y) =>
+{
+    int sum = x + y;
+    return sum;
+}
+```
+
+**本项目中的Lambda使用**：
+
+**1. LINQ查询**：
+```csharp
+// FaultReportViewModel.cs
+private void ApplyFilters()
+{
+    var filtered = _allReports.AsEnumerable();
+
+    // Lambda表达式用于Where条件
+    if (SelectedStatus != "全部")
+    {
+        filtered = filtered.Where(r => r.Status == SelectedStatus);
+    }
+
+    if (SelectedDevice != "全部")
+    {
+        filtered = filtered.Where(r => r.Equipment == SelectedDevice);
+    }
+
+    // Lambda表达式用于筛选
+    filtered = filtered.Where(r =>
+        DateTime.TryParse(r.Date, out var date) &&
+        date.Year == year);
+}
+```
+
+**2. 事件订阅**：
+```csharp
+// HomePageBViewModel.cs
+WeakReferenceMessenger.Default.Register<EquipmentDataUpdatedMessage>(
+    this, (recipient, message) =>
+    {
+        // Lambda表达式作为事件处理器
+        LoadData();
+        CalculateEquipmentStatistics();
+    });
+```
+
+**3. 命令定义**：
+```csharp
+// 使用Lambda定义命令
+public ICommand SaveCommand { get; }
+
+public ViewModel()
+{
+    SaveCommand = new RelayCommand(() =>
+    {
+        // Lambda表达式作为命令实现
+        SaveData();
+    }, () => CanSave());  // Lambda表达式作为CanExecute
+}
+```
+
+**4. 集合操作**：
+```csharp
+// 使用Lambda进行集合操作
+var onlineDevices = EquipmentList.Where(e => e.Equ_OnlineStatus == "在线").ToList();
+
+var deviceNames = EquipmentList.Select(e => e.Equ_Name).ToList();
+
+var sortedList = EquipmentList.OrderBy(e => e.Equ_Id).ToList();
+
+var firstDevice = EquipmentList.FirstOrDefault(e => e.Equ_Id == "fntp-0");
+
+var hasOffline = EquipmentList.Any(e => e.Equ_OnlineStatus == "离线");
+
+var allOnline = EquipmentList.All(e => e.Equ_OnlineStatus == "在线");
+```
+
+---
+
+#### 8.2.4 LINQ（Language Integrated Query）
+
+**查询语法 vs 方法语法**：
+```csharp
+var devices = new List<EquipmentInfoModel>();
+
+// 查询语法
+var result1 = from d in devices
+              where d.Equ_OnlineStatus == "在线"
+              orderby d.Equ_Name
+              select d.Equ_Name;
+
+// 方法语法（本项目主要使用）
+var result2 = devices
+    .Where(d => d.Equ_OnlineStatus == "在线")
+    .OrderBy(d => d.Equ_Name)
+    .Select(d => d.Equ_Name);
+```
+
+**常用LINQ操作**：
+
+**1. Where - 筛选**：
+```csharp
+// EditViewModel.cs
+private void SearchEquipment(object? parameter)
+{
+    var filtered = EquipmentList.Where(e =>
+        e.Equ_Id.Contains(SearchText, StringComparison.OrdinalIgnoreCase) ||
+        e.Equ_Name.Contains(SearchText, StringComparison.OrdinalIgnoreCase) ||
+        e.Equ_OnlineStatus.Contains(SearchText, StringComparison.OrdinalIgnoreCase)
+    );
+
+    FilteredEquipmentList.Clear();
+    foreach (var item in filtered)
+    {
+        FilteredEquipmentList.Add(item);
+    }
+}
+```
+
+**2. Select - 投影**：
+```csharp
+// 提取设备名称列表
+var deviceNames = EquipmentList.Select(e => e.Equ_Name).ToList();
+
+// 创建匿名类型
+var summary = EquipmentList.Select(e => new
+{
+    Id = e.Equ_Id,
+    Name = e.Equ_Name,
+    Status = e.Equ_OnlineStatus
+}).ToList();
+```
+
+**3. OrderBy/OrderByDescending - 排序**：
+```csharp
+// 按ID排序
+var sortedById = EquipmentList.OrderBy(e => e.Equ_Id).ToList();
+
+// 降序排序
+var sortedByNameDesc = EquipmentList.OrderByDescending(e => e.Equ_Name).ToList();
+
+// 多重排序
+var sorted = EquipmentList
+    .OrderBy(e => e.Equ_OnlineStatus)
+    .ThenBy(e => e.Equ_Name)
+    .ToList();
+```
+
+**4. First/FirstOrDefault**：
+```csharp
+// First - 找不到会抛异常
+var first = EquipmentList.First(e => e.Equ_OnlineStatus == "在线");
+
+// FirstOrDefault - 找不到返回null
+var firstOrNull = EquipmentList.FirstOrDefault(e => e.Equ_Id == "fntp-999");
+if (firstOrNull != null)
+{
+    // 找到了
+}
+```
+
+**5. Any/All/Count**：
+```csharp
+// Any - 是否存在满足条件的元素
+bool hasOnline = EquipmentList.Any(e => e.Equ_OnlineStatus == "在线");
+
+// All - 是否所有元素都满足条件
+bool allOnline = EquipmentList.All(e => e.Equ_OnlineStatus == "在线");
+
+// Count - 统计数量
+int onlineCount = EquipmentList.Count(e => e.Equ_OnlineStatus == "在线");
+```
+
+**6. GroupBy - 分组**：
+```csharp
+// 按在线状态分组
+var grouped = EquipmentList.GroupBy(e => e.Equ_OnlineStatus);
+
+foreach (var group in grouped)
+{
+    Console.WriteLine($"状态: {group.Key}, 数量: {group.Count()}");
+    foreach (var device in group)
+    {
+        Console.WriteLine($"  - {device.Equ_Name}");
+    }
+}
+```
+
+**7. Skip/Take - 分页**：
+```csharp
+int pageSize = 10;
+int pageIndex = 0;
+
+// 分页查询
+var page = EquipmentList
+    .Skip(pageIndex * pageSize)
+    .Take(pageSize)
+    .ToList();
+```
+
+**面试问题**：
+- Q: LINQ的延迟执行是什么意思？
+- A: LINQ查询在定义时不会立即执行，只有在枚举结果时才执行（如调用ToList()、foreach等）
+
+```csharp
+// 定义查询 - 不执行
+var query = EquipmentList.Where(e => e.Equ_OnlineStatus == "在线");
+
+// 修改数据
+EquipmentList.Add(new EquipmentInfoModel { Equ_OnlineStatus = "在线" });
+
+// 现在执行查询 - 会包含刚添加的数据
+var result = query.ToList();
+```
+
+---
+
+#### 8.2.5 异步编程（Async/Await）
+
+**基本概念**：
+```csharp
+// async关键字标记异步方法
+public async Task<string> GetDataAsync()
+{
+    // await等待异步操作完成
+    var result = await SomeAsyncOperation();
+    return result;
+}
+```
+
+**本项目中的异步使用**：
+
+**1. 异步命令**：
+```csharp
+// LoginViewModel.cs
+[RelayCommand(CanExecute = nameof(CanLogin))]
+private async Task LoginAsync()
+{
+    ErrorMessage = string.Empty;
+
+    // 验证
+    if (Username.Trim() != TEST_USERNAME || Password != TEST_PASSWORD)
+    {
+        ErrorMessage = "用户名或密码错误";
+        return;
+    }
+
+    IsBusy = true;
+
+    try
+    {
+        // 异步操作 - 不会阻塞UI线程
+        await Task.Delay(1500);
+
+        // 登录成功后的操作
+        var mainWindow = App.GetService<MainWindow>();
+        mainWindow.Show();
+
+        // 关闭登录窗口
+        Application.Current.Windows
+            .OfType<Window>()
+            .FirstOrDefault(w => w is Login)
+            ?.Close();
+    }
+    finally
+    {
+        IsBusy = false;
+    }
+}
+
+private bool CanLogin() => !IsBusy;
+```
+
+**2. 异步方法签名**：
+```csharp
+// 无返回值
+public async Task DoSomethingAsync()
+{
+    await Task.Delay(1000);
+}
+
+// 有返回值
+public async Task<int> GetCountAsync()
+{
+    await Task.Delay(1000);
+    return 42;
+}
+
+// 事件处理器可以是async void
+private async void Button_Click(object sender, RoutedEventArgs e)
+{
+    await DoSomethingAsync();
+}
+```
+
+**3. 并行异步操作**：
+```csharp
+// 顺序执行
+var result1 = await Operation1Async();
+var result2 = await Operation2Async();  // 等待Operation1完成后才执行
+
+// 并行执行
+var task1 = Operation1Async();
+var task2 = Operation2Async();
+await Task.WhenAll(task1, task2);  // 同时执行，等待都完成
+
+// 获取结果
+var result1 = await task1;
+var result2 = await task2;
+```
+
+**4. 异步LINQ**：
+```csharp
+// 假设有异步数据加载
+public async Task<List<EquipmentInfoModel>> LoadEquipmentAsync()
+{
+    await Task.Delay(1000);  // 模拟网络请求
+
+    var json = await File.ReadAllTextAsync("data.json");
+    var data = JsonConvert.DeserializeObject<List<EquipmentInfoModel>>(json);
+
+    return data ?? new List<EquipmentInfoModel>();
+}
+
+// 使用
+public async Task InitializeAsync()
+{
+    IsBusy = true;
+
+    var equipment = await LoadEquipmentAsync();
+
+    EquipmentList.Clear();
+    foreach (var item in equipment)
+    {
+        EquipmentList.Add(item);
+    }
+
+    IsBusy = false;
+}
+```
+
+**面试问题**：
+
+- Q: async/await的工作原理？
+- A: async/await是语法糖，编译器会将异步方法转换为状态机。await会暂停方法执行，将控制权返回给调用者，当异步操作完成后继续执行。
+
+- Q: Task和Thread的区别？
+- A:
+  - Thread是操作系统级别的线程，开销大
+  - Task是更高层的抽象，由线程池管理，开销小
+  - Task支持async/await，Thread不支持
+  - Task可以返回值，Thread不能直接返回值
+
+- Q: 什么时候用Task.Run？
+- A:
+  ```csharp
+  // CPU密集型操作，使用Task.Run放到后台线程
+  var result = await Task.Run(() =>
+  {
+      // 复杂计算
+      return ComputeComplexCalculation();
+  });
+
+  // I/O操作，直接使用异步API，不需要Task.Run
+  var data = await File.ReadAllTextAsync("file.txt");  // 已经是异步的
+  ```
+
+---
+
+### 8.3 高级特性
+
+#### 8.3.1 泛型（Generics）
+
+**泛型类**：
+```csharp
+// 定义泛型类
+public class Repository<T> where T : class
+{
+    private List<T> _items = new();
+
+    public void Add(T item)
+    {
+        _items.Add(item);
+    }
+
+    public T? GetById(int id)
+    {
+        // 实现查找逻辑
+        return default;
+    }
+
+    public List<T> GetAll()
+    {
+        return _items;
+    }
+}
+
+// 使用
+var equipmentRepo = new Repository<EquipmentInfoModel>();
+equipmentRepo.Add(new EquipmentInfoModel());
+```
+
+**泛型方法**：
+```csharp
+// App.xaml.cs中的泛型方法
+public static T GetService<T>() where T : notnull
+{
+    return ((App)Current)._serviceProvider!.GetRequiredService<T>();
+}
+
+// 使用
+var mainWindow = App.GetService<MainWindow>();
+var viewModel = App.GetService<LoginViewModel>();
+```
+
+**泛型约束**：
+```csharp
+// where T : class         - T必须是引用类型
+// where T : struct        - T必须是值类型
+// where T : new()         - T必须有无参构造函数
+// where T : BaseClass     - T必须继承自BaseClass
+// where T : IInterface    - T必须实现IInterface
+// where T : notnull       - T不能为null（C# 8.0+）
+
+public class Example<T> where T : ViewModelBase, INavigationAware, new()
+{
+    public T CreateInstance()
+    {
+        return new T();  // 因为有new()约束，可以创建实例
+    }
+}
+```
+
+**本项目中的泛型使用**：
+
+**1. ObservableCollection\<T\>**：
+```csharp
+public ObservableCollection<EquipmentInfoModel> EquipmentList { get; } = new();
+public ObservableCollection<FaultReportModel> FaultReports { get; } = new();
+```
+
+**2. RelayCommand\<T\>**：
+```csharp
+// 带参数的命令
+public class RelayCommand<T> : ICommand
+{
+    private readonly Action<T?> _execute;
+    private readonly Func<T?, bool>? _canExecute;
+
+    public void Execute(object? parameter)
+    {
+        _execute((T?)parameter);
+    }
+}
+
+// 使用
+[RelayCommand]
+private void Delete(int id)
+{
+    // DeleteCommand是RelayCommand<int>类型
+}
+```
+
+**3. 依赖注入容器**：
+```csharp
+// 注册服务
+services.AddSingleton<INavigationService, NavigationService>();
+services.AddTransient<MainWindowViewModel>();
+
+// 获取服务 - 使用泛型方法
+var service = serviceProvider.GetRequiredService<INavigationService>();
+```
+
+---
+
+#### 8.3.2 扩展方法（Extension Methods）
+
+**定义扩展方法**：
+```csharp
+// 必须是静态类
+public static class StringExtensions
+{
+    // 必须是静态方法，第一个参数用this修饰
+    public static bool IsNullOrEmpty(this string? str)
+    {
+        return string.IsNullOrEmpty(str);
+    }
+
+    public static string Truncate(this string str, int maxLength)
+    {
+        if (str.Length <= maxLength)
+            return str;
+
+        return str.Substring(0, maxLength) + "...";
+    }
+}
+
+// 使用
+string text = "Hello World";
+bool isEmpty = text.IsNullOrEmpty();  // 像调用实例方法一样
+string short = text.Truncate(5);  // "Hello..."
+```
+
+**LINQ就是扩展方法**：
+```csharp
+// LINQ的Where、Select等都是扩展方法
+public static class Enumerable
+{
+    public static IEnumerable<T> Where<T>(
+        this IEnumerable<T> source,
+        Func<T, bool> predicate)
+    {
+        foreach (var item in source)
+        {
+            if (predicate(item))
+                yield return item;
+        }
+    }
+}
+```
+
+---
+
+#### 8.3.3 可空引用类型（Nullable Reference Types）
+
+**C# 8.0+特性**：
+```csharp
+// 启用可空引用类型（项目文件中配置）
+<Nullable>enable</Nullable>
+
+// 不可为null的引用类型
+string name = "John";
+name = null;  // ⚠️ 警告：不能将null赋值给非空类型
+
+// 可为null的引用类型
+string? nullableName = null;  // ✅ OK
+nullableName = "John";  // ✅ OK
+
+// 使用前检查
+if (nullableName != null)
+{
+    Console.WriteLine(nullableName.Length);  // ✅ 安全
+}
+
+// 或使用null条件运算符
+Console.WriteLine(nullableName?.Length);  // 如果为null返回null
+
+// 或使用null合并运算符
+string displayName = nullableName ?? "Unknown";
+```
+
+**本项目中的使用**：
+```csharp
+// ViewModels/EditViewModel.cs
+private EquipmentInfoModel? _selectedEquipment;  // 可为null
+
+public EquipmentInfoModel? SelectedEquipment
+{
+    get => _selectedEquipment;
+    set
+    {
+        if (_selectedEquipment != value)
+        {
+            _selectedEquipment = value;
+            OnPropertyChanged();
+        }
+    }
+}
+
+// 使用时检查null
+if (SelectedEquipment != null)
+{
+    string name = SelectedEquipment.Equ_Name;
+}
+
+// 或使用null条件运算符
+string? name = SelectedEquipment?.Equ_Name;
+```
+
+---
+
+#### 8.3.4 模式匹配（Pattern Matching）
+
+**类型模式**：
+```csharp
+object obj = "Hello";
+
+// 传统方式
+if (obj is string)
+{
+    string str = (string)obj;
+    Console.WriteLine(str.Length);
+}
+
+// 模式匹配
+if (obj is string str)
+{
+    Console.WriteLine(str.Length);  // str已经是string类型
+}
+```
+
+**Switch表达式（C# 8.0+）**：
+```csharp
+// 传统switch语句
+string GetStatusColor(string status)
+{
+    switch (status)
+    {
+        case "在线":
+            return "Green";
+        case "离线":
+            return "Red";
+        case "维护中":
+            return "Orange";
+        default:
+            return "Gray";
+    }
+}
+
+// Switch表达式
+string GetStatusColor(string status) => status switch
+{
+    "在线" => "Green",
+    "离线" => "Red",
+    "维护中" => "Orange",
+    _ => "Gray"  // _ 表示默认情况
+};
+```
+
+**本项目中的使用**：
+```csharp
+// MainWindowViewModel.cs
+[RelayCommand]
+private void PreviousPage()
+{
+    var currentPageType = _navigationService.CurrentPage?.GetType().Name;
+    var previousPage = currentPageType switch
+    {
+        "HomePageA" => "HomePageC",
+        "HomePageB" => "HomePageA",
+        "HomePageC" => "HomePageB",
+        _ => "HomePageB"
+    };
+    _navigationService.NavigateTo(previousPage);
+}
+
+// DataViewModel.cs - 参数模式匹配
+public void OnNavigatedTo(object? parameter)
+{
+    if (parameter is string year)
+    {
+        LoadDataByYear(year);
+    }
+    else if (parameter is ValueTuple<int, int> tuple)
+    {
+        var (month, targetYear) = tuple;
+        LoadDataByMonth(month, targetYear);
+    }
+}
+```
+
+---
+
+### 8.4 常见面试题
+
+#### 8.4.1 值类型 vs 引用类型
+
+**值类型**：
+- 存储在栈上
+- 包含实际数据
+- 赋值时复制值
+- 类型：int, double, bool, struct, enum
+
+**引用类型**：
+- 引用存储在栈上，数据存储在堆上
+- 包含对数据的引用
+- 赋值时复制引用
+- 类型：class, interface, delegate, string, array
+
+**示例**：
+```csharp
+// 值类型
+int a = 10;
+int b = a;  // 复制值
+b = 20;
+Console.WriteLine(a);  // 输出: 10 (a不受影响)
+
+// 引用类型
+var equipment1 = new EquipmentInfoModel { Equ_Name = "设备1" };
+var equipment2 = equipment1;  // 复制引用，指向同一对象
+equipment2.Equ_Name = "设备2";
+Console.WriteLine(equipment1.Equ_Name);  // 输出: 设备2 (equipment1也改变了)
+```
+
+**面试问题**：
+- Q: string是值类型还是引用类型？
+- A: string是引用类型，但表现得像值类型（因为不可变性）
+
+```csharp
+string str1 = "Hello";
+string str2 = str1;
+str2 = "World";  // 创建新string对象，str2指向新对象
+Console.WriteLine(str1);  // 输出: Hello (str1不变)
+```
+
+---
+
+#### 8.4.2 装箱和拆箱
+
+**装箱（Boxing）**：值类型 → 引用类型
+```csharp
+int num = 123;
+object obj = num;  // 装箱：在堆上创建int的副本
+```
+
+**拆箱（Unboxing）**：引用类型 → 值类型
+```csharp
+object obj = 123;  // 已装箱
+int num = (int)obj;  // 拆箱：必须显式转换
+```
+
+**性能影响**：
+```csharp
+// ❌ 性能差：频繁装箱
+ArrayList list = new ArrayList();
+for (int i = 0; i < 1000; i++)
+{
+    list.Add(i);  // 每次都装箱
+}
+
+// ✅ 性能好：使用泛型，避免装箱
+List<int> list = new List<int>();
+for (int i = 0; i < 1000; i++)
+{
+    list.Add(i);  // 不装箱
+}
+```
+
+---
+
+#### 8.4.3 ==和Equals的区别
+
+**值类型**：
+```csharp
+int a = 5;
+int b = 5;
+Console.WriteLine(a == b);  // true - 比较值
+Console.WriteLine(a.Equals(b));  // true - 比较值
+```
+
+**引用类型（默认行为）**：
+```csharp
+var obj1 = new EquipmentInfoModel { Equ_Id = "fntp-0" };
+var obj2 = new EquipmentInfoModel { Equ_Id = "fntp-0" };
+
+Console.WriteLine(obj1 == obj2);  // false - 比较引用
+Console.WriteLine(obj1.Equals(obj2));  // false - 默认比较引用
+
+var obj3 = obj1;
+Console.WriteLine(obj1 == obj3);  // true - 相同引用
+```
+
+**string的特殊行为**：
+```csharp
+string str1 = "Hello";
+string str2 = "Hello";
+Console.WriteLine(str1 == str2);  // true - string重写了==运算符
+Console.WriteLine(str1.Equals(str2));  // true
+```
+
+**重写Equals**：
+```csharp
+public class EquipmentInfoModel
+{
+    public string Equ_Id { get; set; }
+
+    public override bool Equals(object? obj)
+    {
+        if (obj is EquipmentInfoModel other)
+        {
+            return Equ_Id == other.Equ_Id;
+        }
+        return false;
+    }
+
+    public override int GetHashCode()
+    {
+        return Equ_Id.GetHashCode();
+    }
+}
+```
+
+---
+
+#### 8.4.4 访问修饰符
+
+| 修饰符 | 类内部 | 派生类 | 同程序集 | 其他程序集 |
+|--------|--------|--------|----------|------------|
+| public | ✅ | ✅ | ✅ | ✅ |
+| private | ✅ | ❌ | ❌ | ❌ |
+| protected | ✅ | ✅ | ❌ | ❌ |
+| internal | ✅ | ✅ | ✅ | ❌ |
+| protected internal | ✅ | ✅ | ✅ | 派生类可访问 |
+| private protected | ✅ | 同程序集的派生类 | ❌ | ❌ |
+
+**示例**：
+```csharp
+public class ViewModelBase
+{
+    public bool IsBusy { get; set; }  // 所有地方可访问
+
+    private bool _isLoading;  // 只有ViewModelBase内部可访问
+
+    protected void OnLoaded() { }  // ViewModelBase和派生类可访问
+
+    internal void InternalMethod() { }  // 同程序集内可访问
+
+    protected internal void ProtectedInternalMethod() { }  // 同程序集或派生类
+}
+```
+
+---
+
+#### 8.4.5 ref、out、in参数
+
+**ref - 引用传递**：
+```csharp
+void Increment(ref int num)
+{
+    num++;  // 修改原始值
+}
+
+int value = 5;
+Increment(ref value);
+Console.WriteLine(value);  // 输出: 6
+
+// 使用ref时，变量必须先初始化
+int num;  // ❌ 错误
+Increment(ref num);
+
+int num = 0;  // ✅ 正确
+Increment(ref num);
+```
+
+**out - 输出参数**：
+```csharp
+bool TryParse(string input, out int result)
+{
+    return int.TryParse(input, out result);
+}
+
+// 使用out时，变量不需要初始化
+int number;  // ✅ OK
+if (TryParse("123", out number))
+{
+    Console.WriteLine(number);  // 输出: 123
+}
+
+// C# 7.0+可以内联声明
+if (TryParse("123", out int num))
+{
+    Console.WriteLine(num);
+}
+```
+
+**本项目中的使用**：
+```csharp
+// Edit.xaml.cs
+private void ParseDeploymentAddress(string address)
+{
+    var parts = address.Split(',');
+    if (parts.Length == 2)
+    {
+        // 使用TryParse（内部使用out参数）
+        if (double.TryParse(parts[0], out double longitude))
+        {
+            LongitudeTextBox.Text = System.Math.Abs(longitude).ToString();
+        }
+
+        if (double.TryParse(parts[1], out double latitude))
+        {
+            LatitudeTextBox.Text = System.Math.Abs(latitude).ToString();
+        }
+    }
+}
+```
+
+**in - 只读引用**：
+```csharp
+// 传递大型结构体时，使用in避免复制，同时防止修改
+void ProcessData(in LargeStruct data)
+{
+    // 可以读取data，但不能修改
+    var value = data.Value;
+    // data.Value = 10;  // ❌ 编译错误
+}
+```
+
+---
+
+#### 8.4.6 StringBuilder vs String
+
+**String是不可变的**：
+```csharp
+string str = "Hello";
+str += " World";  // 创建新string对象，原对象被丢弃
+
+// 性能问题
+string result = "";
+for (int i = 0; i < 1000; i++)
+{
+    result += i.ToString();  // 每次都创建新string，性能差
+}
+```
+
+**StringBuilder是可变的**：
+```csharp
+var sb = new StringBuilder("Hello");
+sb.Append(" World");  // 修改同一对象
+
+// 性能好
+var sb = new StringBuilder();
+for (int i = 0; i < 1000; i++)
+{
+    sb.Append(i);  // 不创建新对象，性能好
+}
+string result = sb.ToString();
+```
+
+**选择建议**：
+- 少量字符串连接（<5次）：使用String
+- 大量字符串连接：使用StringBuilder
+- 字符串插值：使用 $"{}"
+
+---
+
+#### 8.4.7 using语句和IDisposable
+
+**IDisposable接口**：
+```csharp
+public interface IDisposable
+{
+    void Dispose();
+}
+```
+
+**实现IDisposable**：
+```csharp
+public class FileHandler : IDisposable
+{
+    private FileStream? _fileStream;
+    private bool _disposed = false;
+
+    public FileHandler(string path)
+    {
+        _fileStream = File.OpenRead(path);
+    }
+
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+    protected virtual void Dispose(bool disposing)
+    {
+        if (_disposed)
+            return;
+
+        if (disposing)
+        {
+            // 释放托管资源
+            _fileStream?.Dispose();
+        }
+
+        // 释放非托管资源
+
+        _disposed = true;
+    }
+
+    ~FileHandler()
+    {
+        Dispose(false);
+    }
+}
+```
+
+**using语句**：
+```csharp
+// 传统using
+using (var handler = new FileHandler("file.txt"))
+{
+    // 使用handler
+}  // 自动调用Dispose
+
+// C# 8.0+ using声明
+using var handler = new FileHandler("file.txt");
+// 使用handler
+// 作用域结束时自动调用Dispose
+```
+
+**本项目中的使用**：
+```csharp
+// 虽然项目中没有直接实现IDisposable，但使用了很多实现了IDisposable的类
+// 例如文件操作
+var content = File.ReadAllText(path);  // 内部使用using管理FileStream
+```
+
+---
+
+### 8.5 面试准备建议
+
+#### 8.5.1 如何介绍这个项目
+
+**项目简介模板**：
+```
+这是一个基于WPF和MVVM模式的数据可视化平台，主要功能包括：
+1. 设备信息管理（CRUD操作）
+2. 故障报告系统
+3. 预约列表管理
+4. 数据可视化展示
+
+技术栈：
+- 框架：WPF (.NET 8.0)
+- 架构：MVVM
+- 依赖注入：Microsoft.Extensions.DependencyInjection
+- MVVM工具包：CommunityToolkit.Mvvm
+- 数据序列化：Newtonsoft.Json
+- 图表库：LiveCharts
+
+项目亮点：
+1. 完整的MVVM架构实现
+2. 依赖注入和服务导向设计
+3. 实时数据同步（消息传递机制）
+4. 输入验证和数据转换
+5. 动态数据加载和文件I/O操作
+```
+
+#### 8.5.2 常见项目相关问题
+
+**Q1: 为什么选择MVVM？**
+```
+A: MVVM模式将业务逻辑与UI分离，带来以下好处：
+1. 可测试性：ViewModel可以独立测试，不需要UI
+2. 可维护性：职责清晰，易于维护和修改
+3. 可重用性：ViewModel可以被多个View使用
+4. 团队协作：设计师和开发者可以并行工作
+
+在本项目中，所有业务逻辑都在ViewModel中实现，View仅负责展示，
+通过数据绑定和命令实现交互，完全解耦。
+```
+
+**Q2: 如何实现跨页面数据同步？**
+```
+A: 项目使用了三种方式：
+1. 单例数据服务：JsonDataService使用单例模式，确保数据一致性
+2. 消息传递：使用WeakReferenceMessenger发送EquipmentDataUpdatedMessage，
+   通知其他页面刷新数据
+3. 动态文件读取：每次加载数据都从源文件读取最新内容
+
+具体流程：
+Edit页面保存数据 → 发送消息 → HomePageB/EquipmentInfo收到消息 →
+调用JsonDataService获取最新数据 → UI自动更新
+```
+
+**Q3: 依赖注入是如何实现的？**
+```
+A: 项目使用Microsoft.Extensions.DependencyInjection：
+1. 在App.xaml.cs的ConfigureServices方法中注册服务
+2. NavigationService注册为Singleton（全局单例）
+3. ViewModels和Views注册为Transient（每次创建新实例）
+4. 通过构造函数注入依赖
+
+优势：
+- 松耦合：类之间不直接依赖，而是依赖接口
+- 易测试：可以注入Mock对象进行单元测试
+- 易维护：修改实现类不影响使用者
+```
+
+**Q4: 如何处理异步操作？**
+```
+A: 项目使用async/await模式：
+1. 登录操作使用异步命令（Task类型）
+2. 使用IsBusy属性显示加载状态
+3. try-finally确保IsBusy正确重置
+4. CanExecute配合IsBusy防止重复提交
+
+示例：LoginViewModel的LoginAsync方法
+- 设置IsBusy=true禁用按钮
+- await异步操作，不阻塞UI
+- finally中重置IsBusy
+```
+
+---
+
+#### 8.5.3 编码题准备
+
+**题目1：实现一个ObservableObject基类**
+```csharp
+public class ObservableObject : INotifyPropertyChanged
+{
+    public event PropertyChangedEventHandler? PropertyChanged;
+
+    protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+
+    protected bool SetProperty<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
+    {
+        if (EqualityComparer<T>.Default.Equals(field, value))
+            return false;
+
+        field = value;
+        OnPropertyChanged(propertyName);
+        return true;
+    }
+}
+
+// 使用
+public class PersonViewModel : ObservableObject
+{
+    private string _name = string.Empty;
+    public string Name
+    {
+        get => _name;
+        set => SetProperty(ref _name, value);
+    }
+}
+```
+
+**题目2：实现一个RelayCommand**
+```csharp
+public class RelayCommand : ICommand
+{
+    private readonly Action _execute;
+    private readonly Func<bool>? _canExecute;
+
+    public RelayCommand(Action execute, Func<bool>? canExecute = null)
+    {
+        _execute = execute ?? throw new ArgumentNullException(nameof(execute));
+        _canExecute = canExecute;
+    }
+
+    public event EventHandler? CanExecuteChanged
+    {
+        add => CommandManager.RequerySuggested += value;
+        remove => CommandManager.RequerySuggested -= value;
+    }
+
+    public bool CanExecute(object? parameter)
+    {
+        return _canExecute == null || _canExecute();
+    }
+
+    public void Execute(object? parameter)
+    {
+        _execute();
+    }
+}
+```
+
+**题目3：实现LINQ的Where方法**
+```csharp
+public static class MyLinq
+{
+    public static IEnumerable<T> MyWhere<T>(this IEnumerable<T> source, Func<T, bool> predicate)
+    {
+        if (source == null)
+            throw new ArgumentNullException(nameof(source));
+        if (predicate == null)
+            throw new ArgumentNullException(nameof(predicate));
+
+        foreach (var item in source)
+        {
+            if (predicate(item))
+            {
+                yield return item;
+            }
+        }
+    }
+}
+
+// 使用
+var numbers = new[] { 1, 2, 3, 4, 5 };
+var evenNumbers = numbers.MyWhere(n => n % 2 == 0);
+```
+
+---
+
+#### 8.5.4 面试准备检查清单
+
+**基础知识**：
+- ✅ 值类型 vs 引用类型
+- ✅ 装箱和拆箱
+- ✅ == vs Equals
+- ✅ string vs StringBuilder
+- ✅ ref, out, in参数
+- ✅ 访问修饰符
+
+**面向对象**：
+- ✅ 四大特性（封装、继承、多态、抽象）
+- ✅ 抽象类 vs 接口
+- ✅ virtual, override, abstract
+- ✅ 继承链和多态调用
+
+**高级特性**：
+- ✅ 委托和事件
+- ✅ Lambda表达式
+- ✅ LINQ查询
+- ✅ 异步编程（async/await）
+- ✅ 泛型和泛型约束
+- ✅ 扩展方法
+- ✅ 可空引用类型
+- ✅ 模式匹配
+
+**项目经验**：
+- ✅ MVVM模式的理解和实现
+- ✅ 依赖注入的原理和使用
+- ✅ 数据绑定机制
+- ✅ 命令系统
+- ✅ 导航系统
+- ✅ 消息传递
+- ✅ 文件I/O操作
+
+**实践能力**：
+- ✅ 能手写ObservableObject
+- ✅ 能手写RelayCommand
+- ✅ 能实现简单的LINQ方法
+- ✅ 能解释异步代码的执行流程
+- ✅ 能分析代码的性能问题
+
+---
+
+## 第九章：学习路径
+
+### 9.1 初学者学习路线
 
 #### 阶段1：WPF基础（1-2周）
 1. **XAML语法** ✅
@@ -3069,7 +4855,7 @@ DataContextChanged事件必须在设置DataContext之前订阅，否则会错过
 
 ---
 
-### 8.2 推荐学习资源
+### 9.2 推荐学习资源
 
 #### 官方文档
 - [WPF官方文档](https://docs.microsoft.com/wpf/)
@@ -3093,7 +4879,7 @@ DataContextChanged事件必须在设置DataContext之前订阅，否则会错过
 
 ---
 
-### 8.3 常见学习误区
+### 9.3 常见学习误区
 
 #### 误区1：过早关注UI美化
 ❌ **错误**: 一开始就花大量时间调整样式
@@ -3117,7 +4903,7 @@ DataContextChanged事件必须在设置DataContext之前订阅，否则会错过
 
 ---
 
-### 8.4 实践建议
+### 9.4 实践建议
 
 #### 建议1：从小项目开始
 不要一开始就尝试复杂项目，从简单的CRUD应用开始。
@@ -3136,7 +4922,7 @@ DataContextChanged事件必须在设置DataContext之前订阅，否则会错过
 
 ---
 
-### 8.5 进阶方向
+### 9.5 进阶方向
 
 #### 方向1：性能优化
 - 虚拟化
@@ -3248,11 +5034,12 @@ System.Diagnostics.Debug.WriteLine($"当前值: {value}");
 
 **祝你学习愉快！**
 
-**文档版本**: v1.2
+**文档版本**: v2.0
 **最后更新**: 2025-11-12
-**适用项目**: DataVisualizationPlatform 1.2.0
+**适用项目**: DataVisualizationPlatform 2.0.0
 
 **更新记录**:
-- v1.2 (2025-11-12): 新增案例4 - 输入验证与自定义控件样式，涵盖PreviewTextInput验证、ToggleButton样式定制、双向数据转换、事件订阅顺序管理和循环更新防止
+- v2.0 (2025-11-12): 新增第八章"C#面试必备"，涵盖面向对象、核心语法、高级特性、常见面试题和面试准备建议，帮助准备C#/.NET开发岗位面试
+- v1.2 (2025-11-12): 新增案例4 - 输入验证与自定义控件样式
 - v1.1 (2025-10-30): 新增案例3 - 数据编辑系统与跨页面数据同步
 - v1.0 (2025-10-29): 初始版本

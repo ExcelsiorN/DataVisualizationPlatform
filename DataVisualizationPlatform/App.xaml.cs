@@ -37,9 +37,9 @@ using DataVisualizationPlatform.Services.Navigation;
              services.AddTransient<EquipmentInfoViewModel>();                                                         
              services.AddTransient<FaultReportViewModel>();
              services.AddTransient<ReservationListViewModel>();
-            services.AddTransient<EditViewModel>();
-            services.AddTransient<TimeSlotEditViewModel>();
-            services.AddTransient<FaultEditViewModel>();                                                       
+             services.AddTransient<EditViewModel>();
+             services.AddTransient<TimeSlotEditViewModel>();
+             services.AddTransient<FaultEditViewModel>();                                                       
                                                                                                                       
              // 注册Views                                                                                             
              services.AddTransient<MainWindow>();                                                                     

@@ -178,6 +178,7 @@ namespace DataVisualizationPlatform.ViewModels
             {
                 TimeSetConfigs.Remove(SelectedConfig);
                 SelectedConfig = TimeSetConfigs.FirstOrDefault();
+                MessageBox.Show("配置已删除！请点击顶部'保存数据'按钮保存所有修改。", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 
@@ -206,15 +207,22 @@ namespace DataVisualizationPlatform.ViewModels
             var em = int.Parse(EndMinute!);
 
             var newTimeSlot = $"{sh}:{sm:D2}-{eh}:{em:D2}";
+            var startTime = new TimeSpan(sh, sm, 0);
+            var endTime = new TimeSpan(eh, em, 0);
 
             if (IsEditingExistingSlot && !string.IsNullOrEmpty(SelectedTimeSlot))
             {
-                // 更新现有时段
+                // 更新现有时段 - 检查与其他时段的冲突（排除当前编辑的时段）
+                if (CheckTimeSlotConflict(startTime, endTime, SelectedTimeSlot))
+                {
+                    return;
+                }
+
                 var index = SelectedConfig.TimeSlots.IndexOf(SelectedTimeSlot);
                 if (index >= 0)
                 {
                     SelectedConfig.TimeSlots[index] = newTimeSlot;
-                    MessageBox.Show("时段已更新", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("时段已更新！请点击顶部'保存数据'按钮保存所有修改。", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
             else
@@ -227,7 +235,14 @@ namespace DataVisualizationPlatform.ViewModels
                     return;
                 }
 
+                // 检查时段冲突
+                if (CheckTimeSlotConflict(startTime, endTime))
+                {
+                    return;
+                }
+
                 SelectedConfig.TimeSlots.Add(newTimeSlot);
+                MessageBox.Show("时段已添加！请点击顶部'保存数据'按钮保存所有修改。", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
             }
 
             // 清空输入框
@@ -265,7 +280,63 @@ namespace DataVisualizationPlatform.ViewModels
                 return false;
             }
 
+            // 验证时段最小时长（至少30分钟）
+            var duration = endTime - startTime;
+            if (duration.TotalMinutes < 30)
+            {
+                MessageBox.Show("时段时长不能少于30分钟", "提示", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+
             return true;
+        }
+
+        /// <summary>
+        /// 检查时段是否与已有时段冲突
+        /// </summary>
+        private bool CheckTimeSlotConflict(TimeSpan newStartTime, TimeSpan newEndTime, string? excludeTimeSlot = null)
+        {
+            if (SelectedConfig == null)
+                return false;
+
+            foreach (var existingSlot in SelectedConfig.TimeSlots)
+            {
+                // 如果是编辑模式，跳过当前正在编辑的时段
+                if (excludeTimeSlot != null && existingSlot == excludeTimeSlot)
+                    continue;
+
+                // 解析已有时段
+                var parts = existingSlot.Split('-');
+                if (parts.Length != 2)
+                    continue;
+
+                var startParts = parts[0].Trim().Split(':');
+                var endParts = parts[1].Trim().Split(':');
+
+                if (startParts.Length != 2 || endParts.Length != 2)
+                    continue;
+
+                if (!int.TryParse(startParts[0], out int existingStartHour) ||
+                    !int.TryParse(startParts[1], out int existingStartMinute) ||
+                    !int.TryParse(endParts[0], out int existingEndHour) ||
+                    !int.TryParse(endParts[1], out int existingEndMinute))
+                    continue;
+
+                var existingStartTime = new TimeSpan(existingStartHour, existingStartMinute, 0);
+                var existingEndTime = new TimeSpan(existingEndHour, existingEndMinute, 0);
+
+                // 检查时间段是否重叠
+                // 重叠的条件：新时段的开始时间在已有时段内，或新时段的结束时间在已有时段内，或新时段完全包含已有时段
+                if ((newStartTime >= existingStartTime && newStartTime < existingEndTime) ||
+                    (newEndTime > existingStartTime && newEndTime <= existingEndTime) ||
+                    (newStartTime <= existingStartTime && newEndTime >= existingEndTime))
+                {
+                    MessageBox.Show($"时段冲突！新时段与已有时段 '{existingSlot}' 存在重叠", "提示", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         /// <summary>
@@ -309,6 +380,7 @@ namespace DataVisualizationPlatform.ViewModels
             if (result == MessageBoxResult.Yes)
             {
                 SelectedConfig.TimeSlots.Remove(SelectedTimeSlot);
+                MessageBox.Show("时段已删除！请点击顶部'保存数据'按钮保存所有修改。", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
                 ClearInputs();
             }
         }
@@ -355,29 +427,35 @@ namespace DataVisualizationPlatform.ViewModels
                 // 读取文件内容
                 var fileContent = File.ReadAllText(jsonFilePath, Encoding.UTF8);
 
-                // 转义JSON字符串中的引号和换行符
-                var escapedJson = jsonData.Replace("\"", "\"\"").Replace("\r\n", "\"\r\n     + \"");
+                // 转义JSON字符串中的双引号（在逐字字符串中，双引号需要转义为 ""）
+                var escapedJson = jsonData.Replace("\"", "\"\"");
 
-                // 构建新的_TimeSet字段值
-                var newTimeSetValue = $"@\"[{escapedJson.Substring(1, escapedJson.Length - 2)}]\"";
+                // 格式化JSON字符串，添加缩进
+                var lines = escapedJson.Split(new[] { "\r\n", "\n" }, StringSplitOptions.None);
+                var formattedJson = string.Join("\r\n            ", lines);
 
-                // 因为内容可能跨多行，使用不同方法
+                // 构建新的_TimeSet字段值（使用逐字字符串格式）
+                var newTimeSetValue = $"@\"{formattedJson}\"";
+
+                // 找到_TimeSet字段的开始位置
                 var startIndex = fileContent.IndexOf("public readonly string _TimeSet = @\"");
                 if (startIndex == -1)
                 {
                     throw new InvalidOperationException("未找到_TimeSet字段定义");
                 }
 
-                var endIndex = fileContent.IndexOf(";", startIndex);
+                // 找到该字段的结束位置（找到下一个 ";）
+                var searchStart = startIndex + "public readonly string _TimeSet = ".Length;
+                var endIndex = fileContent.IndexOf("\";", searchStart);
                 if (endIndex == -1)
                 {
                     throw new InvalidOperationException("_TimeSet字段定义不完整");
                 }
 
                 // 找到完整的_TimeSet定义（包含分号）
-                var currentDefinition = fileContent.Substring(startIndex, endIndex - startIndex + 1);
+                var currentDefinition = fileContent.Substring(startIndex, endIndex - startIndex + 2);
 
-                // 替换
+                // 替换为新的定义
                 fileContent = fileContent.Replace(currentDefinition, $"public readonly string _TimeSet = {newTimeSetValue};");
 
                 // 写回文件
