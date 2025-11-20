@@ -38,7 +38,7 @@ using DataVisualizationPlatform.Services.Navigation;
              services.AddTransient<FaultReportViewModel>();
              services.AddTransient<ReservationListViewModel>();
              services.AddTransient<EditViewModel>();
-             services.AddTransient<TimeSlotEditViewModel>();
+             services.AddSingleton<TimeSlotEditViewModel>();  // 改为单例，保持修改状态
              services.AddTransient<FaultEditViewModel>();                                                       
                                                                                                                       
              // 注册Views                                                                                             
@@ -52,7 +52,7 @@ using DataVisualizationPlatform.Services.Navigation;
              services.AddTransient<FaultReport>();
              services.AddTransient<ReservationList>();
              services.AddTransient<Edit>();
-             services.AddTransient<TimeSlotEdit>();
+             services.AddSingleton<TimeSlotEdit>();  // 改为单例，复用页面实例
              services.AddTransient<FaultEdit>();                                                                           
                                                                                                                                                                       
          }                                                                                                            

@@ -64,7 +64,7 @@ namespace DataVisualizationPlatform.ViewModels
 
             InitializeMonthsAndYears();
 
-            // 导航到默认页面
+            // 导航到默认页面 
             _navigationService.NavigateTo("HomePageB");
         }
 
@@ -116,10 +116,10 @@ namespace DataVisualizationPlatform.ViewModels
             bool shouldShowMagicBar = pageType.Name is "Edit" or "TimeSlotEdit" or "FaultEdit";
             IsMagicBarVisible = shouldShowMagicBar;
 
-            // 根据MagicBar可见性调整Frame的Margin
+            // 调整Frame的Margin
             FrameMargin = shouldShowMagicBar
-                ? new Thickness(60, 40, 60, 90)
-                : new Thickness(60, 40, 60, 50);
+                ? new Thickness(20, 20, 20, 90)
+                : new Thickness(30, 30, 30, 50);
 
             // 根据当前页面更新MagicBar选中索引
             MagicBarSelectedIndex = pageType.Name switch
@@ -131,7 +131,6 @@ namespace DataVisualizationPlatform.ViewModels
             };
         }
 
-        // 使用[RelayCommand]特性自动生成命令
         [RelayCommand]
         private void Navigate(string? target)
         {

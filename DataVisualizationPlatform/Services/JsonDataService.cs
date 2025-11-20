@@ -73,6 +73,46 @@ namespace DataVisualizationPlatform.Services
         }
 
         /// <summary>
+        /// 从 Json.cs 文件中读取最新的故障报告数据
+        /// </summary>
+        public string GetFaultReportJson()
+        {
+            try
+            {
+                string jsonFilePath = FindJsonFilePath();
+                if (string.IsNullOrEmpty(jsonFilePath))
+                {
+                    // 如果找不到文件，返回默认数据
+                    return new Json()._FaultReport;
+                }
+
+                string fileContent = File.ReadAllText(jsonFilePath, Encoding.UTF8);
+
+                // 使用正则表达式提取 _FaultReport 的内容
+                var match = Regex.Match(fileContent, @"public readonly string _FaultReport = @""([\s\S]*?)"";", RegexOptions.Multiline);
+
+                if (match.Success && match.Groups.Count > 1)
+                {
+                    // 提取匹配的内容并反转义
+                    string content = match.Groups[1].Value;
+                    // 将双引号转义还原
+                    content = content.Replace("\"\"", "\"");
+                    // 移除多余的缩进空格
+                    content = Regex.Replace(content, @"^        ", "", RegexOptions.Multiline);
+                    return content;
+                }
+
+                // 如果无法解析，返回默认数据
+                return new Json()._FaultReport;
+            }
+            catch
+            {
+                // 发生错误时返回默认数据
+                return new Json()._FaultReport;
+            }
+        }
+
+        /// <summary>
         /// 查找 Json.cs 文件路径
         /// </summary>
         private string FindJsonFilePath()

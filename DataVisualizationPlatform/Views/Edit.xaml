@@ -21,7 +21,7 @@
         </ResourceDictionary>
     </Page.Resources>
 
-    <Grid Margin="20">
+    <Grid Margin="10 0 10 10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -32,7 +32,7 @@
                 Background="White"
                 CornerRadius="12"
                 Padding="15"
-                Margin="0,0,0,15">
+                Margin="0,0,0,10">
             <Border.Effect>
                 <DropShadowEffect ShadowDepth="4"
                             Direction="315"
@@ -84,7 +84,7 @@
             <Border Grid.Column="0"
                     Background="White"
                     CornerRadius="12"
-                    Margin="0,0,15,0"
+                    Margin="0,0,10,0"
                     ClipToBounds="True">
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth="4"
@@ -161,12 +161,12 @@
                                 BlurRadius="8"/>
                 </Border.Effect>
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <StackPanel Margin="20" DataContext="{Binding SelectedEquipment}">
+                    <StackPanel Margin="15" DataContext="{Binding EditingEquipment}">
                         <TextBlock Text="设备详细信息"
                                    FontSize="20"
                                    FontWeight="Bold"
                                    Foreground="#263238"
-                                   Margin="0,0,0,20"/>
+                                   Margin="0,0,0,15"/>
 
                         <Grid>
                             <Grid.ColumnDefinitions>

@@ -34,11 +34,11 @@ namespace DataVisualizationPlatform.Views
             {
                 viewModel.PropertyChanged += ViewModel_PropertyChanged;
 
-                // 如果已经有选中的设备，初始化部署地址
-                if (viewModel.SelectedEquipment != null)
+                // 如果已经有正在编辑的设备，初始化部署地址
+                if (viewModel.EditingEquipment != null)
                 {
                     _isUpdatingAddress = true;
-                    ParseDeploymentAddress(viewModel.SelectedEquipment.Equ_DeploymentAddress);
+                    ParseDeploymentAddress(viewModel.EditingEquipment.Equ_DeploymentAddress);
                     _isUpdatingAddress = false;
                 }
             }
@@ -58,10 +58,10 @@ namespace DataVisualizationPlatform.Views
                 newViewModel.PropertyChanged += ViewModel_PropertyChanged;
 
                 // 初始化部署地址
-                if (newViewModel.SelectedEquipment != null)
+                if (newViewModel.EditingEquipment != null)
                 {
                     _isUpdatingAddress = true;
-                    ParseDeploymentAddress(newViewModel.SelectedEquipment.Equ_DeploymentAddress);
+                    ParseDeploymentAddress(newViewModel.EditingEquipment.Equ_DeploymentAddress);
                     _isUpdatingAddress = false;
                 }
             }
@@ -69,12 +69,12 @@ namespace DataVisualizationPlatform.Views
 
         private void ViewModel_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(EditViewModel.SelectedEquipment))
+            if (e.PropertyName == nameof(EditViewModel.EditingEquipment))
             {
-                if (DataContext is EditViewModel viewModel && viewModel.SelectedEquipment != null)
+                if (DataContext is EditViewModel viewModel && viewModel.EditingEquipment != null)
                 {
                     _isUpdatingAddress = true;
-                    ParseDeploymentAddress(viewModel.SelectedEquipment.Equ_DeploymentAddress);
+                    ParseDeploymentAddress(viewModel.EditingEquipment.Equ_DeploymentAddress);
                     _isUpdatingAddress = false;
                 }
             }
@@ -149,11 +149,11 @@ namespace DataVisualizationPlatform.Views
         {
             if (_isUpdatingAddress) return;
 
-            if (DataContext is EditViewModel viewModel && viewModel.SelectedEquipment != null)
+            if (DataContext is EditViewModel viewModel && viewModel.EditingEquipment != null)
             {
                 // 构建新的部署地址字符串
                 string newAddress = BuildDeploymentAddress();
-                viewModel.SelectedEquipment.Equ_DeploymentAddress = newAddress;
+                viewModel.EditingEquipment.Equ_DeploymentAddress = newAddress;
             }
         }
 

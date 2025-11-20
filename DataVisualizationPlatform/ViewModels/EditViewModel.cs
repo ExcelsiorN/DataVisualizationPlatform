@@ -16,10 +16,11 @@ using System.Windows.Input;
 
 namespace DataVisualizationPlatform.ViewModels
 {
-    public class EditViewModel : INotifyPropertyChanged
+    public class EditViewModel : INotifyPropertyChanged 
     {
         private readonly Json _jsonData = new Json();
         private EquipmentInfoModel? _selectedEquipment;
+        private EquipmentInfoModel? _editingEquipment;
         private string _searchText = string.Empty;
 
         public ObservableCollection<EquipmentInfoModel> EquipmentList { get; } = new();
@@ -50,6 +51,32 @@ namespace DataVisualizationPlatform.ViewModels
                 if (_selectedEquipment != value)
                 {
                     _selectedEquipment = value;
+                    OnPropertyChanged();
+
+                    // 当选择设备时，创建副本用于编辑
+                    if (_selectedEquipment != null)
+                    {
+                        EditingEquipment = _selectedEquipment.Clone();
+                    }
+                    else
+                    {
+                        EditingEquipment = null;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// 当前正在编辑的设备副本（UI绑定到此属性）
+        /// </summary>
+        public EquipmentInfoModel? EditingEquipment
+        {
+            get => _editingEquipment;
+            set
+            {
+                if (_editingEquipment != value)
+                {
+                    _editingEquipment = value;
                     OnPropertyChanged();
                 }
             }
@@ -136,9 +163,6 @@ namespace DataVisualizationPlatform.ViewModels
             EquipmentList.Add(newEquipment);
             FilteredEquipmentList.Add(newEquipment);
             SelectedEquipment = newEquipment;
-
-            // 自动保存新添加的设备
-            SaveEquipmentData(null);
         }
 
         private void DeleteEquipment(object? parameter)
@@ -147,7 +171,7 @@ namespace DataVisualizationPlatform.ViewModels
                 return;
 
             var result = MessageBox.Show(
-                $"确定要删除设备 '{SelectedEquipment.Equ_Name}' ({SelectedEquipment.Equ_Id}) 吗？",
+                $"确定要删除设备 '{SelectedEquipment.Equ_Name}' ({SelectedEquipment.Equ_Id}) 吗？\n\n注意：删除后需要点击'保存'按钮才会真正删除。",
                 "确认删除",
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Question);
@@ -157,9 +181,6 @@ namespace DataVisualizationPlatform.ViewModels
                 EquipmentList.Remove(SelectedEquipment);
                 FilteredEquipmentList.Remove(SelectedEquipment);
                 SelectedEquipment = null;
-
-                // 自动保存删除后的设备列表
-                SaveEquipmentData(null);
             }
         }
 
@@ -172,10 +193,14 @@ namespace DataVisualizationPlatform.ViewModels
         {
             try
             {
-                // 序列化设备数据为 JSON
+                // 在保存前，将正在编辑的副本应用回原始对象
+                if (EditingEquipment != null && SelectedEquipment != null)
+                {
+                    SelectedEquipment.CopyFrom(EditingEquipment);
+                }
+
                 var jsonString = JsonConvert.SerializeObject(EquipmentList, Formatting.Indented);
 
-                // 读取 Json.cs 文件
                 string jsonFilePath = FindJsonFilePath();
                 if (string.IsNullOrEmpty(jsonFilePath))
                 {
@@ -185,7 +210,6 @@ namespace DataVisualizationPlatform.ViewModels
 
                 string fileContent = File.ReadAllText(jsonFilePath, Encoding.UTF8);
 
-                // 查找并替换 _EquipmentInfo 的内容
                 int startIndex = fileContent.IndexOf("public readonly string _EquipmentInfo = @\"");
                 if (startIndex == -1)
                 {
@@ -193,10 +217,8 @@ namespace DataVisualizationPlatform.ViewModels
                     return;
                 }
 
-                // 找到起始位置（@" 之后）
                 int contentStart = fileContent.IndexOf("@\"", startIndex) + 2;
 
-                // 找到结束位置（下一个 ";）
                 int contentEnd = fileContent.IndexOf("\";", contentStart);
                 if (contentEnd == -1)
                 {
@@ -204,18 +226,14 @@ namespace DataVisualizationPlatform.ViewModels
                     return;
                 }
 
-                // 格式化 JSON 字符串，添加适当的缩进和转义
                 string formattedJson = FormatJsonForCSharp(jsonString);
 
-                // 替换内容
                 string newContent = fileContent.Substring(0, contentStart) +
                                   formattedJson +
                                   fileContent.Substring(contentEnd);
 
-                // 写回文件
                 File.WriteAllText(jsonFilePath, newContent, Encoding.UTF8);
 
-                // 发送数据更新消息，通知其他页面重新加载数据
                 WeakReferenceMessenger.Default.Send(new EquipmentDataUpdatedMessage());
 
                 MessageBox.Show("设备数据保存成功！", "成功", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -228,13 +246,11 @@ namespace DataVisualizationPlatform.ViewModels
 
         private string FormatJsonForCSharp(string jsonString)
         {
-            // 将 JSON 字符串格式化为适合 C# 字符串的格式
+
             var lines = jsonString.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
             var formattedLines = lines.Select(line =>
             {
-                // 添加缩进
                 string indentedLine = "        " + line;
-                // 转义引号
                 indentedLine = indentedLine.Replace("\"", "\"\"");
                 return indentedLine;
             });
@@ -244,7 +260,6 @@ namespace DataVisualizationPlatform.ViewModels
 
         private string FindJsonFilePath()
         {
-            // 从当前项目目录查找 Json.cs 文件
             string currentDir = AppDomain.CurrentDomain.BaseDirectory;
 
             // 向上查找项目根目录
@@ -256,13 +271,11 @@ namespace DataVisualizationPlatform.ViewModels
 
             if (directory != null)
             {
-                // 查找 Services/Json.cs
                 string jsonPath = Path.Combine(directory.FullName, "Services", "Json.cs");
                 if (File.Exists(jsonPath))
                     return jsonPath;
             }
 
-            // 如果找不到，尝试从解决方案目录查找
             string solutionDir = Path.Combine(currentDir, "..", "..", "..", "..");
             string[] possiblePaths = new[]
             {

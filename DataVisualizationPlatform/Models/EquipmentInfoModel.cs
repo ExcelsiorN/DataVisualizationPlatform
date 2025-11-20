@@ -197,5 +197,40 @@ namespace DataVisualizationPlatform.Models
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        /// <summary>
+        /// 创建当前对象的深拷贝
+        /// </summary>
+        public EquipmentInfoModel Clone()
+        {
+            return new EquipmentInfoModel
+            {
+                Equ_Id = this.Equ_Id,
+                Equ_Name = this.Equ_Name,
+                Equ_OnlineStatus = this.Equ_OnlineStatus,
+                Equ_AvailableBookingPeriod = this.Equ_AvailableBookingPeriod,
+                Equ_TotalOperationTime = this.Equ_TotalOperationTime,
+                Equ_FixedDurationThisYear = this.Equ_FixedDurationThisYear,
+                Equ_UsedFixedDurationThisYear = this.Equ_UsedFixedDurationThisYear,
+                Equ_UsageRateThisYear = this.Equ_UsageRateThisYear,
+                Equ_DeploymentAddress = this.Equ_DeploymentAddress
+            };
+        }
+
+        /// <summary>
+        /// 从另一个对象复制所有属性值
+        /// </summary>
+        public void CopyFrom(EquipmentInfoModel source)
+        {
+            this.Equ_Id = source.Equ_Id;
+            this.Equ_Name = source.Equ_Name;
+            this.Equ_OnlineStatus = source.Equ_OnlineStatus;
+            this.Equ_AvailableBookingPeriod = source.Equ_AvailableBookingPeriod;
+            this.Equ_TotalOperationTime = source.Equ_TotalOperationTime;
+            this.Equ_FixedDurationThisYear = source.Equ_FixedDurationThisYear;
+            this.Equ_UsedFixedDurationThisYear = source.Equ_UsedFixedDurationThisYear;
+            this.Equ_UsageRateThisYear = source.Equ_UsageRateThisYear;
+            this.Equ_DeploymentAddress = source.Equ_DeploymentAddress;
+        }
     }
 }

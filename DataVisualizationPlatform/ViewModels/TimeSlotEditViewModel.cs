@@ -65,10 +65,10 @@ namespace DataVisualizationPlatform.ViewModels
                 HourOptions.Add(i.ToString());
             }
 
-            // 初始化分钟选项：0, 10, 20, 30, 40, 50
+            // 初始化分钟选项：00, 10, 20, 30, 40, 50
             for (int i = 0; i <= 50; i += 10)
             {
-                MinuteOptions.Add(i.ToString());
+                MinuteOptions.Add(i.ToString("D2"));
             }
         }
 

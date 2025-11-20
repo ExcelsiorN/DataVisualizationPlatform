@@ -1,5 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using DataVisualizationPlatform.Controls;
+using DataVisualizationPlatform.Messages;
 using DataVisualizationPlatform.Models;
 using DataVisualizationPlatform.Services;
 using GMap.NET;
@@ -40,7 +42,6 @@ namespace DataVisualizationPlatform.ViewModels
         private PointLatLng _position;
         private double _zoom;
         private GMapProvider _mapProvider;
-        private readonly Json _jsonData = new Json();
         private GMapControl _mapControl;
         private CancellationTokenSource _loadCancellationTokenSource;
         private bool _isLoading;
@@ -119,6 +120,13 @@ namespace DataVisualizationPlatform.ViewModels
             InitializeMap();
             LocateCommand = new AsyncRelayCommand<string>(NavigateToEquipmentAsync);
             _ = LoadEquipmentAsync();
+
+            // 订阅设备数据更新消息
+            WeakReferenceMessenger.Default.Register<EquipmentDataUpdatedMessage>(this, (recipient, message) =>
+            {
+                // 重新加载设备数据
+                _ = LoadEquipmentAsync();
+            });
         }
         #endregion
 
@@ -176,7 +184,9 @@ namespace DataVisualizationPlatform.ViewModels
             {
                 IsLoading = true;
 
-                if (_jsonData?._EquipmentInfo == null)
+                // 使用 JsonDataService 获取最新的设备数据
+                var equipmentJson = JsonDataService.Instance.GetEquipmentInfoJson();
+                if (string.IsNullOrEmpty(equipmentJson))
                 {
                     LogDebug("设备信息JSON数据为空");
                     return;
@@ -184,7 +194,7 @@ namespace DataVisualizationPlatform.ViewModels
 
                 // 异步反序列化
                 var equipment = await Task.Run(() =>
-                    JsonConvert.DeserializeObject<List<EquipmentInfoModel>>(_jsonData._EquipmentInfo),
+                    JsonConvert.DeserializeObject<List<EquipmentInfoModel>>(equipmentJson),
                     cancellationToken);
 
                 if (cancellationToken.IsCancellationRequested)
@@ -554,6 +564,9 @@ namespace DataVisualizationPlatform.ViewModels
 
             if (disposing)
             {
+                // 取消订阅消息
+                WeakReferenceMessenger.Default.Unregister<EquipmentDataUpdatedMessage>(this);
+
                 // 取消所有正在进行的操作
                 _loadCancellationTokenSource?.Cancel();
                 _loadCancellationTokenSource?.Dispose();

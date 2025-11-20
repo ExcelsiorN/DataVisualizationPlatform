@@ -149,7 +149,9 @@ namespace DataVisualizationPlatform.ViewModels
         {
             try
             {
-                var faultReport = JsonConvert.DeserializeObject<List<BarDataItem>>(_jsonData._FaultReport);
+                // 使用 JsonDataService 获取最新的故障数据
+                var faultReportJson = JsonDataService.Instance.GetFaultReportJson();
+                var faultReport = JsonConvert.DeserializeObject<List<BarDataItem>>(faultReportJson);
 
                 if (faultReport != null)
                 {

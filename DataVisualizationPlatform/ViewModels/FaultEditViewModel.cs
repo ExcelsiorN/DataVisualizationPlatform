@@ -137,14 +137,18 @@ namespace DataVisualizationPlatform.ViewModels
         {
             try
             {
-                var faultData = JsonConvert.DeserializeObject<List<BarDataItem>>(_jsonData._FaultReport);
+                // 保存当前选中项的ID
+                int? selectedFaultId = SelectedFault?.Fal_Id;
+
+                // 使用 JsonDataService 获取最新的故障数据
+                var faultReportJson = JsonDataService.Instance.GetFaultReportJson();
+                var faultData = JsonConvert.DeserializeObject<List<BarDataItem>>(faultReportJson);
 
                 FaultList.Clear();
                 FilteredFaultList.Clear();
 
                 if (faultData != null)
                 {
-                    // 按优先级排序：待处理 > 处理中 > 已处理
                     var sortedData = faultData.OrderBy(f => GetStatusPriority(f.Fal_Info))
                                               .ThenBy(f => f.Fal_Data);
 
@@ -157,6 +161,16 @@ namespace DataVisualizationPlatform.ViewModels
                     InitializeFilterLists();
 
                     ApplyFilters();
+
+                    // 恢复选中项
+                    if (selectedFaultId.HasValue)
+                    {
+                        var faultToSelect = FilteredFaultList.FirstOrDefault(f => f.Fal_Id == selectedFaultId.Value);
+                        if (faultToSelect != null)
+                        {
+                            SelectedFault = faultToSelect;
+                        }
+                    }
                 }
             }
             catch (Exception ex)
@@ -167,6 +181,12 @@ namespace DataVisualizationPlatform.ViewModels
 
         private void InitializeFilterLists()
         {
+            // 保存当前筛选条件
+            string currentDevice = SelectedDevice;
+            string currentYear = SelectedYear;
+            string currentMonth = SelectedMonth;
+            string currentStatus = StatusFilter;
+
             // 初始化设备列表
             DeviceList.Clear();
             DeviceList.Add("全部设备");
@@ -197,6 +217,12 @@ namespace DataVisualizationPlatform.ViewModels
             {
                 MonthList.Add(i.ToString("00"));
             }
+
+            // 恢复筛选条件（如果还有效）
+            SelectedDevice = DeviceList.Contains(currentDevice) ? currentDevice : "全部设备";
+            SelectedYear = YearList.Contains(currentYear) ? currentYear : "全部年份";
+            SelectedMonth = MonthList.Contains(currentMonth) ? currentMonth : "全部月份";
+            StatusFilter = currentStatus; // 状态筛选始终有效
         }
 
         private int GetStatusPriority(string status)
@@ -221,21 +247,21 @@ namespace DataVisualizationPlatform.ViewModels
             {
                 filtered = filtered.Where(f =>
                     f.Fal_Id.ToString().Contains(SearchText, StringComparison.OrdinalIgnoreCase) ||
-                    f.Fal_Eqid.Contains(SearchText, StringComparison.OrdinalIgnoreCase) ||
-                    f.Fal_Type.Contains(SearchText, StringComparison.OrdinalIgnoreCase) ||
-                    f.Fal_Detail.Contains(SearchText, StringComparison.OrdinalIgnoreCase) ||
+                    (!string.IsNullOrEmpty(f.Fal_Eqid) && f.Fal_Eqid.Contains(SearchText, StringComparison.OrdinalIgnoreCase)) ||
+                    (!string.IsNullOrEmpty(f.Fal_Type) && f.Fal_Type.Contains(SearchText, StringComparison.OrdinalIgnoreCase)) ||
+                    (!string.IsNullOrEmpty(f.Fal_Detail) && f.Fal_Detail.Contains(SearchText, StringComparison.OrdinalIgnoreCase)) ||
                     (!string.IsNullOrEmpty(f.Fal_Remark) && f.Fal_Remark.Contains(SearchText, StringComparison.OrdinalIgnoreCase))
                 );
             }
 
             // 应用设备筛选
-            if (SelectedDevice != "全部设备")
+            if (!string.IsNullOrEmpty(SelectedDevice) && SelectedDevice != "全部设备")
             {
-                filtered = filtered.Where(f => f.Fal_Eqid == SelectedDevice);
+                filtered = filtered.Where(f => !string.IsNullOrEmpty(f.Fal_Eqid) && f.Fal_Eqid == SelectedDevice);
             }
 
             // 应用年份筛选
-            if (SelectedYear != "全部年份")
+            if (!string.IsNullOrEmpty(SelectedYear) && SelectedYear != "全部年份")
             {
                 filtered = filtered.Where(f =>
                     !string.IsNullOrEmpty(f.Fal_Data) &&
@@ -244,7 +270,7 @@ namespace DataVisualizationPlatform.ViewModels
             }
 
             // 应用月份筛选
-            if (SelectedMonth != "全部月份")
+            if (!string.IsNullOrEmpty(SelectedMonth) && SelectedMonth != "全部月份")
             {
                 filtered = filtered.Where(f =>
                 {
@@ -256,14 +282,14 @@ namespace DataVisualizationPlatform.ViewModels
             }
 
             // 应用状态过滤
-            if (StatusFilter != "全部状态")
+            if (!string.IsNullOrEmpty(StatusFilter) && StatusFilter != "全部状态")
             {
-                filtered = filtered.Where(f => f.Fal_Info == StatusFilter);
+                filtered = filtered.Where(f => !string.IsNullOrEmpty(f.Fal_Info) && f.Fal_Info == StatusFilter);
             }
 
             // 按优先级排序后添加到筛选列表
-            var sortedFiltered = filtered.OrderBy(f => GetStatusPriority(f.Fal_Info))
-                                         .ThenBy(f => f.Fal_Data);
+            var sortedFiltered = filtered.OrderBy(f => GetStatusPriority(f.Fal_Info ?? string.Empty))
+                                         .ThenBy(f => f.Fal_Data ?? string.Empty);
 
             foreach (var item in sortedFiltered)
             {
