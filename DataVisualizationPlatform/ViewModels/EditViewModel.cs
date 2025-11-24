@@ -7,18 +7,15 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Windows;
 using System.Windows.Input;
 
 namespace DataVisualizationPlatform.ViewModels
 {
-    public class EditViewModel : INotifyPropertyChanged 
+    public class EditViewModel : INotifyPropertyChanged
     {
-        private readonly Json _jsonData = new Json();
         private EquipmentInfoModel? _selectedEquipment;
         private EquipmentInfoModel? _editingEquipment;
         private string _searchText = string.Empty;
@@ -126,7 +123,7 @@ namespace DataVisualizationPlatform.ViewModels
         {
             try
             {
-                var timeSetJson = _jsonData.GetTimeSetJson();
+                var timeSetJson = JsonDataService.Instance.GetTimeSetJson();
                 var timeSetData = JsonConvert.DeserializeObject<ObservableCollection<TimeSetConfigModel>>(timeSetJson);
 
                 TimeSetConfigOptions.Clear();
@@ -189,51 +186,61 @@ namespace DataVisualizationPlatform.ViewModels
             return SelectedEquipment != null;
         }
 
+        private bool ValidateAllEquipmentDurations()
+        {
+            var invalidEquipments = new System.Collections.Generic.List<string>();
+
+            foreach (var equipment in EquipmentList)
+            {
+                // 从字符串中提取数值
+                string fixedDurationStr = equipment.Equ_FixedDurationThisYear?.Replace("小时", "").Trim() ?? "0";
+                string usedDurationStr = equipment.Equ_UsedFixedDurationThisYear?.Replace("小时", "").Trim() ?? "0";
+
+                if (int.TryParse(fixedDurationStr, out int fixedDuration) &&
+                    int.TryParse(usedDurationStr, out int usedDuration))
+                {
+                    if (usedDuration > fixedDuration)
+                    {
+                        invalidEquipments.Add($"{equipment.Equ_Name}（{equipment.Equ_Id}）: 已用时长 {usedDuration}小时 > 固定时长 {fixedDuration}小时");
+                    }
+                }
+            }
+
+            if (invalidEquipments.Count > 0)
+            {
+                string message = "以下设备的已用固定时长大于固定时长，请修正后再保存：\n\n";
+                message += string.Join("\n", invalidEquipments);
+
+                MessageBox.Show(message, "数据验证失败", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+
+            return true;
+        }
+
         private void SaveEquipmentData(object? parameter)
         {
             try
             {
+                // 在保存前验证所有设备的已用固定时长
+                if (!ValidateAllEquipmentDurations())
+                {
+                    return;
+                }
+
                 // 在保存前，将正在编辑的副本应用回原始对象
                 if (EditingEquipment != null && SelectedEquipment != null)
                 {
                     SelectedEquipment.CopyFrom(EditingEquipment);
                 }
 
+                // 序列化为JSON字符串
                 var jsonString = JsonConvert.SerializeObject(EquipmentList, Formatting.Indented);
 
-                string jsonFilePath = FindJsonFilePath();
-                if (string.IsNullOrEmpty(jsonFilePath))
-                {
-                    MessageBox.Show("无法找到 Json.cs 文件！", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
+                // 使用JsonDataService保存到独立的JSON文件
+                JsonDataService.Instance.SaveEquipmentInfoJson(jsonString);
 
-                string fileContent = File.ReadAllText(jsonFilePath, Encoding.UTF8);
-
-                int startIndex = fileContent.IndexOf("public readonly string _EquipmentInfo = @\"");
-                if (startIndex == -1)
-                {
-                    MessageBox.Show("无法在 Json.cs 中找到 _EquipmentInfo 字段！", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
-
-                int contentStart = fileContent.IndexOf("@\"", startIndex) + 2;
-
-                int contentEnd = fileContent.IndexOf("\";", contentStart);
-                if (contentEnd == -1)
-                {
-                    MessageBox.Show("无法解析 Json.cs 文件格式！", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
-
-                string formattedJson = FormatJsonForCSharp(jsonString);
-
-                string newContent = fileContent.Substring(0, contentStart) +
-                                  formattedJson +
-                                  fileContent.Substring(contentEnd);
-
-                File.WriteAllText(jsonFilePath, newContent, Encoding.UTF8);
-
+                // 发送数据更新消息
                 WeakReferenceMessenger.Default.Send(new EquipmentDataUpdatedMessage());
 
                 MessageBox.Show("设备数据保存成功！", "成功", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -244,54 +251,6 @@ namespace DataVisualizationPlatform.ViewModels
             }
         }
 
-        private string FormatJsonForCSharp(string jsonString)
-        {
-
-            var lines = jsonString.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
-            var formattedLines = lines.Select(line =>
-            {
-                string indentedLine = "        " + line;
-                indentedLine = indentedLine.Replace("\"", "\"\"");
-                return indentedLine;
-            });
-
-            return string.Join("\r\n", formattedLines);
-        }
-
-        private string FindJsonFilePath()
-        {
-            string currentDir = AppDomain.CurrentDomain.BaseDirectory;
-
-            // 向上查找项目根目录
-            DirectoryInfo? directory = new DirectoryInfo(currentDir);
-            while (directory != null && directory.Name != "DataVisualizationPlatform")
-            {
-                directory = directory.Parent;
-            }
-
-            if (directory != null)
-            {
-                string jsonPath = Path.Combine(directory.FullName, "Services", "Json.cs");
-                if (File.Exists(jsonPath))
-                    return jsonPath;
-            }
-
-            string solutionDir = Path.Combine(currentDir, "..", "..", "..", "..");
-            string[] possiblePaths = new[]
-            {
-                Path.Combine(solutionDir, "Services", "Json.cs"),
-                Path.Combine(solutionDir, "DataVisualizationPlatform", "Services", "Json.cs"),
-            };
-
-            foreach (var path in possiblePaths)
-            {
-                string fullPath = Path.GetFullPath(path);
-                if (File.Exists(fullPath))
-                    return fullPath;
-            }
-
-            return string.Empty;
-        }
 
         private void SearchEquipment(object? parameter)
         {

@@ -21,7 +21,6 @@ namespace DataVisualizationPlatform.ViewModels
 {
     public class FaultReportViewModel : INotifyPropertyChanged
     {
-        private readonly Json _jsonData = new Json();
         private List<BarDataItem> _allFaultReportData = new(); // 存储所有原始数据
         public ICommand RefreshCommand { get; }
 

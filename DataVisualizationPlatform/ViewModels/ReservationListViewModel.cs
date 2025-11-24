@@ -16,7 +16,6 @@ namespace DataVisualizationPlatform.ViewModels
 {
     public class ReservationListViewModel : INotifyPropertyChanged, INavigationAware
     {
-        private readonly Json _jsonData = new Json();
         public ObservableCollection<ReservationListModel> ReservationList { get; } = new();
         public ICommand FlipCardCommand { get; }
 
@@ -50,7 +49,7 @@ namespace DataVisualizationPlatform.ViewModels
         {
             try
             {
-                var reservationlist = JsonConvert.DeserializeObject<List<ReservationListModel>>(_jsonData._ReservationList);
+                var reservationlist = JsonConvert.DeserializeObject<List<ReservationListModel>>(JsonDataService.Instance.GetReservationListJson());
                 ReservationList.Clear();
 
                 if (reservationlist != null)
@@ -74,7 +73,7 @@ namespace DataVisualizationPlatform.ViewModels
         {
             try
             {
-                var reservationlist = JsonConvert.DeserializeObject<List<ReservationListModel>>(_jsonData._ReservationList);
+                var reservationlist = JsonConvert.DeserializeObject<List<ReservationListModel>>(JsonDataService.Instance.GetReservationListJson());
                 ReservationList.Clear();
 
                 int matchCount = 0; // 计数器

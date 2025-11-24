@@ -327,7 +327,7 @@
                         </Border>
 
                         <!-- 提示信息 -->
-                        <Border Background="#E3F2FD"
+                        <!--<Border Background="#E3F2FD"
                                 CornerRadius="4"
                                 Padding="15">
                             <StackPanel>
@@ -351,7 +351,7 @@
                                     <Run Text="5. 点击顶部'保存数据'按钮保存所有修改"/>
                                 </TextBlock>
                             </StackPanel>
-                        </Border>
+                        </Border>-->
                     </StackPanel>
                 </ScrollViewer>
             </Border>

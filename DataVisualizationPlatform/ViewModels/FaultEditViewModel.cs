@@ -19,7 +19,6 @@ namespace DataVisualizationPlatform.ViewModels
 {
     public class FaultEditViewModel : INotifyPropertyChanged
     {
-        private readonly Json _jsonData = new Json();
         private BarDataItem? _selectedFault;
         private string _searchText = string.Empty;
         private string _statusFilter = "全部状态";

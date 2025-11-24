@@ -1,6 +1,7 @@
 using DataVisualizationPlatform.ViewModels;
 using System.ComponentModel;
 using System.Text.RegularExpressions;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -85,6 +86,93 @@ namespace DataVisualizationPlatform.Views
         {
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
+        }
+
+        // 正整数验证 - 只允许输入正整数（不包括0）
+        private void PositiveIntegerValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            // 只允许输入数字
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+
+        // 防止粘贴非正整数内容
+        private void PositiveIntegerPasting(object sender, DataObjectPastingEventArgs e)
+        {
+            if (e.DataObject.GetDataPresent(typeof(string)))
+            {
+                string text = (string)e.DataObject.GetData(typeof(string));
+                // 检查是否为纯数字且不为空
+                if (!Regex.IsMatch(text, "^[0-9]+$"))
+                {
+                    e.CancelCommand();
+                }
+            }
+            else
+            {
+                e.CancelCommand();
+            }
+        }
+
+        // 验证正整数输入框失去焦点时的值
+        private void PositiveIntegerLostFocus(object sender, System.Windows.RoutedEventArgs e)
+        {
+            if (sender is TextBox textBox)
+            {
+                string text = textBox.Text.Trim();
+
+                // 如果为空，设置为0
+                if (string.IsNullOrWhiteSpace(text))
+                {
+                    textBox.Text = "0";
+                    return;
+                }
+
+                // 如果能转换为整数，检查是否为正整数
+                if (int.TryParse(text, out int value))
+                {
+                    // 如果是负数或0，重置为0
+                    if (value < 0)
+                    {
+                        textBox.Text = "0";
+                    }
+                }
+                else
+                {
+                    // 无法转换为整数，重置为0
+                    textBox.Text = "0";
+                }
+
+                // 验证已用固定时长不能大于固定时长
+                ValidateUsedDuration();
+            }
+        }
+
+        // 验证已用固定时长不能大于固定时长
+        private void ValidateUsedDuration()
+        {
+            if (DataContext is EditViewModel viewModel && viewModel.EditingEquipment != null)
+            {
+                // 从字符串中提取数值
+                string fixedDurationStr = viewModel.EditingEquipment.Equ_FixedDurationThisYear?.Replace("小时", "").Trim() ?? "0";
+                string usedDurationStr = viewModel.EditingEquipment.Equ_UsedFixedDurationThisYear?.Replace("小时", "").Trim() ?? "0";
+
+                if (int.TryParse(fixedDurationStr, out int fixedDuration) &&
+                    int.TryParse(usedDurationStr, out int usedDuration))
+                {
+                    if (usedDuration > fixedDuration)
+                    {
+                        MessageBox.Show(
+                            $"已用固定时长（{usedDuration}小时）不能大于固定时长（{fixedDuration}小时）！\n已自动调整为固定时长。",
+                            "验证错误",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Warning);
+
+                        // 自动调整为固定时长
+                        viewModel.EditingEquipment.Equ_UsedFixedDurationThisYear = fixedDuration.ToString();
+                    }
+                }
+            }
         }
 
         // 小数验证 - 允许输入小数（包括负数）

@@ -17,7 +17,6 @@ namespace DataVisualizationPlatform.ViewModels
     /// </summary>
     public partial class TimeSlotEditViewModel : ViewModelBase
     {
-        private readonly Json _jsonData = new Json();
 
         [ObservableProperty]
         private TimeSetConfigModel? _selectedConfig;
@@ -121,7 +120,7 @@ namespace DataVisualizationPlatform.ViewModels
         {
             try
             {
-                var timeSetJson = _jsonData.GetTimeSetJson();
+                var timeSetJson = JsonDataService.Instance.GetTimeSetJson();
                 var timeSetData = JsonConvert.DeserializeObject<ObservableCollection<TimeSetConfigModel>>(timeSetJson);
 
                 TimeSetConfigs.Clear();

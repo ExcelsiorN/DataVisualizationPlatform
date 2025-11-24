@@ -105,29 +105,29 @@ namespace DataVisualizationPlatform.ViewModels
 
             if (page == null) return;
 
-            // 根据当前页面类型更新按钮可见性
+            // 更新按钮可见性
             var pageType = page.GetType();
             bool shouldShowButtons = pageType.Name is "HomePageA" or "HomePageB" or "HomePageC";
 
             IsButton1Visible = shouldShowButtons;
             IsButton2Visible = shouldShowButtons;
 
-            // 根据当前页面类型更新MagicBar可见性
+            // 更新MagicBar可见性
             bool shouldShowMagicBar = pageType.Name is "Edit" or "TimeSlotEdit" or "FaultEdit";
             IsMagicBarVisible = shouldShowMagicBar;
 
             // 调整Frame的Margin
             FrameMargin = shouldShowMagicBar
-                ? new Thickness(20, 20, 20, 90)
-                : new Thickness(30, 30, 30, 50);
+                ? new Thickness(20, 20, 20, 55)
+                : new Thickness(30, 30, 30, 40);
 
             // 根据当前页面更新MagicBar选中索引
             MagicBarSelectedIndex = pageType.Name switch
             {
-                "Edit" => 0,           // 设备编辑
-                "TimeSlotEdit" => 1,   // 时段编辑
-                "FaultEdit" => 2,      // 故障编辑
-                _ => -1                // 其他页面不选中
+                "Edit" => 0,           
+                "TimeSlotEdit" => 1,   
+                "FaultEdit" => 2,      
+                _ => -1                
             };
         }
 

@@ -14,7 +14,6 @@ namespace DataVisualizationPlatform.ViewModels
 {
     public class EquipmentInfoViewModel : INotifyPropertyChanged
     {
-        private readonly Json _jsonData = new Json();
         public IRelayCommand OpenReservationListCommand { get; }
 
         public ObservableCollection<EquipmentInfoModel> EquipmentList { get; } = new();

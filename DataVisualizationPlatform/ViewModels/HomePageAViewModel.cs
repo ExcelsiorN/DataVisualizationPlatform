@@ -16,9 +16,8 @@
      /// <summary>                                                                                                    
      /// 首页A的ViewModel                                                                                             
      /// </summary>                                                                                                   
-     public partial class HomePageAViewModel : ViewModelBase, INavigationAware                                        
-     {                                                                                                                
-         private readonly Json _jsonData = new Json();                                                                
+     public partial class HomePageAViewModel : ViewModelBase, INavigationAware
+     {
          private readonly DispatcherTimer _animationTimer;                                                            
          private DateTime _animationStartTime;                                                                        
                                                                                                                       
@@ -68,9 +67,9 @@
              LineData = LoadLineData();                                                                               
          }                                                                                                            
                                                                                                                       
-         private ObservableCollection<LineDataPoint> LoadLineData()                                                   
-         {                                                                                                            
-             var reservations = JsonConvert.DeserializeObject<List<HomePageModel>>(_jsonData._ReservationList);       
+         private ObservableCollection<LineDataPoint> LoadLineData()
+         {
+             var reservations = JsonConvert.DeserializeObject<List<HomePageModel>>(JsonDataService.Instance.GetReservationListJson());
              if (reservations == null) return new ObservableCollection<LineDataPoint>();                              
                                                                                                                       
              var completedDates = reservations                                                                        

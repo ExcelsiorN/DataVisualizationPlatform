@@ -16,7 +16,6 @@ namespace DataVisualizationPlatform.ViewModels
     public class DataViewModel : INotifyPropertyChanged, INavigationAware
     {
         private readonly DispatcherTimer _animationTimer;
-        private readonly Json _jsonData = new Json();     
         private DateTime _animationStartTime;
         private double _animationProgress;
         private string _currentYear; 
@@ -88,7 +87,7 @@ namespace DataVisualizationPlatform.ViewModels
         #region Private Methods
         private void InitializeData(string targetYear)
         {
-            var allData = ChartDataService.LoadBarData(_jsonData);
+            var allData = ChartDataService.LoadBarData(JsonDataService.Instance);
             BarData = new ObservableCollection<Models.BarDataItem>(
                 allData.Where(item => item.Label.StartsWith(targetYear + "-"))
             );

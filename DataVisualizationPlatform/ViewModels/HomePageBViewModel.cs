@@ -20,7 +20,6 @@ namespace DataVisualizationPlatform.ViewModels
 {
     public class HomePageBViewModel : INotifyPropertyChanged
     {
-        private readonly Json _jsonData = new Json();
         private readonly DispatcherTimer _animationTimer;
         private readonly DispatcherTimer _scrollTimer;
         public ObservableCollection<BarDataItem> FaultReportList { get; } = new();
@@ -88,7 +87,7 @@ namespace DataVisualizationPlatform.ViewModels
         #region Private Methods
         private void InitializeData()
         {
-            BarData = ChartDataService.LoadBarData(_jsonData);
+            BarData = ChartDataService.LoadBarData(JsonDataService.Instance);
         }
 
         private void LoadData()
@@ -98,7 +97,7 @@ namespace DataVisualizationPlatform.ViewModels
                 // 使用 JsonDataService 获取最新的故障数据
                 var faultReportJson = JsonDataService.Instance.GetFaultReportJson();
                 var faultReport = JsonConvert.DeserializeObject<List<BarDataItem>>(faultReportJson);
-                var data = JsonConvert.DeserializeObject<List<ReservationListModel>>(_jsonData._ReservationList);
+                var data = JsonConvert.DeserializeObject<List<ReservationListModel>>(JsonDataService.Instance.GetReservationListJson());
                 // 使用 JsonDataService 获取最新的设备数据
                 var equipmentJson = JsonDataService.Instance.GetEquipmentInfoJson();
                 var equipment = JsonConvert.DeserializeObject<List<EquipmentInfoModel>>(equipmentJson);

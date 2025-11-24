@@ -8,19 +8,19 @@ using DataVisualizationPlatform.Services;
 
 namespace DataVisualizationPlatform.Controls
 {
-    public static class ChartDataService    
+    public static class ChartDataService
     {
-        public static ObservableCollection<Models.BarDataItem> LoadBarData(Json jsonData)
+        public static ObservableCollection<Models.BarDataItem> LoadBarData(JsonDataService jsonDataService)
         {
             // 加载预订数据
-            var reservations = JsonConvert.DeserializeObject<List<HomePageModel>>(jsonData._ReservationList);
+            var reservations = JsonConvert.DeserializeObject<List<HomePageModel>>(jsonDataService.GetReservationListJson());
             var completedReservations = reservations
                 .Where(r => r.Res_Status == "已完成")
                 .Where(r => DateTime.TryParse(r.Res_Date, CultureInfo.InvariantCulture, DateTimeStyles.None, out _))
                 .ToList();
 
             // 加载故障报告数据
-            var faultReports = JsonConvert.DeserializeObject<List<BarDataItem>>(jsonData._FaultReport);
+            var faultReports = JsonConvert.DeserializeObject<List<BarDataItem>>(jsonDataService.GetFaultReportJson());
 
             // 提取所有有效日期
             var reservationDates = completedReservations

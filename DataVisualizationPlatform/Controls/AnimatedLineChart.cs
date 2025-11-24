@@ -471,7 +471,7 @@ namespace DataVisualizationPlatform.Controls
                         SetTop(_valueLabels[i], _calculatedPoints[i].Y - 12 - _valueLabels[i].DesiredSize.Height);
                     }
                 }
-                Debug.WriteLine("[UpdateLineAnimation] 动画完成，所有元素显示");
+                //Debug.WriteLine("[UpdateLineAnimation] 动画完成，所有元素显示");
             }
         }
 
@@ -731,10 +731,10 @@ namespace DataVisualizationPlatform.Controls
                 // Part1 的标签
                 var valueLabel = new TextBlock
                 {
-                    Text = item.Part1 > 0 ? $"{item.Part1:F0}" : "", // 0值不显示
+                    Text = item.Part1 > 0 ? $"{item.Part1:F0}" : "", 
                     FontFamily = new FontFamily("Segoe UI"),
                     FontSize = 11,
-                    Foreground = new SolidColorBrush(Colors.White), // 改为白色在柱体内更清晰
+                    Foreground = new SolidColorBrush(Colors.White), 
                     HorizontalAlignment = HorizontalAlignment.Center,
                     TextAlignment = TextAlignment.Center,
                     FontWeight = FontWeights.SemiBold,
@@ -744,10 +744,10 @@ namespace DataVisualizationPlatform.Controls
                 // Part2 的标签
                 var faultLabel = new TextBlock
                 {
-                    Text = item.Part2 > 0 ? $"{item.Part2:F0}" : "", // 0值不显示
+                    Text = item.Part2 > 0 ? $"{item.Part2:F0}" : "", 
                     FontFamily = new FontFamily("Segoe UI"),
                     FontSize = 11,
-                    Foreground = new SolidColorBrush(Colors.White), // 改为白色在柱体内更清晰
+                    Foreground = new SolidColorBrush(Colors.White), 
                     HorizontalAlignment = HorizontalAlignment.Center,
                     TextAlignment = TextAlignment.Center,
                     FontWeight = FontWeights.SemiBold,
@@ -770,7 +770,7 @@ namespace DataVisualizationPlatform.Controls
                 Children.Add(faultLabel);
 
                 // 创建X轴标签（显示月份）
-                if (i % Math.Max(1, DataItems.Count / 12) == 0) // 控制显示密度
+                if (i % Math.Max(1, DataItems.Count / 12) == 0) 
                 {
                     var xLabel = new TextBlock
                     {
@@ -809,11 +809,9 @@ namespace DataVisualizationPlatform.Controls
             if (maxTotal == 0) maxTotal = 100;
             double scaleY = chartHeight / maxTotal;
 
-            // 修改动画参数，确保所有柱子都能显示
-            // 使用更合理的动画时间分配
-            double animationWindow = 0.7; // 70%的时间用于动画展开
+            double animationWindow = 0.7; 
             double itemDelay = DataItems.Count > 1 ? animationWindow / DataItems.Count : 0;
-            double itemDuration = 0.3; // 每个柱子的动画持续时间
+            double itemDuration = 0.3; 
 
             //Debug.WriteLine($"[UpdateBarsOnly] Progress={AnimationProgress:F3}, Items={DataItems.Count}");
 
@@ -834,7 +832,8 @@ namespace DataVisualizationPlatform.Controls
                 else if (AnimationProgress > itemStartTime)
                 {
                     barProgress = (AnimationProgress - itemStartTime) / itemDuration;
-                    // 使用缓动函数使动画更平滑
+
+                    // 使用缓动函数
                     barProgress = EaseOutCubic(barProgress);
                 }
 
@@ -842,22 +841,20 @@ namespace DataVisualizationPlatform.Controls
                 double part2Height = item.Part2 * scaleY * barProgress;
                 double totalHeight = part1Height + part2Height;
 
-                // 更新第一部分柱子
                 var part1Rect = _barPart1Elements[i];
                 part1Rect.Height = part1Height;
                 SetTop(part1Rect, baseY - part1Height);
 
-                // 更新第二部分柱子
                 var part2Rect = _barPart2Elements[i];
                 part2Rect.Height = part2Height;
                 SetTop(part2Rect, baseY - totalHeight);
 
                 // 更新数值标签位置和可见性
                 var valueLabel = _valueLabels[i];
-                var faultLabel = _faultLabels[i]; // 修正：从正确的集合获取
+                var faultLabel = _faultLabels[i];
 
-                // Part1 标签位置 - 在Part1柱体的中央
-                if (item.Part1 > 0 && part1Height > 15) // 只有柱体高度足够时才显示
+                // Part1 标签
+                if (item.Part1 > 0 && part1Height > 15)
                 {
                     double valueLabelY = baseY - part1Height / 2 - valueLabel.DesiredSize.Height / 2;
                     SetTop(valueLabel, valueLabelY);
@@ -896,14 +893,12 @@ namespace DataVisualizationPlatform.Controls
                     faultLabel.Visibility = Visibility.Hidden;
                 }
 
-                // 调试输出关键数据
                 //if (i == DataItems.Count - 1 || (item.Label != null && item.Label.StartsWith("2025")))
                 //{
                 //    Debug.WriteLine($"  柱子[{i}] {item.Label}: Progress={barProgress:F3}, Part1Height={part1Height:F1}, Part2Height={part2Height:F1}");
                 //}
             }
 
-            // 确保在动画完成时所有符合条件的元素都显示
             if (AnimationProgress >= 0.99)
             {
                 for (int i = 0; i < DataItems.Count; i++)
@@ -924,11 +919,10 @@ namespace DataVisualizationPlatform.Controls
                         _faultLabels[i].Opacity = 1.0;
                     }
                 }
-                Debug.WriteLine("[UpdateBarsOnly] 动画完成，显示所有符合条件的标签");
+                //Debug.WriteLine("[UpdateBarsOnly] 动画完成，显示所有符合条件的标签");
             }
         }
 
-        // 缓动函数，使动画更自然
         private double EaseOutCubic(double t)
         {
             return 1 - Math.Pow(1 - t, 3);

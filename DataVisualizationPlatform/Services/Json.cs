@@ -95,6 +95,21 @@ namespace DataVisualizationPlatform.Services
             ""IsContentFlipped"": false,
             ""UsageRatePercentage"": 40.0,
             ""UsedDurationPercentage"": 40.0
+          },
+          {
+            ""Equ_Id"": ""fntp-6"",
+            ""Equ_Name"": ""新设备"",
+            ""Equ_OnlineStatus"": ""离线"",
+            ""Equ_AvailableBookingPeriod"": ""预约时段配置1"",
+            ""Equ_TotalOperationTime"": ""0年0月0天"",
+            ""Equ_FixedDurationThisYear"": ""-9"",
+            ""Equ_UsedFixedDurationThisYear"": ""-2222"",
+            ""Equ_UsageRateThisYear"": ""0.0%"",
+            ""Equ_DeploymentAddress"": ""0.0, 0.0"",
+            ""IsFlipped"": false,
+            ""IsContentFlipped"": false,
+            ""UsageRatePercentage"": 0.0,
+            ""UsedDurationPercentage"": 0.0
           }
         ]";
 
@@ -3060,6 +3075,19 @@ namespace DataVisualizationPlatform.Services
             ""Part1"": 0.0,
             ""Part2"": 0.0,
             ""Total"": 0.0,
+            ""Fal_Data"": ""2023-01"",
+            ""Fal_Eqid"": ""fntp-0"",
+            ""Fal_Id"": 1,
+            ""Fal_Type"": ""硬件故障"",
+            ""Fal_Info"": ""待处理"",
+            ""Fal_Detail"": ""运动系统作动筒内泄漏：液压作动筒密封失效导致压力不稳，使座舱产生非指令性抖动。"",
+            ""Fal_Remark"": ""故障#1的测试批注""
+          },
+          {
+            ""Label"": """",
+            ""Part1"": 0.0,
+            ""Part2"": 0.0,
+            ""Total"": 0.0,
             ""Fal_Data"": ""2023-02"",
             ""Fal_Eqid"": ""fntp-1"",
             ""Fal_Id"": 31,
@@ -3404,19 +3432,6 @@ namespace DataVisualizationPlatform.Services
             ""Fal_Type"": ""软件故障"",
             ""Fal_Info"": ""待处理"",
             ""Fal_Detail"": ""运动平台限位传感器误报：传感器错误触发平台超限信号，导致系统紧急停止并重置。"",
-            ""Fal_Remark"": """"
-          },
-          {
-            ""Label"": """",
-            ""Part1"": 0.0,
-            ""Part2"": 0.0,
-            ""Total"": 0.0,
-            ""Fal_Data"": ""2023-01"",
-            ""Fal_Eqid"": ""fntp-0"",
-            ""Fal_Id"": 1,
-            ""Fal_Type"": ""硬件故障"",
-            ""Fal_Info"": ""待处理"",
-            ""Fal_Detail"": ""运动系统作动筒内泄漏：液压作动筒密封失效导致压力不稳，使座舱产生非指令性抖动。"",
             ""Fal_Remark"": """"
           },
           {
