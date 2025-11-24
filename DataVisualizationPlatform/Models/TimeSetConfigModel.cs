@@ -61,7 +61,7 @@ namespace DataVisualizationPlatform.Models
                     _timeSlots = value;
 
                     // 订阅新集合的事件
-                    if (_timeSlots != null)
+                    if (_timeSlots != null) 
                     {
                         _timeSlots.CollectionChanged += TimeSlots_CollectionChanged;
                     }

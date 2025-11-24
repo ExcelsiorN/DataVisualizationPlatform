@@ -400,47 +400,9 @@
                                              FontSize="14"
                                              Foreground="#424242"/>
                                 </Border>
-                                <TextBlock Text="💡 在此添加处理进度、解决方案、备注等信息"
-                                           FontSize="11"
-                                           Foreground="#757575"
-                                           Margin="0,5,0,0"
-                                           FontStyle="Italic"/>
                             </StackPanel>
                         </Grid>
 
-                        <!-- 提示信息 -->
-                        <Border Background="#FFF3E0"
-                                CornerRadius="4"
-                                Padding="15"
-                                Margin="0,20,0,0">
-                            <StackPanel>
-                                <TextBlock Text="💡 使用说明"
-                                           FontWeight="Bold"
-                                           FontSize="14"
-                                           Foreground="#F57C00"
-                                           Margin="0,0,0,10"/>
-                                <TextBlock TextWrapping="Wrap"
-                                           FontSize="12"
-                                           Foreground="#424242"
-                                           LineHeight="20">
-                                    <Run Text="1. 使用顶部搜索框搜索故障（支持搜索设备ID、故障类型、详情、批注）"/>
-                                    <LineBreak/>
-                                    <Run Text="2. 使用筛选条件按设备编号、年份、月份、状态快速定位故障"/>
-                                    <LineBreak/>
-                                    <Run Text="3. 从左侧列表选择要编辑的故障记录"/>
-                                    <LineBreak/>
-                                    <Run Text="4. 修改右侧表单中的故障信息和处理状态"/>
-                                    <LineBreak/>
-                                    <Run Text="5. 在批注框中添加处理进度、解决方案等信息"/>
-                                    <LineBreak/>
-                                    <Run Text="6. 点击顶部'保存数据'按钮保存所有修改"/>
-                                    <LineBreak/>
-                                    <Run Text="7. 修改将自动同步到 HomePageB 和 FaultReport 页面"/>
-                                    <LineBreak/>
-                                    <Run Text="8. 列表自动按'待处理 > 处理中 > 已处理'优先级排序"/>
-                                </TextBlock>
-                            </StackPanel>
-                        </Border>
                     </StackPanel>
                 </ScrollViewer>
             </Border>

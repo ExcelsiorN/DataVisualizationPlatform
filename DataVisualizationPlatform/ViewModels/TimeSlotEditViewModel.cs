@@ -27,7 +27,7 @@ namespace DataVisualizationPlatform.ViewModels
 
         [ObservableProperty]
         private string? _startHour;
-
+        
         [ObservableProperty]
         private string? _startMinute;
 
